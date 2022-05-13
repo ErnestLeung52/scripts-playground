@@ -34,3 +34,16 @@ const twoSum2 = (array, target) => {
 function findThreeLargestNumbers(array) {
   // Write your code here.
 }
+
+let a = 0,
+  b = 1,
+  c = 2;
+
+function shift(num, s, m, l) {
+  a = m;
+  b = l;
+  c = num;
+}
+
+shift(10, a, b, c);
+// console.log(a, b, c);
