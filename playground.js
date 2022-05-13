@@ -19,15 +19,18 @@ const twoSum2 = (array, target) => {
     // if(hashTable[array[i]]) return true;
     let potentialMatch = target - array[i];
     // hashTable[potentialMatch] = true;
-    
+
     if (potentialMatch in hashTable) {
-        return true;
+      return true;
     } else {
-        
-        hashTable[array[i]] = potentialMatch;
+      hashTable[array[i]] = potentialMatch;
     }
   }
   return false;
 };
 
-console.log(twoSum2([1, 2, 5, 7, 8], 13));
+// console.log(twoSum2([1, 2, 5, 7, 8], 13));
+
+function findThreeLargestNumbers(array) {
+  // Write your code here.
+}
