@@ -26,8 +26,8 @@ var waysToSplitArray = function (nums) {
   for (let i = 0; i < nums.length - 1; i += 1) {
     firstSplit += nums[i];
     let secondSplit = sumAll - firstSplit;
-    console.log(firstSplit)
-    console.log(secondSplit)
+    console.log(firstSplit);
+    console.log(secondSplit);
     if (firstSplit >= secondSplit) validResult += 1;
   }
   return validResult;
@@ -35,3 +35,23 @@ var waysToSplitArray = function (nums) {
 
 // console.log(waysToSplitArray([10, 4, -8, 7]));
 
+function stringToInteger(target) {
+  let result = 0;
+  let isNegative = false;
+
+  if (target[0] === '-') {
+    isNegative = true;
+    target = target.substring(1);
+  }
+
+  for (let i = 0; i < target.length; i += 1) {
+    let num = target.charCodeAt(i) -48
+    result = result * 10 + num;
+  }
+
+  if (isNegative) result = result * -1;
+  return result;
+}
+stringToInteger('123');
+
+// console.log(''[0])
