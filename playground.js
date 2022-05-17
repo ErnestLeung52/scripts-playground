@@ -1,49 +1,37 @@
-// Brute Force -> TC: O(n^2), SC: O(1)
-
-const twoSum = (array, target) => {
-  for (let i = 0; i < array.length; i += 1) {
-    for (let j = i + 1; j < array.length - 1; j += 1) {
-      if (array[i] + array[j] === target) {
-        return true;
-      }
-    }
+// ------------- May 14 Bi-weekly ----------------
+var divisorSubstrings = function (num, k) {
+  // Extract k-digits from num
+  // Divid num with k-digits and check whether it is divisible to a whole number
+  // return how many times it can be divisible
+  let kbeauty = 0;
+  let numStr = num.toString();
+  for (let i = 0; i < numStr.length - k + 1; i += 1) {
+    let divisor = numStr.slice(i, i + k);
+    if (Number(divisor) === 0) continue;
+    divisor;
+    if (num % divisor === 0) kbeauty += 1;
   }
-  return false;
+  return kbeauty;
 };
 
-// Hash Tabel Approach -> TC: O(n), SC: O(n)
+// console.log(divisorSubstrings(30003, 3));
 
-const twoSum2 = (array, target) => {
-  const hashTable = {};
-  for (let i = 0; i < array.length; i += 1) {
-    // if(hashTable[array[i]]) return true;
-    let potentialMatch = target - array[i];
-    // hashTable[potentialMatch] = true;
-
-    if (potentialMatch in hashTable) {
-      return true;
-    } else {
-      hashTable[array[i]] = potentialMatch;
-    }
+var waysToSplitArray = function (nums) {
+  // Find SUM of nums
+  // Find sum of first split
+  // subctract sum of first split from SUM, and test its validity
+  const sumAll = nums.reduce((a, b) => a + b);
+  let validResult = 0;
+  let firstSplit = 0;
+  for (let i = 0; i < nums.length - 1; i += 1) {
+    firstSplit += nums[i];
+    let secondSplit = sumAll - firstSplit;
+    console.log(firstSplit)
+    console.log(secondSplit)
+    if (firstSplit >= secondSplit) validResult += 1;
   }
-  return false;
+  return validResult;
 };
 
-// console.log(twoSum2([1, 2, 5, 7, 8], 13));
+// console.log(waysToSplitArray([10, 4, -8, 7]));
 
-function findThreeLargestNumbers(array) {
-  // Write your code here.
-}
-
-let a = 0,
-  b = 1,
-  c = 2;
-
-function shift(num, s, m, l) {
-  a = m;
-  b = l;
-  c = num;
-}
-
-shift(10, a, b, c);
-// console.log(a, b, c);
