@@ -1,20 +1,11 @@
-var simplifyPath = function (path) {
-  // start with '/', no '/' at the end
-  // no '.' or '..'
-  const pathArr = path.split('/');
-  const stack = [];
-  for (let el of pathArr) {
-    if (el === '' || el === '.') {
-      continue;
-    }
-    if (el === '..') {
-      stack.pop(el);
-      continue;
-    }
-    stack.push(el);
+var goodNodes = function(root) {
+  let result = 0;
+  function helper(node, prev) {
+      if (node === undefined || node === null) return;
+      if (node.val >= prev) {
+      result += 1;
+      }
+  
+  prev = Math.max(node.val, prev)
   }
-  // stack
-  return '/' + stack.join('/');
 };
-
-console.log(simplifyPath('/../'));
