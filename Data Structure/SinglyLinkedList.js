@@ -11,6 +11,7 @@ class Node {
   }
 }
 
+
 // SEARCHES a value in the given list
 // (Iterative) | TC: O(N) | SC: O(1)
 LinkedList.prototype.search = (value) => {
@@ -33,15 +34,31 @@ LinkedList.prototype.searchRecursive = (node, value) => {
   return this.searchRecursive(node.nextElement, value);
 };
 
+
 // DELETE a value
 LinkedList.prototype.delete = (value) => {
-  //if list is empty, do nothing
+  //if list is empty return false
   if (this.isEmpty()) {
-    return this;
+    return false;
   }
-  //Get the head and first element of the list
-  let firstElement = this.head;
-  //If list is not empty, link head to the nextElement of firstElement
-  this.head = firstElement.nextElement;
-  return this;
+
+  //else get pointer to head
+  let currentNode = this.head;
+  // if first node's is the node to be deleted, delete it and return true
+  if (currentNode.data == value) {
+    this.head = currentNode.nextElement;
+    return true;
+  }
+
+  // else traverse the list
+  while (currentNode.nextElement != null) {
+    // if a node whose next node has the value as data, is found, delete it from the list and return true
+    if (currentNode.nextElement.data == value) {
+      currentNode.nextElement = currentNode.nextElement.nextElement;
+      return true;
+    }
+    currentNode = currentNode.nextElement;
+  }
+  //else node was not found, return false
+  return false;
 };
