@@ -201,20 +201,45 @@ LinkedList.prototype.findMid = function (list) {
   return slowerNode;
 };
 
+function removeDuplicates(list) {
+  //Write your code here
+  const cache = {};
 
+  let currNode = list.getHead();
+  let previousNode = null;
+
+  while (currNode !== null) {
+    //   let nextNode = currNode.nextElement
+    if (currNode.data in cache) {
+      previousNode.nextElement = currNode.nextElement;
+    } else {
+      cache[currNode.data] = currNode.data;
+      previousNode = currNode;
+    }
+
+    currNode = currNode.nextElement;
+  }
+
+  return list; //return the updated list here
+}
 
 let list = new LinkedList();
-list.insertAtHead(2);
-list.insertAtHead(4);
-list.insertAtHead(5);
-list.insertAtHead(7);
-list.insertAtHead(1);
+// list.insertAtHead(7);
+// list.insertAtHead(3);
+// list.insertAtHead(9);
+list.insertAtHead(3);
+list.insertAtHead(3);
+list.insertAtHead(3);
+// list.insertAtHead(3);
+// list.insertAtHead(3);
+// list.insertAtHead(1);
 // list.reverse(list);
-
-let head = list.getHead();
-let node = list.getHead();
+// console.log(removeDuplicates(list))
+console.log(removeDuplicates(list));
 
 // Adding a loop
+// let head = list.getHead();
+// let node = list.getHead();
 // for(var i=0; i<4; i++){
 //   if(node.nextElement == null){
 //     node.nextElement = head.nextElement;
