@@ -163,11 +163,64 @@ LinkedList.prototype.reverse = function (list) {
   return list;
 };
 
+// Detect Loop
+LinkedList.prototype.detectLoop = function (list) {
+  let onestep = list.getHead();
+  let twostep = list.getHead();
+  while (onestep != null && twostep != null && twostep.nextElement != null) {
+    onestep = onestep.nextElement; // Moves one node at a time
+    twostep = twostep.nextElement.nextElement; // Moves two nodes at a time
+    if (onestep == twostep) {
+      // Loop exists
+      return true;
+    }
+  }
+  return false;
+};
+
+// Find mid-point
+LinkedList.prototype.findMid = function (list) {
+  let midNode = null;
+  //Write your code here
+  if (list.isEmpty()) {
+    return null;
+  }
+  let slowerNode = list.getHead();
+  let fasterNode = list.getHead();
+  if (slowerNode.nextElement == null) {
+    return slowerNode;
+  }
+  while (
+    slowerNode.nextElement != null &&
+    fasterNode.nextElement != null &&
+    fasterNode.nextElement.nextElement != null
+  ) {
+    slowerNode = slowerNode.nextElement;
+    fasterNode = fasterNode.nextElement.nextElement;
+  }
+  return slowerNode;
+};
+
+
+
 let list = new LinkedList();
 list.insertAtHead(2);
 list.insertAtHead(4);
 list.insertAtHead(5);
 list.insertAtHead(7);
 list.insertAtHead(1);
-list.reverse(list);
-console.log(list.printList());
+// list.reverse(list);
+
+let head = list.getHead();
+let node = list.getHead();
+
+// Adding a loop
+// for(var i=0; i<4; i++){
+//   if(node.nextElement == null){
+//     node.nextElement = head.nextElement;
+//     break;
+//   }
+//   node = node.nextElement
+// }
+
+// console.log(list.printList());
