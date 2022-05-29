@@ -304,7 +304,7 @@ LinkedList.prototype.findNth = function (list, n) {
   return nthNode;
 };
 
-//
+// dummy
 let list = new LinkedList();
 list.insertAtHead(7);
 list.insertAtHead(3);
