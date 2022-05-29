@@ -201,7 +201,7 @@ LinkedList.prototype.findMid = function (list) {
   return slowerNode;
 };
 
-function removeDuplicates(list) {
+LinkedList.prototype.removeDuplicates = function (list) {
   //Write your code here
   const cache = {};
 
@@ -216,26 +216,104 @@ function removeDuplicates(list) {
       cache[currNode.data] = currNode.data;
       previousNode = currNode;
     }
+    currNode = currNode.nextElement;
+  }
+  return list; //return the updated list here
+};
 
+// O(m+n)
+LinkedList.prototype.union = function (list1, list2) {
+  if (list1.isEmpty()) {
+    return list2;
+  } else if (list2.isEmpty()) {
+    return list1;
+  }
+
+  let start = list1.getHead();
+  //Traverse the first list till the tail
+  while (start.nextElement != null) {
+    start = start.nextElement;
+  }
+  //Link last element of first list to the first element of second list
+  start.nextElement = list2.getHead();
+  list1.removeDuplicates();
+  return list1;
+};
+
+LinkedList.prototype.union = function (list1, list2) {
+  let result = new LinkedList();
+
+  let t1 = list1.getHead();
+  let t2 = list2.getHead();
+
+  while (t1 != null) {
+    while (t2 != null) {
+      if (t1.data == t2.data) {
+        result.insertAtHead(t1.data);
+      }
+      t2 = t2.nextElement;
+    }
+    t2 = list2.getHead();
+    t1 = t1.nextElement;
+  }
+  result.removeDuplicates();
+  return result;
+};
+
+//max(O(mn),O(min(m,n)^2))
+
+LinkedList.prototype.intersection = function (list1, list2) {
+  let result = new LinkedList();
+  let t1 = list1.getHead();
+  let t2 = list2.getHead();
+
+  while (t1 != null) {
+    while (t2 != null) {
+      if (t1.data == t2.data) {
+        result.insertAtHead(t1.data);
+      }
+      t2 = t2.nextElement;
+    }
+    t2 = list2.getHead();
+    t1 = t1.nextElement;
+  }
+  result.removeDuplicates();
+  return result;
+};
+
+LinkedList.prototype.findNth = function (list, n) {
+  let nthNode = null;
+  //Write your code here
+  let length = 0;
+  let currNode = list.getHead();
+  while (currNode !== null) {
+    length += 1;
     currNode = currNode.nextElement;
   }
 
-  return list; //return the updated list here
-}
+  let nthPos = length - n;
+  while (nthPos < 0 || nthPos > length) {
+    return null;
+  }
 
+  nthNode = list.getHead();
+  for (var i = 0; i < nthPos; i++) {
+    nthNode = nthNode.nextElement;
+  }
+
+  return nthNode;
+};
+
+//
 let list = new LinkedList();
-// list.insertAtHead(7);
-// list.insertAtHead(3);
-// list.insertAtHead(9);
+list.insertAtHead(7);
 list.insertAtHead(3);
+list.insertAtHead(9);
 list.insertAtHead(3);
-list.insertAtHead(3);
-// list.insertAtHead(3);
-// list.insertAtHead(3);
-// list.insertAtHead(1);
+list.insertAtHead(4);
+list.insertAtHead(1);
 // list.reverse(list);
-// console.log(removeDuplicates(list))
-console.log(removeDuplicates(list));
+// console.log(list.removeDuplicates(list));
 
 // Adding a loop
 // let head = list.getHead();
