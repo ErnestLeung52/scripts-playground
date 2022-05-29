@@ -19,4 +19,17 @@ class Graph {
     //we would create an additional edge from destination to source too:
     //this.list[destination].insertAtHead(source);
   }
+
+  printGraph() {
+    console.log('>>Adjacency List of Directed Graph<<');
+    for (let i = 0; i < this.list.length; i++) {
+      process.stdout.write('|' + String(i) + '| => ');
+      let temp = this.list[i].getHead();
+      while (temp != null) {
+        process.stdout.write('[' + String(temp.data) + '] -> ');
+        temp = temp.nextElement;
+      }
+      console.log('null ');
+    }
+  }
 }
