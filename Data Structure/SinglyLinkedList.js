@@ -283,26 +283,24 @@ LinkedList.prototype.intersection = function (list1, list2) {
 
 LinkedList.prototype.findNth = function (list, n) {
   let nthNode = null;
-  //Write your code here
   let length = 0;
-  let currNode = list.getHead();
-  while (currNode !== null) {
-    length += 1;
-    currNode = currNode.nextElement;
+  let tempNode = list.getHead();
+  while (tempNode != null) {
+    tempNode = tempNode.nextElement;
+    length++;
   }
-
   let nthPos = length - n;
-  while (nthPos < 0 || nthPos > length) {
+  if (nthPos < 0 || nthPos > length) {
     return null;
   }
-
   nthNode = list.getHead();
   for (var i = 0; i < nthPos; i++) {
     nthNode = nthNode.nextElement;
   }
-
   return nthNode;
 };
+
+LinkedList.prototype.findNth2 = function (list, n)
 
 // dummy
 let list = new LinkedList();
