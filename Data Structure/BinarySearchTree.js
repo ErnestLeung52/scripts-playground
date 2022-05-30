@@ -16,3 +16,6 @@ class BinarySearchTree {
     this.root = new Node(rootValue); //the rootNode
   }
 }
+
+// const BST= new BinarySearchTree(8);
+
