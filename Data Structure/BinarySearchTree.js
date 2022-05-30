@@ -5,6 +5,11 @@ class Node {
     this.rightChild = null; //rightChild (will also be of the Node class)
   }
 }
+/*
+const myNode= new Node(6);
+myNode.leftChild=new Node(5); 
+myNode.rightChild=new Node(7);
+*/
 
 class BinarySearchTree {
   constructor(rootValue) {
