@@ -78,5 +78,21 @@ BinarySearchTree.prototype.insertRecursiveBST = function (newValue) {
   this.insertRecursive(this.root, newValue);
 };
 
-const bsTree= new BinarySearchTree(8);
-// bsTree.insertRecursiveBST(7)
+// Pre-order: “root-left-right” order.
+BinarySearchTree.prototype.preOrderPrint = function (currentNode, arr = []) {
+  if (currentNode !== null) {
+    // console.log(currentNode);
+    arr.push(currentNode.val);
+    this.preOrderPrint(currentNode.leftChild, arr);
+    this.preOrderPrint(currentNode.rightChild, arr);
+  }
+  return arr;
+};
+
+const bsTree = new BinarySearchTree(6);
+bsTree.insertRecursiveBST(4);
+bsTree.insertRecursiveBST(9);
+bsTree.insertRecursiveBST(5);
+bsTree.insertRecursiveBST(2);
+bsTree.insertRecursiveBST(8);
+// console.log(bsTree.preOrderPrint(bsTree.root)); [ 6, 4, 2, 5, 9, 8 ] 
