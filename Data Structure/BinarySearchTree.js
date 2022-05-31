@@ -89,10 +89,41 @@ BinarySearchTree.prototype.preOrderPrint = function (currentNode, arr = []) {
   return arr;
 };
 
+// In-order: “left-root-right”
+BinarySearchTree.prototype.inOrderPrint = function (currentNode, arr = []) {
+  if (currentNode !== null) {
+    // console.log(currentNode);
+    this.inOrderPrint(currentNode.leftChild, arr);
+    arr.push(currentNode.val);
+    this.inOrderPrint(currentNode.rightChild, arr);
+  }
+  return arr;
+};
+
+// Post-order: “left-right-root”
+BinarySearchTree.prototype.postOrder = function (currentNode, arr = []) {
+  if (currentNode !== null) {
+    // console.log(currentNode);
+    this.postOrder(currentNode.leftChild, arr);
+    this.postOrder(currentNode.rightChild, arr);
+    arr.push(currentNode.val);
+  }
+  return arr;
+};
+
 const bsTree = new BinarySearchTree(6);
 bsTree.insertRecursiveBST(4);
 bsTree.insertRecursiveBST(9);
 bsTree.insertRecursiveBST(5);
 bsTree.insertRecursiveBST(2);
 bsTree.insertRecursiveBST(8);
-// console.log(bsTree.preOrderPrint(bsTree.root)); [ 6, 4, 2, 5, 9, 8 ] 
+bsTree.insertRecursiveBST(12);
+
+/*
+            6
+        4       9
+      2   5   8   12
+*/
+// console.log(bsTree.preOrderPrint(bsTree.root)); // [ 6, 4, 2, 5, 9, 8 , 12]
+// console.log(bsTree.inOrderPrint(bsTree.root)); // [ 2, 4, 5, 6, 8, 9, 12 ]
+// console.log(bsTree.postOrder(bsTree.root)); // [ 2, 5, 4, 8, 12, 9, 6 ]
