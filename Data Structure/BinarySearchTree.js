@@ -142,13 +142,20 @@ BinarySearchTree.prototype.searchRecursive = function (currentNode, value) {
   }
 };
 
-
 BinarySearchTree.prototype.deleteNode = function (currentNode, value) {
-     //case 1: checking for the empty tree, if rootNode equals Null
-    if (currentNode === null) {
-        return false;
+  //case 1: checking for the empty tree, if rootNode equals Null
+  if (currentNode === null) {
+    return false;
+  }
+  //start traversng the tree, until we find the value to be deleted, or end up with a null node
+  while (currentNode && currentNode.val !== value) {
+    if (value < currentNode.val) {
+      currentNode = currentNode.leftChild;
+    } else {
+      currentNode = currentNode.rightChild;
     }
-}
+  }
+};
 
 const bsTree = new BinarySearchTree(6);
 bsTree.insertRecursiveBST(4);
