@@ -50,4 +50,33 @@ BinarySearchTree.prototype.insert = function (newValue) {
   }
 };
 
-// const bsTree= new BinarySearchTree(8);
+BinarySearchTree.prototype.insertRecursive = function (currentNode, newValue) {
+  // We found a place! Now intialize currentNode with the newValue
+  if (currentNode === null) {
+    currentNode = new Node(newValue);
+  } else if (newValue < currentNode.val) {
+    //if newValue < currentNode.val, let's go to the left subtree
+    currentNode.leftChild = this.insertRecursive(
+      currentNode.leftChild,
+      newValue
+    );
+  } else {
+    //if newValue >= currentNode.val, let's go to the right subtree
+    currentNode.rightChild = this.insertRecursive(
+      currentNode.rightChild,
+      newValue
+    );
+  }
+  return currentNode;
+};
+// Helper function that enables us to give a starting point
+BinarySearchTree.prototype.insertRecursiveBST = function (newValue) {
+  if (this.root === null) {
+    this.root = new Node(newValue);
+    return;
+  }
+  this.insertRecursive(this.root, newValue);
+};
+
+const bsTree= new BinarySearchTree(8);
+// bsTree.insertRecursiveBST(7)
