@@ -148,11 +148,38 @@ BinarySearchTree.prototype.deleteNode = function (currentNode, value) {
     return false;
   }
   //start traversng the tree, until we find the value to be deleted, or end up with a null node
+  let parentNode;
   while (currentNode && currentNode.val !== value) {
+    parentNode = currentNode;
+    //saving the previous node as parentNode before the currentNode is updated
     if (value < currentNode.val) {
       currentNode = currentNode.leftChild;
     } else {
       currentNode = currentNode.rightChild;
+    }
+  }
+  //case 2 : Deleting a Leaf Node
+  // currentNode IS EQUAL to null. Value not found!
+  if (currentNode === null) {
+    return false;
+  } else if (
+    currentNode.leftChild === null &&
+    currentNode.rightChild === null
+  ) {
+    //case 3: currentNode is a leaf node
+    //i.e. right and left EQUAL to null
+
+    //now checking if the node to be deleted
+    //is a left or a right child of its parent or if it's the root
+    if (currentNode.val === this.root.val) {
+      this.root = null;
+      return true;
+    } else if (currentNode.val < parentNode.val) {
+      parentNode.leftChild = null;
+      return true;
+    } else {
+      parentNode.right = null;
+      return true;
     }
   }
 };
