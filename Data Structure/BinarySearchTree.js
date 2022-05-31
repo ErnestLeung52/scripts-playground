@@ -142,6 +142,14 @@ BinarySearchTree.prototype.searchRecursive = function (currentNode, value) {
   }
 };
 
+
+BinarySearchTree.prototype.deleteNode = function (currentNode, value) {
+     //case 1: checking for the empty tree, if rootNode equals Null
+    if (currentNode === null) {
+        return false;
+    }
+}
+
 const bsTree = new BinarySearchTree(6);
 bsTree.insertRecursiveBST(4);
 bsTree.insertRecursiveBST(9);
