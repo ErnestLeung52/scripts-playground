@@ -111,6 +111,37 @@ BinarySearchTree.prototype.postOrder = function (currentNode, arr = []) {
   return arr;
 };
 
+BinarySearchTree.prototype.search = function (value) {
+  let currentNode = this.root;
+  while (currentNode && currentNode.val !== value) {
+    //the loop will run until the currentNode IS NOT null, and until we get to our value
+    if (value < currentNode.val) {
+      currentNode = currentNode.leftChild;
+    } else {
+      currentNode = currentNode.removeChild;
+    }
+  }
+  return currentNode;
+};
+
+BinarySearchTree.prototype.searchRecursive = function (currentNode, value) {
+  if (currentNode !== null) {
+    //if currentNode IS NOT EQUAL to null
+    if (value === currentNode.val) {
+      //Value Found! Return the currentNode.
+      return currentNode;
+    } else if (value < currentNode.val) {
+      //Traverse to the left subtree if value < currentNode.val
+      return this.searchRecursive(currentNode.leftChild, value);
+    } else {
+      return this.searchRecursive(currentNode.removeChild, value);
+    }
+  } else {
+    //Value Not Found! Return null.
+    return null;
+  }
+};
+
 const bsTree = new BinarySearchTree(6);
 bsTree.insertRecursiveBST(4);
 bsTree.insertRecursiveBST(9);
