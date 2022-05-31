@@ -143,7 +143,7 @@ BinarySearchTree.prototype.searchRecursive = function (currentNode, value) {
 };
 
 BinarySearchTree.prototype.deleteNode = function (currentNode, value) {
-  //case 1: checking for the empty tree, if rootNode equals Null
+  //case 1: Delete an empty tree: checking for the empty tree, if rootNode equals Null
   if (currentNode === null) {
     return false;
   }
@@ -158,19 +158,17 @@ BinarySearchTree.prototype.deleteNode = function (currentNode, value) {
       currentNode = currentNode.rightChild;
     }
   }
-  //case 2 : Deleting a Leaf Node
+  //case 2 : value not found
   // currentNode IS EQUAL to null. Value not found!
   if (currentNode === null) {
     return false;
   } else if (
+    //case 3: Deleting a Leaf Node; currentNode is a leaf node
+    //i.e. right and left EQUAL to null
     currentNode.leftChild === null &&
     currentNode.rightChild === null
   ) {
-    //case 3: currentNode is a leaf node
-    //i.e. right and left EQUAL to null
-
-    //now checking if the node to be deleted
-    //is a left or a right child of its parent or if it's the root
+    //now checking if the node to be deleted: is a left or a right child of its parent or if it's the root
     if (currentNode.val === this.root.val) {
       this.root = null;
       return true;
@@ -181,6 +179,47 @@ BinarySearchTree.prototype.deleteNode = function (currentNode, value) {
       parentNode.right = null;
       return true;
     }
+    // Case 4: Delete a node that has a left/right child only
+  } else if (currentNode.rightChild === null) {
+    //if the node to be deleted has a left child only
+    //we'll link the left child to the parent of the node to be deleted
+    if (currentNode.val === this.root.val) {
+      this.root = currentNode.leftChild;
+      return true;
+    } else if (currentNode.leftChild.val < parentNode.val) {
+      parentNode.leftChild = currentNode.leftChild;
+      return true;
+    } else {
+      parentNode.rightChild = currentNode.leftChild;
+      return true;
+    }
+  } else if (currentNode.leftChild === null) {
+    //if the node to be deleted has a right child only
+    //we'll link the right child to the parent of the node to be deleted
+    if (currentNode.val === this.root.val) {
+      this.root = currentNode.rightChild;
+      return true;
+    } else if (currentNode.rightChild.val < parentNode.val) {
+      parentNode.leftChild = currentNode.rightChild;
+      return true;
+    } else {
+      parentNode.rightChild = currentNode.rightChild;
+      return true;
+    }
+    // Case 5: Deleting a Node with Two Children
+  } else {
+    // starting point for the right sub tree
+    let minRight = currentNode.rightChild;
+    //traverse to find the left most node in the right subtree
+    while (minRight.leftChild !== null) {
+      minRight = minRight.leftChild;
+    }
+    let temp = minRight.val;
+    //delete the left most node in the right subtree by calling in the same delete function to cater for whether it has children or not
+    this.deleteNode(this.root, minRight.val);
+    //replace the currentNode with left most node in the right subtree
+    currentNode.val = temp;
+    return true;
   }
 };
 
