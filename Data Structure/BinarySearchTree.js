@@ -111,6 +111,15 @@ BinarySearchTree.prototype.postOrder = function (currentNode, arr = []) {
   return arr;
 };
 
+/*
+            6
+        4       9
+      2   5   8   12
+*/
+// console.log(bsTree.preOrderPrint(bsTree.root)); // [ 6, 4, 2, 5, 9, 8 , 12]
+// console.log(bsTree.inOrderPrint(bsTree.root)); // [ 2, 4, 5, 6, 8, 9, 12 ]
+// console.log(bsTree.postOrder(bsTree.root)); // [ 2, 5, 4, 8, 12, 9, 6 ]
+
 BinarySearchTree.prototype.search = function (value) {
   let currentNode = this.root;
   while (currentNode && currentNode.val !== value) {
@@ -231,11 +240,4 @@ bsTree.insertRecursiveBST(2);
 bsTree.insertRecursiveBST(8);
 bsTree.insertRecursiveBST(12);
 
-/*
-            6
-        4       9
-      2   5   8   12
-*/
-// console.log(bsTree.preOrderPrint(bsTree.root)); // [ 6, 4, 2, 5, 9, 8 , 12]
-// console.log(bsTree.inOrderPrint(bsTree.root)); // [ 2, 4, 5, 6, 8, 9, 12 ]
-// console.log(bsTree.postOrder(bsTree.root)); // [ 2, 5, 4, 8, 12, 9, 6 ]
+
