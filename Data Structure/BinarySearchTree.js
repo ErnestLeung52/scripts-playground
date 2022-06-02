@@ -233,31 +233,25 @@ BinarySearchTree.prototype.deleteNode = function (currentNode, value) {
 };
 
 const bsTree = new BinarySearchTree(6);
-// bsTree.insertRecursiveBST(4);
-// bsTree.insertRecursiveBST(9);
-// bsTree.insertRecursiveBST(5);
-// bsTree.insertRecursiveBST(2);
-// bsTree.insertRecursiveBST(8);
-// bsTree.insertRecursiveBST(12);
+bsTree.insertRecursiveBST(4);
+bsTree.insertRecursiveBST(9);
+bsTree.insertRecursiveBST(5);
+bsTree.insertRecursiveBST(2);
+bsTree.insertRecursiveBST(8);
+bsTree.insertRecursiveBST(12);
 
-const test = (a) => {
-    const arr1 = [];
-    const arr2 = [];
-
-    const helper = (b) => {
-        if (b <= 0) return [];
-        if (b % 2 === 0) {
-			arr2
-            // arr1.push([...arr2]);
-            // arr1.push(arr2);
-        } else {
-            arr2.push(b);
+function findKthMax(rootNode, k) {
+    const arr = [];
+    const dfs = (node) => {
+        if (node !== null) {
+            if (node.leftChild) dfs(node.leftChild);
+            arr.push(node.val);
+            if (node.rightChild) dfs(node.rightChild);
         }
-
-        helper(b - 1);
     };
-    helper(a);
-    return arr1;
-};
+    dfs(rootNode);
+    arr;
+    return arr[arr.length - k ];
+}
 
-console.log(test(6));
+console.log(findKthMax(bsTree.root, 3));
