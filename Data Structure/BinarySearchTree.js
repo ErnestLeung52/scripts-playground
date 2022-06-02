@@ -232,45 +232,7 @@ BinarySearchTree.prototype.deleteNode = function (currentNode, value) {
 	}
 };
 
-BinarySearchTree.prototype.breadthFirstSearch = function (root) {
-	const result = [];
-	if (!root) return result;
 
-	const queue = [];
-	queue.push(root);
-
-	while (queue.length > 0) {
-		let currentNode = queue.shift();
-		result.push(currentNode.val);
-
-		if (currentNode.leftChild) {
-			queue.push(currentNode.leftChild);
-		}
-
-		if (currentNode.rightChild) {
-			queue.push(currentNode.rightChild);
-		}
-	}
-
-	return result;
-
-	// while (queue.length > 0) {
-	// 	// const levelSize = queue.length;
-	// 	currentLevel = [];
-	// 	for (let i = 0; i < queue.length; i += 1) {
-	// 		const currentNode = queue.shift();
-	// 		currentLevel.push(currentNode.val);
-	// 		if (currentNode.leftChild !== null) {
-	// 			queue.push(currentNode.leftChild);
-	// 		}
-	// 		if (currentNode.rightChild !== null) {
-	// 			queue.push(currentNode.rightChild);
-	// 		}
-	// 	}
-	// 	result.push(currentLevel);
-	// }
-	// return result;
-};
 
 const bsTree = new BinarySearchTree(12);
 bsTree.insertRecursiveBST(7);
