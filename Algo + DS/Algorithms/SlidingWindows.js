@@ -1,19 +1,32 @@
-function find_averages_of_subarrays(K, arr) {
-  const result = [];
-  let windowSum = 0.0,
-    windowStart = 0;
-  for (let windowEnd = 0; windowEnd < arr.length; windowEnd++) {
-    windowSum += arr[windowEnd]; // add the next element
-    // slide the window, we don't need to slide if we've not hit the required window size of 'k'
-    if (windowEnd >= K - 1) {
-      result.push(windowSum / K); // calculate the average
-      windowSum -= arr[windowStart]; // subtract the element going out
-      windowStart += 1; // slide the window ahead
-    }
-  }
+/* 
+------ Maximum Sum Subarray of Size K -----
+Given an array of positive numbers and a positive number ‘k,’ find the maximum sum of any contiguous subarray of size ‘k’.
+Input: [2, 1, 5, 1, 3, 2], k=3 
+Output: 9
+- Have a start and end index to keep track of the size of sliding window
+*/
+const max_sub_array_of_size_k = function (k, arr) {
+	let max = -Infinity;
+	let windowSum = 0;
+	let windowStart = 0;
 
-  return result;
+	for (let windowEnd = 0; windowEnd < arr.length; windowEnd += 1) {
+		windowSum += arr[windowEnd];
+		// ** if index >= k -1, then we know we have summed the subArray
+		if (windowEnd >= k - 1) {
+			max = Math.max(max, windowSum);
+			windowSum -= arr[windowStart];
+			windowStart += 1;
+		}
+	}
+	return max;
+};
+
+// console.log(max_sub_array_of_size_k(3, [2, 1, 5, 1, 3, 2]));
+
+function find_averages_of_subarrays(K, arr) {
+  
 }
 
-const result = find_averages_of_subarrays(5, [1, 3, 2, 6, -1, 4, 1, 8, 2]);
+// const result = find_averages_of_subarrays(5, [1, 3, 2, 6, -1, 4, 1, 8, 2]);
 //   console.log(`Averages of subarrays of size K: ${result}`);
