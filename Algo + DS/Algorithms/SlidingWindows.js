@@ -57,27 +57,62 @@ Given a string, find the length of the longest substring in it with no more than
 Input: String="araaci", K=2
 Output: 4
 */
-
 const longest_substring_with_k_distinct = function (str, k) {
-	const charFreq = {};
+	let windowStart = 0,
+		maxLength = 0,
+		charFrequency = {};
+
+	// in the following loop we'll try to extend the range [window_start, window_end]
+	for (let windowEnd = 0; windowEnd < str.length; windowEnd++) {
+		const rightChar = str[windowEnd];
+		if (!(rightChar in charFrequency)) {
+			charFrequency[rightChar] = 0;
+		}
+		charFrequency[rightChar] += 1;
+		// shrink the sliding window, until we are left with 'k' distinct characters in the char_frequency
+		console.log(charFrequency);
+		while (Object.keys(charFrequency).length > k) {
+			// console.log(Object.keys(charFrequency));
+			const leftChar = str[windowStart];
+			charFrequency[leftChar] -= 1;
+			if (charFrequency[leftChar] === 0) {
+				delete charFrequency[leftChar];
+			}
+			windowStart += 1; // shrink the window
+		}
+		// remember the maximum length so far
+		maxLength = Math.max(maxLength, windowEnd - windowStart + 1);
+	}
+
+	return maxLength;
+};
+// console.log(longest_substring_with_k_distinct('araaci', 2));
+
+/* ------ 4. Fruits into Baskets -----
+Input: Fruit=['A', 'B', 'C', 'B', 'B', 'C']
+Output: 5
+*/
+
+const fruits_into_baskets = function (fruits) {
+	const charFreq = {}; // keep track of unique fruits
 	let maxLength = 0,
-		winLength = 0,
 		winStart = 0;
 
-	for (let winEnd = 0; winEnd < str; winEnd += 1) {
-		const rightChar = str[winEnd];
-		if (!(rightChar in charFreq)) charFreq[rightChar] = 0;
-		charFreq[rightChar] += 1;
+	// Iterate fruits, store each fruit into charFreq with value 1 (limit only 2 fruits in obj)
+	// while charFreq has more than 2 fruits, we will delete the oldest fruit, only keeping two unique items in charFreq
 
-		while (Object.keys(charFreq).length > k) {
-			const leftChar = str[winStart];
-			charFreq[leftChar] -= 1;
-			if (charFreq[leftChar] === 0) {
-				delete charFreq[leftChar];
-			}
+	for (let winEnd = 0; winEnd < fruits.length; winEnd += 1) {
+		const right = fruits[winEnd];
+		charFreq[right] = charFreq[right] ? charFreq[right] + 1 : 1;
+
+		while (Object.keys(charFreq).length > 2) {
+			const left = fruits[winStart];
+			charFreq[left] -= 1;
+			if (charFreq[left] === 0) delete charFreq[left];
 			winStart += 1;
 		}
 		maxLength = Math.max(maxLength, winEnd - winStart + 1);
 	}
+
 	return maxLength;
 };
