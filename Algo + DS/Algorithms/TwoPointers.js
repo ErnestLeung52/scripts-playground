@@ -89,4 +89,4 @@ const make_squares = function(arr) {
   };
   // [-2, -1, 2]
 
-// console.log(make_squares([-2, -1]));
+// console.log(make_squares([-2, -1])); 
