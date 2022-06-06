@@ -116,3 +116,47 @@ const fruits_into_baskets = function (fruits) {
 
 	return maxLength;
 };
+
+/* ------ 5. Longest Substring with Distinct Characters -----
+Given a string, find the length of the longest substring, which has all distinct characters.
+Input: String="abccde"
+Output: 3
+*/
+
+const non_repeat_substring = function (str) {
+	// Keep track of Index instead of count
+	// Growth condition: add str into the hashmap with its index as value
+	// shrink condition: shrink the index, no need to worry about keys in hashmap
+	const strIndexMap = {};
+	let winStart = 0, // 3
+	maxLength = 0;
+	
+	for (let winEnd = 0; winEnd < str.length; winEnd += 1) {
+		const rightChar = str[winEnd];
+		// if the map already contains the 'rightChar', shrink the window from the beginning so that
+		// we have only one occurrence of 'rightChar'
+		if (rightChar in strIndexMap) {
+			// this is tricky; in the current window, we will not have any 'rightChar' after its previous index
+			// and if 'windowStart' is already ahead of the last index of 'rightChar', we'll keep 'windowStart'
+			winStart = Math.max(winStart, strIndexMap[rightChar] + 1);
+		}
+		// insert the 'rightChar' into the map
+		strIndexMap[rightChar] = winEnd;
+		// remember the maximum length so far
+		maxLength = Math.max(maxLength, winEnd - winStart + 1);
+	}
+	return maxLength;
+};
+// console.log(non_repeat_substring('abccdef'));
+
+/* ------ 5. Longest Substring with Same Letters after Replacement -----
+Given a string with lowercase letters only, if you are allowed to replace no more than k letters with any letter, find the length of the longest substring having the same letters after replacement.
+Input: String="aabccbb", k=2
+Output: 5
+*/
+
+const length_of_longest_substring = function(str, k) {
+	// Grow: 
+	// Shrink:
+	
+  };
