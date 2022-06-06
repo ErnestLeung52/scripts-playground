@@ -92,7 +92,6 @@ const longest_substring_with_k_distinct = function (str, k) {
 Input: Fruit=['A', 'B', 'C', 'B', 'B', 'C']
 Output: 5
 */
-
 const fruits_into_baskets = function (fruits) {
 	const charFreq = {}; // keep track of unique fruits
 	let maxLength = 0,
@@ -122,15 +121,14 @@ Given a string, find the length of the longest substring, which has all distinct
 Input: String="abccde"
 Output: 3
 */
-
 const non_repeat_substring = function (str) {
 	// Keep track of Index instead of count
 	// Growth condition: add str into the hashmap with its index as value
 	// shrink condition: shrink the index, no need to worry about keys in hashmap
 	const strIndexMap = {};
 	let winStart = 0, // 3
-	maxLength = 0;
-	
+		maxLength = 0;
+
 	for (let winEnd = 0; winEnd < str.length; winEnd += 1) {
 		const rightChar = str[winEnd];
 		// if the map already contains the 'rightChar', shrink the window from the beginning so that
@@ -149,14 +147,38 @@ const non_repeat_substring = function (str) {
 };
 // console.log(non_repeat_substring('abccdef'));
 
-/* ------ 5. Longest Substring with Same Letters after Replacement -----
+/* ------ 6. Longest Substring with Same Letters after Replacement ----- Leetcode 424
 Given a string with lowercase letters only, if you are allowed to replace no more than k letters with any letter, find the length of the longest substring having the same letters after replacement.
 Input: String="aabccbb", k=2
 Output: 5
 */
-
-const length_of_longest_substring = function(str, k) {
-	// Grow: 
+const length_of_longest_substring = function (str, k) {
+	// Grow:
 	// Shrink:
-	
-  };
+	const freqMap = {};
+	let winStart = 0,
+		maxLength = 0,
+		maxRepeatCount = 0;
+
+	for (let winEnd = 0; winEnd < str.length; winEnd += 1) {
+		const rightChar = str[winEnd];
+		freqMap[rightChar] = freqMap[rightChar] ? freqMap[rightChar] + 1 : 1;
+		// We want to find the most frequent char in the window, and then calculate winLength - mostFreqChar to get the number we can replace with, and if this value is less than K, our window is valid => this value is the number we can replace
+		maxRepeatCount = Math.max(maxRepeatCount, freqMap[rightChar]);
+		// Invalid window -> shrink
+		if (winEnd - winStart + 1 - maxRepeatCount > k) {
+			leftChar = str[winStart];
+			freqMap[leftChar] -= 1;
+			winStart += 1;
+		}
+		maxLength = Math.max(maxLength, winEnd - winStart + 1);
+	}
+	return maxLength;
+};
+// console.log(length_of_longest_substring('aabccbb', 2));
+
+
+/* ------ 7. Longest Subarray with Ones after Replacement ----- 
+Given an array containing 0s and 1s, if you are allowed to replace no more than ‘k’ 0s with 1s, find the length of the longest contiguous subarray having all 1s.
+
+*/
