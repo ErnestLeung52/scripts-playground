@@ -191,7 +191,7 @@ const length_of_longest_substring2 = function (arr, k) {
 		if (arr[winEnd] === 1) {
 			maxOnesCount += 1;
 		}
-		// Current window size is from windowStart to windowEnd, overall we have a maximum of 1s repeating 'maxOnesCount' times, this means we can have a window with 'maxOnesCount' 1s and the remaining are 0s which should replace with 1s. 
+		// Current window size is from windowStart to windowEnd, overall we have a maximum of 1s repeating 'maxOnesCount' times, this means we can have a window with 'maxOnesCount' 1s and the remaining are 0s which should replace with 1s.
 		// now, if the remaining 0s are more than 'k', it is the time to shrink the window as weare not allowed to replace more than 'k' 0s
 		if (winEnd - winStart + 1 - maxOnesCount > k) {
 			if (arr[winStart] === 1) {
@@ -204,3 +204,51 @@ const length_of_longest_substring2 = function (arr, k) {
 	return maxLength;
 };
 // console.log(length_of_longest_substring2([0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1], 2));
+
+/* ------ 7. Permutation in a String ----- 
+Given a string and a pattern, find out if the string contains any permutation of the pattern.
+Input: String="oidbcaf", Pattern="abc"
+Output: true
+*/
+
+function find_permutation(str, pattern) {
+	let windowStart = 0,
+		matched = 0,
+		charFrequency = {};
+
+	for (i = 0; i < pattern.length; i++) {
+		const chr = pattern[i];
+		charFrequency[chr] = charFrequency[chr] ? charFrequency[chr] + 1 : 1;
+	}
+
+	// Our goal is to match all the characters from the 'charFrequency' with the current window
+	// try to extend the range [windowStart, windowEnd]
+	for (windowEnd = 0; windowEnd < str.length; windowEnd++) {
+		const rightChar = str[windowEnd];
+		if (rightChar in charFrequency) {
+			// Decrement the frequency of matched character
+			charFrequency[rightChar] -= 1;
+			if (charFrequency[rightChar] === 0) {
+				matched += 1;
+			}
+		}
+
+		if (matched === Object.keys(charFrequency).length) {
+			return true;
+		}
+
+		// Shrink the sliding window
+		if (windowEnd >= pattern.length - 1) {
+			leftChar = str[windowStart];
+			windowStart += 1;
+			if (leftChar in charFrequency) {
+				if (charFrequency[leftChar] === 0) {
+					matched -= 1;
+				}
+				charFrequency[leftChar] += 1;
+			}
+		}
+	}
+	return false;
+}
+// console.log(find_permutation('oidbcaf', 'abc'));
