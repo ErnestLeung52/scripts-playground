@@ -213,14 +213,14 @@ Output: true
 
 function find_permutation(str, pattern) {
 	let windowStart = 0,
-		matched = 0,
-		charFrequency = {};
-
+	matched = 0,
+	charFrequency = {};
+	
 	for (i = 0; i < pattern.length; i++) {
 		const chr = pattern[i];
 		charFrequency[chr] = charFrequency[chr] ? charFrequency[chr] + 1 : 1;
 	}
-
+	
 	// Our goal is to match all the characters from the 'charFrequency' with the current window
 	// try to extend the range [windowStart, windowEnd]
 	for (windowEnd = 0; windowEnd < str.length; windowEnd++) {
@@ -232,11 +232,11 @@ function find_permutation(str, pattern) {
 				matched += 1;
 			}
 		}
-
+		
 		if (matched === Object.keys(charFrequency).length) {
 			return true;
 		}
-
+		
 		// Shrink the sliding window
 		if (windowEnd >= pattern.length - 1) {
 			leftChar = str[windowStart];
@@ -252,3 +252,6 @@ function find_permutation(str, pattern) {
 	return false;
 }
 // console.log(find_permutation('oidbcaf', 'abc'));
+
+/* ------ 8. String Anagrams ----- 
+*/
