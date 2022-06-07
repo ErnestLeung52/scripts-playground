@@ -177,8 +177,30 @@ const length_of_longest_substring = function (str, k) {
 };
 // console.log(length_of_longest_substring('aabccbb', 2));
 
-
 /* ------ 7. Longest Subarray with Ones after Replacement ----- 
 Given an array containing 0s and 1s, if you are allowed to replace no more than ‘k’ 0s with 1s, find the length of the longest contiguous subarray having all 1s.
-
+Input: Array=[0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1], k=2
+Output: 6
 */
+const length_of_longest_substring2 = function (arr, k) {
+	let winStart = 0,
+		maxLength = 0,
+		maxOnesCount = 0;
+
+	for (let winEnd = 0; winEnd < arr.length; winEnd += 1) {
+		if (arr[winEnd] === 1) {
+			maxOnesCount += 1;
+		}
+		// Current window size is from windowStart to windowEnd, overall we have a maximum of 1s repeating 'maxOnesCount' times, this means we can have a window with 'maxOnesCount' 1s and the remaining are 0s which should replace with 1s. 
+		// now, if the remaining 0s are more than 'k', it is the time to shrink the window as weare not allowed to replace more than 'k' 0s
+		if (winEnd - winStart + 1 - maxOnesCount > k) {
+			if (arr[winStart] === 1) {
+				maxOnesCount -= 1;
+			}
+			winStart += 1;
+		}
+		maxLength = Math.max(maxLength, winEnd - winStart + 1);
+	}
+	return maxLength;
+};
+// console.log(length_of_longest_substring2([0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1], 2));
