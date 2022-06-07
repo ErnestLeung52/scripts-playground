@@ -207,20 +207,20 @@ const length_of_longest_substring2 = function (arr, k) {
 
 /* ------ 7. Permutation in a String ----- 
 Given a string and a pattern, find out if the string contains any permutation of the pattern.
-Input: String="oidbcaf", Pattern="abc"
+Input: String="oidbcaf", Pattern="dc"
 Output: true
 */
 
 function find_permutation(str, pattern) {
 	let windowStart = 0,
-	matched = 0,
-	charFrequency = {};
-	
+		matched = 0,
+		charFrequency = {};
+
 	for (i = 0; i < pattern.length; i++) {
 		const chr = pattern[i];
 		charFrequency[chr] = charFrequency[chr] ? charFrequency[chr] + 1 : 1;
 	}
-	
+
 	// Our goal is to match all the characters from the 'charFrequency' with the current window
 	// try to extend the range [windowStart, windowEnd]
 	for (windowEnd = 0; windowEnd < str.length; windowEnd++) {
@@ -232,15 +232,16 @@ function find_permutation(str, pattern) {
 				matched += 1;
 			}
 		}
-		
+
 		if (matched === Object.keys(charFrequency).length) {
 			return true;
 		}
-		
+
 		// Shrink the sliding window
 		if (windowEnd >= pattern.length - 1) {
 			leftChar = str[windowStart];
 			windowStart += 1;
+			// handle char if it is in the pattern when shrinking
 			if (leftChar in charFrequency) {
 				if (charFrequency[leftChar] === 0) {
 					matched -= 1;
@@ -254,4 +255,7 @@ function find_permutation(str, pattern) {
 // console.log(find_permutation('oidbcaf', 'abc'));
 
 /* ------ 8. String Anagrams ----- 
+Given a string and a pattern, find all anagrams of the pattern in the given string.
+Input: String="ppqp", Pattern="pq"
+Output: [1, 2]
 */

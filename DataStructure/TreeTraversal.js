@@ -62,7 +62,7 @@ root.left.left = new TreeNode(9);
 root.right.left = new TreeNode(10);
 root.right.right = new TreeNode(5);
 
-console.log(breadthFirstSearch(root));
+// console.log(breadthFirstSearch(root));
 
 const arr = [1, 2];
 
