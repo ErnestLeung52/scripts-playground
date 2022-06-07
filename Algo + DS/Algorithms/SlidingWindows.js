@@ -259,3 +259,42 @@ Given a string and a pattern, find all anagrams of the pattern in the given stri
 Input: String="ppqp", Pattern="pq"
 Output: [1, 2]
 */
+
+const find_string_anagrams = function (str, pattern) {
+	const result = [];
+	const charFrequency = {};
+	let winStart = 0,
+		matched = 0;
+
+	for (let i = 0; i < pattern.length; i++) {
+		let char = pattern[i];
+		charFrequency[char] = charFrequency[char] ? charFrequency[char] + 1 : 1;
+	}
+
+	for (let winEnd = 0; winEnd < str.length; winEnd++) {
+		let rightChar = str[winEnd];
+		if (rightChar in charFrequency) {
+			charFrequency[rightChar] -= 1;
+			if (charFrequency[rightChar] === 0) {
+				matched += 1;
+			}
+		}
+
+		if (Object.keys(charFrequency).length === matched) {
+			result.push(winStart);
+		}
+
+		if (winEnd >= pattern.length - 1) {
+			leftChar = str[winStart];
+			winStart += 1;
+			if (leftChar in charFrequency) {
+				if (charFrequency[leftChar] === 0) {
+					matched -= 1;
+				}
+				charFrequency[leftChar] += 1;
+			}
+		}
+	}
+	return result;
+};
+// console.log(find_string_anagrams("abbcabc", "abc"));
