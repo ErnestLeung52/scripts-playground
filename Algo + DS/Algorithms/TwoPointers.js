@@ -1,60 +1,3 @@
-/*
-var sortedSquares = function(A) {
-  const res = [];
-  let i = 0;
-  while (A[i] < 0) i++;
-  let j = i - 1;
-  while (j >= 0 || i < A.length) {
-    if (i >= A.length || -A[j] <= A[i]) {
-      res.push(A[j--] ** 2);
-    } else {
-      res.push(A[i++] ** 2);
-    }
-  }
-  return res;
-};
-*/
-
-const make_squares = function (arr) {
-	/* Method 1: start from the middle */
-	// squares = []
-	// let firstPositive = 0;
-	// // Use while loop -> handle no-positive num
-	// while (arr[firstPositive] < 0) firstPositive += 1
-
-	// let left = firstPositive - 1,
-	//     right = firstPositive;
-
-	// while (left >= 0 || right < arr.length) {
-	//   // if right becomes undefined, left will automatically pushed into squares
-	//   if (right >= arr.length || -arr[left] <= arr[right]) {
-	//     squares.push(arr[left] ** 2)
-	//     left -= 1;
-	//   } else {
-	//     squares.push(arr[right] ** 2)
-	//     right += 1;
-	//   }
-	// }
-
-	/* Method 2: start from both side*/
-	const squares = Array(arr.length).fill();
-	let left = 0,
-		right = arr.length - 1,
-		end = arr.length - 1;
-	while (left <= right) {
-		if (arr[left] ** 2 < arr[right] ** 2) {
-			squares[end--] = arr[right--] ** 2;
-		} else {
-			squares[end--] = arr[left++] ** 2;
-		}
-	}
-
-	return squares;
-};
-// [-2, -1, 2]
-
-// console.log(make_squares([-2, -1]));
-
 /* -------------- 1. Pair with Target Sum ------------------
 Given an array of sorted numbers and a target sum, find a pair in the array whose sum is equal to the given target.
 Write a function to return the indices of the two numbers (i.e. the pair) such that they add up to the given target.
@@ -118,3 +61,46 @@ const remove_duplicates2 = function (arr, key) {
 	return slow;
 };
 // console.log(remove_duplicates2([2, 11, 2, 2, 1], 2));
+
+/* -------------- 3. Squaring a Sorted Array  ------------------
+Given a sorted array, create a new array containing squares of all the numbers of the input array in the sorted order.
+Input: [-2, -1, 0, 2, 3]
+Output: [0, 1, 4, 4, 9]
+*/
+const make_squares = function (arr) {
+	/* Method 1: start from the middle */
+	// squares = []
+	// let firstPositive = 0;
+	// // Use while loop -> handle no-positive num
+	// while (arr[firstPositive] < 0) firstPositive += 1
+
+	// let left = firstPositive - 1,
+	//     right = firstPositive;
+
+	// while (left >= 0 || right < arr.length) {
+	//   // if right becomes undefined, left will automatically pushed into squares
+	//   if (right >= arr.length || -arr[left] <= arr[right]) {
+	//     squares.push(arr[left] ** 2)
+	//     left -= 1;
+	//   } else {
+	//     squares.push(arr[right] ** 2)
+	//     right += 1;
+	//   }
+	// }
+
+	/* Method 2: start from both side*/
+	const squares = Array(arr.length).fill();
+	let left = 0,
+		right = arr.length - 1,
+		end = arr.length - 1;
+	while (left <= right) {
+		if (arr[left] ** 2 < arr[right] ** 2) {
+			squares[end--] = arr[right--] ** 2;
+		} else {
+			squares[end--] = arr[left++] ** 2;
+		}
+	}
+
+	return squares;
+};
+// console.log(make_squares([-2, -1, 0, 2, 3]));
