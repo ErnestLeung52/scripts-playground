@@ -270,7 +270,8 @@ const find_string_anagrams = function (str, pattern) {
 		let char = pattern[i];
 		charFrequency[char] = charFrequency[char] ? charFrequency[char] + 1 : 1;
 	}
-
+	// our goal is to match all the characters from the 'charFrequency' with the current window
+	// try to extend the range [windowStart, windowEnd]
 	for (let winEnd = 0; winEnd < str.length; winEnd++) {
 		let rightChar = str[winEnd];
 		if (rightChar in charFrequency) {
@@ -289,6 +290,7 @@ const find_string_anagrams = function (str, pattern) {
 			winStart += 1;
 			if (leftChar in charFrequency) {
 				if (charFrequency[leftChar] === 0) {
+					// before putting the character back, decrement the matched count
 					matched -= 1;
 				}
 				charFrequency[leftChar] += 1;
@@ -298,3 +300,65 @@ const find_string_anagrams = function (str, pattern) {
 	return result;
 };
 // console.log(find_string_anagrams("abbcabc", "abc"));
+
+/* ------ 9. Smallest Window containing Substring ----- 
+Input: String="aabdec", Pattern="abc"
+Output: "abdec"
+*/
+const find_substring = function (str, pattern) {
+	let winStart = 0,
+		matched = 0,
+		substrStart = 0,
+		minLength = str.length + 1;
+	const charFrequency = {};
+
+	for (let i = 0; i < pattern.length; i += 1) {
+		let char = pattern[i];
+		charFrequency[char] = charFrequency[char] ? charFrequency[char] + 1 : 1;
+	}
+
+	for (let winEnd = 0; winEnd < str.length; winEnd++) {
+		const rightChar = str[winEnd];
+		if (rightChar in charFrequency) {
+			charFrequency[rightChar] -= 1;
+			if (charFrequency[rightChar] >= 0) {
+				matched += 1;
+			}
+		}
+
+		while (matched === pattern.length) {
+			// winEnd
+			// winStart
+			// minLength
+			// charFrequency
+			if (minLength > winEnd - winStart + 1) {
+				minLength = winEnd - winStart + 1;
+				substrStart = winStart;
+			}
+
+			const leftChar = str[winStart];
+			winStart += 1;
+
+			if (leftChar in charFrequency) {
+				if (charFrequency[leftChar] === 0) {
+					matched -= 1;
+				}
+				charFrequency[leftChar] += 1;
+			}
+		}
+	}
+	if (minLength > str.length) {
+		return '';
+	}
+	return str.substring(substrStart, substrStart + minLength);
+};
+// console.log(find_substring('aabdec', 'abc'));
+
+/* ------ 10. Words Concatenation ----- 
+Given a string and a list of words, find all the starting indices of substrings in the given string that are a concatenation of all the given words exactly once without any overlapping of words. It is given that all words are of the same length.
+Input: String="catcatfoxfox", Words=["cat", "fox"]
+Output: [3]
+*/
+function find_word_concatenation(str, words) {
+	
+}
