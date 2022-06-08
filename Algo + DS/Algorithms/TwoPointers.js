@@ -78,15 +78,15 @@ const pair_with_targetsum = function (arr, target_sum) {
 };
 // console.log(pair_with_targetsum([1, 2, 3, 4, 6], 6));
 
-/* -------------- 2. Remove Duplicates ------------------
+/* -------------- 2.1 Remove Duplicates ------------------
 Given an array of sorted numbers, separate all duplicates from it in-place. You should not use any extra space; move all duplicates at the end of the array and after moving return the length of the subarray that has no duplicate in it.
 Input: [2, 3, 3, 3, 6, 9, 9]
 Output: 4
 */
 const remove_duplicates = function (arr) {
-  // fast index to traverse through the array. compare slow with fast
-  // We can use slow not slow + 1 to compare because slow is already the most recent unique number
-    // if not equal, reassign slow + 1 to fast because slow + 1 is a repeated number
+	// fast index to traverse through the array. compare slow with fast
+	// We can use slow not slow + 1 to compare because slow is already the most recent unique number
+	// if not equal, reassign slow + 1 to fast because slow + 1 is a repeated number
 	let slow = 0,
 		fast = 0; // traverse
 	while (fast < arr.length) {
@@ -99,3 +99,22 @@ const remove_duplicates = function (arr) {
 	return slow + 1;
 };
 // console.log(remove_duplicates([2, 3, 3, 3, 6, 9, 9]));
+
+/* -------------- 2.2 Remove Duplicates ------------------
+Given an unsorted array of numbers and a target ‘key’, remove all instances of ‘key’ in-place and return the new length of the array.
+Input: [3, 2, 3, 6, 3, 10, 9, 3], Key=3
+Output: 4
+*/
+const remove_duplicates2 = function (arr, key) {
+	let slow = 0,
+		fast = 0;
+	while (fast < arr.length) {
+		if (arr[fast] !== key) {
+			arr[slow] = arr[fast];
+			slow += 1;
+		}
+		fast += 1;
+	}
+	return slow;
+};
+// console.log(remove_duplicates2([2, 11, 2, 2, 1], 2));
