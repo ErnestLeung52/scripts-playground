@@ -90,3 +90,10 @@ const make_squares = function(arr) {
   // [-2, -1, 2]
 
 // console.log(make_squares([-2, -1])); 
+
+/* -------------- 1. Pair with Target Sum ------------------
+Given an array of sorted numbers and a target sum, find a pair in the array whose sum is equal to the given target.
+Write a function to return the indices of the two numbers (i.e. the pair) such that they add up to the given target.
+Input: [1, 2, 3, 4, 6], target=6
+Output: [1, 3]
+*/
