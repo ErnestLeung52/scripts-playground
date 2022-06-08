@@ -360,5 +360,47 @@ Input: String="catcatfoxfox", Words=["cat", "fox"]
 Output: [3]
 */
 function find_word_concatenation(str, words) {
-	
+	if (words.length === 0 || words[0].length === 0) {
+		return [];
+	}
+
+	const wordsFreq = {};
+	words.forEach(
+		(word) => (wordsFreq[word] = wordsFreq[word] ? wordsFreq + 1 : 1)
+	);
+
+	const resultIndices = [];
+	let wordsCount = words.length,
+		wordLength = words[0].length;
+
+	for (let i = 0; i < str.length - wordsCount * wordLength + 1; i++) {
+		const wordsSeen = {};
+		for (let j = 0; j < wordsCount; j++) {
+			let next_word_index = i + j * wordLength;
+			let word = str.substring(
+				next_word_index,
+				next_word_index + wordLength
+			);
+
+			if (!(word in wordsFreq)) {
+				break;
+			}
+
+			if (!(word in wordsSeen)) {
+				wordsSeen[word] = 0;
+			}
+			wordsSeen[word] += 1;
+
+			if (wordsSeen[word] > (wordsFreq[word] || 0)) {
+				break;
+			}
+
+			if (j + 1 === wordsCount) {
+				// Store index if we have found all the words
+				resultIndices.push(i);
+			}
+		}
+	}
+	return resultIndices;
 }
+// console.log(find_word_concatenation('catcatfoxfox', ['cat', 'fox']));
