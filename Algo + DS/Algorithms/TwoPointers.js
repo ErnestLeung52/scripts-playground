@@ -97,3 +97,23 @@ Write a function to return the indices of the two numbers (i.e. the pair) such t
 Input: [1, 2, 3, 4, 6], target=6
 Output: [1, 3]
 */
+const pair_with_targetsum = function(arr, target_sum) {
+  let left = 0,
+      right = arr.length - 1;
+  
+  while (left < right) {
+    if (arr[left] + arr [right] === target_sum) {
+      return [left, right];
+    } else if (arr[left] + arr[right] > target_sum) {
+      right -= 1;
+    } else {
+      left += 1;
+    }
+  }
+  return [-1, -1];
+}
+// console.log(pair_with_targetsum([1, 2, 3, 4, 6], 6));
+
+/* -------------- 2. Remove Duplicates ------------------
+Given an array of sorted numbers, separate all duplicates from it in-place. You should not use any extra space; move all duplicates at the end of the array and after moving return the length of the subarray that has no duplicate in it.
+*/
