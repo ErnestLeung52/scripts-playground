@@ -62,7 +62,7 @@ const remove_duplicates2 = function (arr, key) {
 };
 // console.log(remove_duplicates2([2, 11, 2, 2, 1], 2));
 
-/* -------------- 3. Squaring a Sorted Array  ------------------
+/* -------------- 3. Squaring a Sorted Array  ------------------ 
 Given a sorted array, create a new array containing squares of all the numbers of the input array in the sorted order.
 Input: [-2, -1, 0, 2, 3]
 Output: [0, 1, 4, 4, 9]
@@ -104,3 +104,46 @@ const make_squares = function (arr) {
 	return squares;
 };
 // console.log(make_squares([-2, -1, 0, 2, 3]));
+
+/* -------------- 4. Triplet Sum to Zero  ------------------ LeetCode 15
+Given an array of unsorted numbers, find all unique triplets in it that add up to zero.
+Input: [-3, 0, 1, 2, -1, 1, -2]
+Output: [-3, 1, 2], [-2, 0, 2], [-2, 1, 1], [-1, 0, 1]
+*/
+const search_triplets = function (nums) {
+	nums.sort((a, b) => a - b);
+	const result = [];
+
+	for (let i = 0; i < nums.length; i++) {
+		// We can stop once we hit positive values, because no three positive values can be added to reach 0
+		if (nums[i] > 0) break;
+		// we want to make sure we skip duplicates
+		if (i > 0 && nums[i - 1] === nums[i]) {
+			continue;
+		}
+
+		let left = i + 1;
+		let right = nums.length - 1;
+
+		while (left < right) {
+			const sum = nums[i] + nums[left] + nums[right];
+
+			if (sum === 0) {
+				result.push([nums[i], nums[left], nums[right]]);
+				left += 1;
+				right -= 1;
+				// Also make sure we increment the left pointer past any possible duplicates
+				while (left < right && nums[left] === nums[left - 1]) {
+					left += 1;
+				}
+			} else if (sum < 0) {
+				left += 1;
+			} else {
+				right -= 1;
+			}
+		}
+	}
+	return result;
+};
+// console.log(search_triplets([-3, 0, 1, 0, 2, 1, -1, 1, 1, 2, -2]));
+// [ -3, -2, -1, 0, 0, 1, 1, 1, 1, 2, 2 ]
