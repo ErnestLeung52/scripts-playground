@@ -9,3 +9,5 @@ var goodNodes = function(root) {
   prev = Math.max(node.val, prev)
   }
 };
+
+
