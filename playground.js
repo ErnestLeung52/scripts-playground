@@ -17,7 +17,6 @@ function nbYear(p0, percent, aug, p) {
 		inhabitants = inhabitants + inhabitants * (percent / 100) + aug;
 		years += 1;
 	}
-  console.log(inhabitants);
 	return years;
 }
-console.log(nbYear(1000, 2, 50, 1214));
+// console.log(nbYear(1000, 2, 50, 1214));
