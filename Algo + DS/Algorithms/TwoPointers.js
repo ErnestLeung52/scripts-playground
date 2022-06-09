@@ -153,7 +153,6 @@ Given an array of unsorted numbers and a target number, find a triplet in the ar
 Input: [-2, 0, 1, 2], target=2
 Output: 1
 */
-
 const triplet_sum_close_to_target = function (arr, targetSum) {
 	arr.sort((a, b) => a - b);
 
@@ -182,3 +181,30 @@ const triplet_sum_close_to_target = function (arr, targetSum) {
 	return closestSum;
 };
 // console.log(triplet_sum_close_to_target([-2, 0, 1, 2], 2));
+
+/* -------------- 6. Triplets with Smaller Sum  ------------------ 
+Given an array arr of unsorted numbers and a target sum, count all triplets in it such that arr[i] + arr[j] + arr[k] < target where i, j, and k are three different indices. Write a function to return the count of such triplets.
+Input: [-1, 0, 2, 3], target=3 
+*/
+const triplet_with_smaller_sum = function (arr, target) {
+	arr.sort((a, b) => a - b);
+	let result = 0;
+
+	for (let i = 0; i < arr.length; i++) {
+		let left = i + 1,
+			right = arr.length - 1;
+
+		while (left < right) {
+			const sum = arr[i] + arr[left] + arr[right];
+
+			if (sum < target) {
+				// If sum < target, that means all nums between left & right would also be less than target
+				result += right - left;
+				left += 1;
+			} else {
+				right -= 1;
+			}
+		}
+	}
+	return result;
+};
