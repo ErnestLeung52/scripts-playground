@@ -244,4 +244,59 @@ const triplet_with_smaller_sum2 = function (arr, target) {
 // console.log(triplet_with_smaller_sum2([-1, 0, 2, 3], 3));
 
 /* -------------- 7. Subarrays with Product Less than a Target  ------------------
+Given an array with positive numbers and a positive target number, find all of its contiguous subarrays whose product is less than the target number.
+Input: [2, 5, 3, 10], target=30 
+Output: [2], [5], [2, 5], [3], [5, 3], [10]
  */
+
+const find_subarrays = function (arr, target) {
+	const result = [];
+	let product = 1,
+		left = 0;
+	for (let right = 0; right < arr.length; right++) {
+		const subArr = [];
+
+		product *= arr[right];
+
+		while (product >= target && left <= right) {
+			product /= arr[left];
+			left += 1;
+		}
+
+		for (let i = right; i > left - 1; i--) {
+			subArr.unshift(arr[i]);
+			result.push(subArr);
+		}
+	}
+	return result;
+};
+// console.log(find_subarrays([2, 5, 3, 10], 30));
+
+/* -------------- 8. Subarrays with Product Less than a Target  ------------------
+Given an array containing 0s, 1s and 2s, sort the array in-place. You should treat numbers of the array as objects, hence, we can’t count 0s, 1s, and 2s to recreate the array.
+Input: [1, 0, 2, 1, 0]
+Output: [0, 0, 1, 1, 2]
+*/
+
+function dutch_flag_sort(arr) {
+	// all elements < low are 0, and all elements > high are 2
+	// all elements from >= low < i are 1
+	let low = 0,
+		high = arr.length - 1,
+		i = 0;
+
+	while (i <= high) {
+		if (arr[i] === 0) {
+			[arr[i], arr[low]] = [arr[low], arr[i]];
+			low += 1;
+			i += 1;
+		} else if (arr[i] === 1) {
+			i += 1;
+		} else {
+			[arr[i], arr[high]] = [arr[high], arr[i]];
+			high -= 1;
+		}
+	}
+	return arr;
+}
+// console.log(dutch_flag_sort([1, 0, 2, 1, 0]));
