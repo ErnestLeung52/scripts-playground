@@ -110,7 +110,7 @@ Given an array of unsorted numbers, find all unique triplets in it that add up t
 Input: [-3, 0, 1, 2, -1, 1, -2]
 Output: [-3, 1, 2], [-2, 0, 2], [-2, 1, 1], [-1, 0, 1]
 */
-const search_triplets = function (nums) {
+const threeSum = function (nums) {
 	nums.sort((a, b) => a - b);
 	const result = [];
 
@@ -145,7 +145,7 @@ const search_triplets = function (nums) {
 	}
 	return result;
 };
-// console.log(search_triplets([-3, 0, 1, 0, 2, 1, -1, 1, 1, 2, -2]));
+// console.log(threeSum([-3, 0, 1, 0, 2, 1, -1, 1, 1, 2, -2]));
 // [ -3, -2, -1, 0, 0, 1, 1, 1, 1, 2, 2 ]
 
 /* -------------- 5. Triplet Sum Close to Target  ------------------ 
@@ -182,9 +182,10 @@ const triplet_sum_close_to_target = function (arr, targetSum) {
 };
 // console.log(triplet_sum_close_to_target([-2, 0, 1, 2], 2));
 
-/* -------------- 6. Triplets with Smaller Sum  ------------------ 
+/* -------------- 6.1 Triplets with Smaller Sum  ------------------ Leetcode 259
 Given an array arr of unsorted numbers and a target sum, count all triplets in it such that arr[i] + arr[j] + arr[k] < target where i, j, and k are three different indices. Write a function to return the count of such triplets.
 Input: [-1, 0, 2, 3], target=3 
+Output: 2
 */
 const triplet_with_smaller_sum = function (arr, target) {
 	arr.sort((a, b) => a - b);
@@ -201,6 +202,9 @@ const triplet_with_smaller_sum = function (arr, target) {
 				// If sum < target, that means all nums between left & right would also be less than target
 				result += right - left;
 				left += 1;
+				while (left < right && arr[left] === arr[left - 1]) {
+					left += 1;
+				}
 			} else {
 				right -= 1;
 			}
@@ -208,7 +212,36 @@ const triplet_with_smaller_sum = function (arr, target) {
 	}
 	return result;
 };
+// console.log(triplet_with_smaller_sum([-1, 0, 2, 2, 3], 3));
 
-
-/* -------------- 7. Subarrays with Product Less than a Target  ------------------ 
+/* -------------- 6.2 Triplets with Smaller Sum  ------------------ Leetcode 259
+Return an array instead
 */
+const triplet_with_smaller_sum2 = function (arr, target) {
+	arr.sort((a, b) => a - b);
+	const result = [];
+
+	for (let i = 0; i < arr.length; i++) {
+		let left = i + 1,
+			right = arr.length - 1;
+
+		while (left < right) {
+			const sum = arr[i] + arr[left] + arr[right];
+
+			if (sum < target) {
+				// If sum < target, that means all nums between left & right would also be less than target
+				for (let k = right; k > left; k--) {
+					result.push([arr[i], arr[left], arr[k]]);
+				}
+				left += 1;
+			} else {
+				right -= 1;
+			}
+		}
+	}
+	return result;
+};
+// console.log(triplet_with_smaller_sum2([-1, 0, 2, 3], 3));
+
+/* -------------- 7. Subarrays with Product Less than a Target  ------------------
+ */
