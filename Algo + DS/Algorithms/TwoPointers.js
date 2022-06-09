@@ -208,3 +208,7 @@ const triplet_with_smaller_sum = function (arr, target) {
 	}
 	return result;
 };
+
+
+/* -------------- 7. Subarrays with Product Less than a Target  ------------------ 
+*/
