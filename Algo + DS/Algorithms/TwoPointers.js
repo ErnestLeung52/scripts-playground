@@ -277,7 +277,6 @@ Given an array containing 0s, 1s and 2s, sort the array in-place. You should tre
 Input: [1, 0, 2, 1, 0]
 Output: [0, 0, 1, 1, 2]
 */
-
 function dutch_flag_sort(arr) {
 	// all elements < low are 0, and all elements > high are 2
 	// all elements from >= low < i are 1
