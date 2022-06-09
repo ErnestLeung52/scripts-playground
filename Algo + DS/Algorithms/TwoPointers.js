@@ -147,3 +147,38 @@ const search_triplets = function (nums) {
 };
 // console.log(search_triplets([-3, 0, 1, 0, 2, 1, -1, 1, 1, 2, -2]));
 // [ -3, -2, -1, 0, 0, 1, 1, 1, 1, 2, 2 ]
+
+/* -------------- 5. Triplet Sum Close to Target  ------------------ 
+Given an array of unsorted numbers and a target number, find a triplet in the array whose sum is as close to the target number as possible, return the sum of the triplet. If there are more than one such triplet, return the sum of the triplet with the smallest sum.
+Input: [-2, 0, 1, 2], target=2
+Output: 1
+*/
+
+const triplet_sum_close_to_target = function (arr, targetSum) {
+	arr.sort((a, b) => a - b);
+
+	let closestSum = Infinity;
+
+	for (let i = 0; i < arr.length - 2; i++) {
+		let left = i + 1,
+			right = arr.length - 1;
+
+		while (left < right) {
+			let sum = arr[left] + arr[right] + arr[i];
+
+			if (Math.abs(sum - targetSum) < Math.abs(closestSum - targetSum)) {
+				closestSum = sum;
+			}
+
+			if (sum === targetSum) {
+				return targetSum;
+			} else if (sum < targetSum) {
+				left += 1;
+			} else {
+				right -= 1;
+			}
+		}
+	}
+	return closestSum;
+};
+// console.log(triplet_sum_close_to_target([-2, 0, 1, 2], 2));
