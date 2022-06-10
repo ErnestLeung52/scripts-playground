@@ -1,8 +1,5 @@
-/*
-Input: [3, 1, 5, 4, 2]
-Output: [1, 2, 3, 4, 5]
-*/
-
+//Input: [3, 1, 5, 4, 2]
+//Output: [1, 2, 3, 4, 5]
 const cyclic_sort = function (nums) {
 	let i = 0;
 	while (i < nums.length) {
