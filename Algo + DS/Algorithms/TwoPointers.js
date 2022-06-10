@@ -309,9 +309,9 @@ const fourSum = function (nums, target) {
 	nums.sort((a, b) => a - b);
 	const result = [];
 
-  // fix the first number
+	// fix the first number
 	for (let i = 0; i < nums.length - 3; i++) {
-    // fix the second number
+		// fix the second number
 		for (let j = i + 1; j < nums.length - 2; j++) {
 			let low = j + 1;
 			let high = nums.length - 1;
@@ -339,3 +339,54 @@ const fourSum = function (nums, target) {
 };
 // console.log(fourSum([4, 1, 2, -1, 1, -3], 1));
 // [-3, -1, 1, 1, 2, 4]
+
+/* -------------- 10. Comparing Strings containing Backspaces  ------------------
+Given two strings containing backspaces (identified by the character ‘#’), check if the two strings are equal.
+Input: str1="xy#z", str2="xzz#"
+Output: true
+*/
+
+function backspace_compare(str1, str2) {
+	let index1 = str1.length - 1;
+	let index2 = str2.length - 1;
+
+	while (index1 >= 0 || index2 >= 0) {
+		let nextValidIndex1 = handleBackspaces(str1, index1);
+		let nextValidIndex2 = handleBackspaces(str2, index2);
+		// nextValidIndex1;
+		// nextValidIndex2;
+		if (nextValidIndex1 < 0 && nextValidIndex2 < 0) {
+			return true;
+		}
+		if (nextValidIndex1 < 0 || nextValidIndex2 < 0) {
+			return false;
+		}
+		if (str1[nextValidIndex1] !== str2[nextValidIndex2]) {
+			return false;
+		}
+		index1 = nextValidIndex1 - 1;
+		index2 = nextValidIndex2 - 1;
+	}
+	return true;
+}
+function handleBackspaces(str, index) {
+	let backSpacesCount = 0;
+	// while (index >= 0) {
+	// 	if (str[index] === '#') {
+	// 		backSpacesCount += 1;
+	// 	} else if (backSpacesCount > 0) {
+	// 		backSpacesCount -= 1;
+	// 	} else {
+	// 		break;
+	// 	}
+	// 	index -= 1;
+	// }
+
+	while (str[index] === '#') {
+		backSpacesCount += 1;
+		index -= 1;
+	}
+	return index - backSpacesCount;
+}
+// console.log(backspace_compare('xywrrmp', 'xywrrmuu##p'));
+
