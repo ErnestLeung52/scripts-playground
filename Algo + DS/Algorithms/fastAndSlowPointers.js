@@ -51,3 +51,25 @@ function calcCycleLength(slow) {
 	} while (current !== slow);
 	return cycle_length;
 }
+
+/* -------------- 2. Start of LinkedList Cycle  ------------------
+Given the head of a Singly LinkedList that contains a cycle, write a function to find the starting node of the cycle.
+*/
+var find_cycle_start = function (head) {
+	if (head === null || head === head.next) return head;
+	let slow = head,
+		fast = head,
+		pointer = head;
+	while (fast !== null && fast.next !== null) {
+		slow = slow.next;
+		fast = fast.next.next;
+		if (slow === fast) {
+			while (pointer !== slow) {
+				pointer = pointer.next;
+				slow = slow.next;
+			}
+			return pointer;
+		}
+	}
+	return null;
+};
