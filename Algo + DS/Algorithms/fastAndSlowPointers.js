@@ -116,3 +116,35 @@ const find_middle_of_linked_list = function (head) {
 	}
 	return slow;
 };
+
+/* -------------- 5. Palindrome LinkedList ------------------
+Given the head of a Singly LinkedList, write a method to check if the LinkedList is a palindrome or not.
+Your algorithm should use constant space and the input LinkedList should be in the original form once the algorithm is finished. The algorithm should have O(N)
+O(N) time complexity where ‘N’ is the number of nodes in the LinkedList.
+Input: 2 -> 4 -> 6 -> 4 -> 2 -> null
+Output: true
+*/
+const is_palindromic_linked_list = function (head) {
+	if (head === null || head.next === null) {
+		return true;
+	}
+	// Find middle of linked list
+	let slow = head,
+		fast = head;
+	while (fast !== null && fast.next !== null) {
+		slow = slow.next;
+		fast = fast.next.next;
+	}
+};
+// 1->2->3->4
+function reverseLL(head) {
+	let prev = null;
+	let next = null;
+	while (head !== null) {
+		next = head.next;
+		head.next = prev;
+		prev = head;
+		head = next;
+	}
+	return prev;
+}

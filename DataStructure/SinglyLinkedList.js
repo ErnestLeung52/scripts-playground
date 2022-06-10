@@ -141,7 +141,7 @@ LinkedList.prototype.getLength = function (list) {
   return length;
 };
 
-// Reverse
+// Reverse 1 -> 2 -> 3 -> 4
 LinkedList.prototype.reverse = function (list) {
   let previousNode = null,
     currentNode = list.getHead(),
@@ -154,14 +154,16 @@ LinkedList.prototype.reverse = function (list) {
     Make the current node the new previous so that it can be used for the next iteration 
     Use next to move on to the next node 
     */
-    nextNode = currentNode.nextElement;
-    currentNode.nextElement = previousNode;
-    previousNode = currentNode;
-    currentNode = nextNode;
+    nextNode = currentNode.nextElement; // 2, 3
+    currentNode.nextElement = previousNode; // 2 -> 1 -> null
+    previousNode = currentNode; // 1, 2
+    currentNode = nextNode; // 2, 3
   }
   list.setHead(previousNode);
   return list;
 };
+// 首先把将下一个node保存到next, 用于推进到下一个node, 而且之后指向将会指到 -> prev, 所以需要保存起来
+// 然后将current (也就是reverse的最后一个) 指向前一个node prev(null), 把current 保存到成prev, 再让current 等于下一个node
 
 // Detect Loop
 LinkedList.prototype.detectLoop = function (list) {
