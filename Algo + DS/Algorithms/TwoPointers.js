@@ -345,7 +345,6 @@ Given two strings containing backspaces (identified by the character ‘#’), c
 Input: str1="xy#z", str2="xzz#"
 Output: true
 */
-
 function backspace_compare(str1, str2) {
 	let index1 = str1.length - 1;
 	let index2 = str2.length - 1;
@@ -381,7 +380,6 @@ function handleBackspaces(str, index) {
 	// 	}
 	// 	index -= 1;
 	// }
-
 	while (str[index] === '#') {
 		backSpacesCount += 1;
 		index -= 1;
@@ -390,3 +388,46 @@ function handleBackspaces(str, index) {
 }
 // console.log(backspace_compare('xywrrmp', 'xywrrmuu##p'));
 
+/* -------------- 10. Minimum Window Sort  ------------------
+Given an array, find the length of the smallest subarray in it which when sorted will sort the whole array.
+Input: [1, 2, 5, 3, 7, 10, 9, 12]
+Output: 5
+*/
+const shortest_window_sort = function (arr) {
+	let low = 0,
+		high = arr.length - 1;
+
+	// Find the first number out of sorting order from the beginning
+	while (low < arr.length - 1 && arr[low] <= arr[low + 1]) {
+		low += 1; // 5
+	}
+	// Array is sorted
+	if (low === arr.length - 1) {
+		return 0;
+	}
+	// Find the first number out of sorting order from the end
+	while (high > 0 && arr[high] >= arr[high - 1]) {
+		high -= 1;
+	}
+
+	// Find the max and min in this subArray
+	let subArrayMax = -Infinity,
+		subArrayMin = Infinity;
+	for (let i = low; i < high + 1; i++) {
+		subArrayMax = Math.max(subArrayMax, arr[i]);
+		subArrayMin = Math.min(subArrayMin, arr[i]);
+	}
+
+	// Extend the subArray to include any number greater than the minimum of the subArray
+  // If there is number outside of the subArray that is greater than the min, we know that number is out of order too
+	while (low > 0 && arr[low - 1] > subArrayMin) {
+		low -= 1;
+	}
+	// Extend the subArray to include any number less than the max of the subArray
+	while (high < arr.length - 1 && arr[high + 1] < subArrayMax) {
+		high += 1;
+	}
+
+  return high - low + 1
+};
+// console.log(shortest_window_sort([1, 3, 2, 0, -1, 7, 10]));
