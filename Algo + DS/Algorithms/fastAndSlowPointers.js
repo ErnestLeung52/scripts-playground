@@ -135,6 +135,24 @@ const is_palindromic_linked_list = function (head) {
 		slow = slow.next;
 		fast = fast.next.next;
 	}
+
+	let headSecondHalf = reverseLL(slow);
+	// store the head of reversed part to revert back later
+	let copyHeadSecondHalf = headSecondHalf;
+
+	while (head !== null && headSecondHalf !== null) {
+		if (head.value !== headSecondHalf.value) {
+			break;
+		}
+		head = head.next;
+		headSecondHalf = headSecondHalf.next;
+	}
+	reverseLL(copyHeadSecondHalf);
+
+	if (head === null || headSecondHalf === null) {
+		return true;
+	}
+	return false;
 };
 // 1->2->3->4
 function reverseLL(head) {
