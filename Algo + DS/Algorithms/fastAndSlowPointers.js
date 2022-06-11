@@ -140,6 +140,9 @@ const is_palindromic_linked_list = function (head) {
 	// store the head of reversed part to revert back later
 	let copyHeadSecondHalf = headSecondHalf;
 
+	// The reverse function will unlink first half / second half, since midpoint is now point to null
+    // Then we can compare both
+
 	while (head !== null && headSecondHalf !== null) {
 		if (head.value !== headSecondHalf.value) {
 			break;
@@ -154,7 +157,6 @@ const is_palindromic_linked_list = function (head) {
 	}
 	return false;
 };
-// 1->2->3->4
 function reverseLL(head) {
 	let prev = null;
 	let next = null;
