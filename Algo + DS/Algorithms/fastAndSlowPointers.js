@@ -216,10 +216,7 @@ function reverse(head) {
 	}
 	return prev;
 }
-var head = new Node(2);
-head.next = new Node(4);
-head.next.next = new Node(6);
-head.next.next.next = new Node(8);
-head.next.next.next.next = new Node(10);
-head.next.next.next.next.next = new Node(12);
-reorder(head);
+
+/* -------------- 7. Cycle in a Circular Array ------------------
+We are given an array containing positive and negative numbers. Suppose the array contains a number ‘M’ at a particular index. Now, if ‘M’ is positive we will move forward ‘M’ indices and if ‘M’ is negative move backwards ‘M’ indices.
+*/
