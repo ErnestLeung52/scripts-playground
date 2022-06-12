@@ -9,7 +9,7 @@ class Interval {
 	}
 }
 
-/* ------ 1. Smallest Subarray With a Greater Sum ----- Leetcode 56
+/* ------ 1. Merge Interval ----- Leetcode 56
 Given a list of intervals, merge all the overlapping intervals to produce a list that has only mutually exclusive intervals.
 Intervals: [[1,4], [2,5], [7,9]]
 Output: [[1,5], [7,9]]
@@ -66,3 +66,36 @@ const mergedIntervals = (intervals) => {
 	return result;
 };
 // console.log(mergedIntervals([[1, 3],[2, 6],[8, 10],[15, 18],]));
+
+/* ------ 2. Insert Interval ----- Leetcode 57
+Given a list of non-overlapping intervals sorted by their start time, insert a given interval at the correct position and merge all necessary intervals to produce a list that has only mutually exclusive intervals.
+Input: Intervals=[[1,3], [5,7], [8,12]], New Interval=[4,6]
+Output: [[1,3], [4,7], [8,12]]
+*/
+
+const insertInterval = function (intervals, new_interval) {
+	if (intervals.length < 2) return intervals;
+
+	const result = [];
+
+	let i = 0;
+	// Push all the intervals that is less than new interval
+	while (i < intervals.length && intervals[i][1] < new_interval[0]) {
+		result.push(intervals[i]);
+		i++;
+	}
+	// Now all small intervals are handled, find merging
+	while (i < intervals.length && intervals[i][0] <= new_interval[1]) {
+		new_interval[0] = Math.min(new_interval[0], intervals[i][0]);
+		new_interval[1] = Math.max(new_interval[1], intervals[i][1]);
+		i++;
+	}
+	result.push(new_interval)
+
+	while (i < intervals.length && intervals[i][0] > new_interval[1]) {
+		result.push(intervals[i]);
+		i++;
+	}
+	return result;
+};
+// console.log(insertInterval([[1,3], [5,7], [8,12]], [4,7]));
