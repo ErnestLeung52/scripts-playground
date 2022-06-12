@@ -9,7 +9,7 @@ class Interval {
 	}
 }
 
-/*
+/* ------ 1. Smallest Subarray With a Greater Sum ----- Leetcode 56
 Given a list of intervals, merge all the overlapping intervals to produce a list that has only mutually exclusive intervals.
 Intervals: [[1,4], [2,5], [7,9]]
 Output: [[1,5], [7,9]]
@@ -39,7 +39,30 @@ const merge = function (intervals) {
 			end = interval.end;
 		}
 	}
-
 	mergedIntervals.push(new Interval(start, end));
 	return mergedIntervals;
 };
+// let result = merge([new Interval(1, 4), new Interval(2, 5), new Interval(7, 9)]);
+
+const mergedIntervals = (intervals) => {
+	if (intervals.length < 2) return intervals;
+
+	intervals.sort((a, b) => a[0] - b[0]);
+
+	const result = [];
+	let [start, end] = intervals[0];
+	// 8 , 10
+	for (let i = 1; i < intervals.length; i++) {
+		const interval = intervals[i];
+		if (interval[0] <= end) {
+			end = Math.max(interval[1], end);
+		} else {
+			result.push([start, end]);
+			start = interval[0];
+			end = interval[1];
+		}
+	}
+	result.push([start, end]);
+	return result;
+};
+// console.log(mergedIntervals([[1, 3],[2, 6],[8, 10],[15, 18],]));
