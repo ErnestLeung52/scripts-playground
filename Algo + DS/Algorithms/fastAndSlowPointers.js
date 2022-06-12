@@ -261,7 +261,7 @@ function find_next_index(arr, isForward, currentIndex) {
 
 	nextIndex = (currentIndex + arr[currentIndex]) % arr.length;
     currentIndex
-	console.log(nextIndex);
+	// console.log(nextIndex);
 	if (nextIndex < 0) {
 		nextIndex += arr.length; // wrap around for negative numbers
 	}
