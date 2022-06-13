@@ -139,7 +139,7 @@ function find_all_duplicates(nums) {
 	// Duplicate numbers will be swap to the start
 	while (i < nums.length) {
 		j = nums[i] - 1;
-		nums
+		nums;
 		if (nums[i] != nums[j]) {
 			[nums[i], nums[j]] = [nums[j], nums[i]]; // swap
 		} else {
@@ -155,5 +155,29 @@ function find_all_duplicates(nums) {
 	}
 	return duplicateNumbers;
 }
+// console.log(find_all_duplicates([3, 4, 4, 5, 5]));
 
-// console.log(find_all_duplicates([3, 4, 4, 5, 5])); 
+/*------------------------ 6. Find the Corrupt Pair (easy) ------------------------
+We are given an unsorted array containing ‘n’ numbers taken from the range 1 to ‘n’. The array originally contained all the numbers from 1 to ‘n’, but due to a data error, one of the numbers got duplicated which also resulted in one number going missing. Find both these numbers.
+Input: [3, 1, 2, 5, 2]
+Output: [2, 4]
+*/
+function find_corrupt_numbers(nums) {
+	let i = 0;
+	while (i < nums.length) {
+		let index = nums[i] - 1;
+
+		if (nums[i] !== nums[index]) {
+			[nums[i], nums[index]] = [nums[index], nums[i]];
+		} else {
+			i++;
+		}
+	}
+	for (let j = 0; j < nums.length; j++) {
+		if (nums[j] !== j + 1) {
+			return [nums[j], j + 1];
+		}
+	}
+	return [-1, -1];
+}
+// console.log(find_corrupt_numbers([3, 1, 2, 5, 2]));
