@@ -181,3 +181,27 @@ function find_corrupt_numbers(nums) {
 	return [-1, -1];
 }
 // console.log(find_corrupt_numbers([3, 1, 2, 5, 2]));
+
+/*------------------------ 6. Find the Smallest Missing Positive Number ------------------------
+Given an unsorted array containing numbers, find the smallest missing positive number in it.
+Input: [-3, 1, 5, 4, 2]
+Output: 3
+*/
+const find_first_smallest_missing_positive = function (nums) {
+	let i = 0;
+	while (i < nums.length) {
+		let index = nums[i] - 1;
+		if (nums[i] !== nums[index]) {
+			[nums[i], nums[index]] = [nums[index], nums[i]];
+		} else {
+			i++;
+		}
+	}
+	for (let j = 0; j < nums.length; j++) {
+		if (nums[j] !== j + 1) {
+			return j + 1;
+		}
+	}
+	return nums.length + 1;
+};
+// console.log(find_first_smallest_missing_positive([-3, 1, 5, 4, 2]));
