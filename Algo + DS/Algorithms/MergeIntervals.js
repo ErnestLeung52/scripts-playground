@@ -90,7 +90,7 @@ const insertInterval = function (intervals, new_interval) {
 		new_interval[1] = Math.max(new_interval[1], intervals[i][1]);
 		i++;
 	}
-	result.push(new_interval)
+	result.push(new_interval);
 
 	while (i < intervals.length && intervals[i][0] > new_interval[1]) {
 		result.push(intervals[i]);
@@ -99,3 +99,51 @@ const insertInterval = function (intervals, new_interval) {
 	return result;
 };
 // console.log(insertInterval([[1,3], [5,7], [8,12]], [4,7]));
+
+/* ------ 2. Intervals Intersection ----- Leetcode 986
+Given two lists of intervals, find the intersection of these two lists. Each list consists of disjoint intervals sorted on their start time.
+Input: arr1=[[1, 3], [5, 6], [7, 9]], arr2=[[2, 3], [5, 7]]
+Output: [2, 3], [5, 6], [7, 7]
+*/
+function intervalIntersection(firstList, secondList) {
+	// Strategy: compare two intervals and find the intersection with min max
+	let i = 0,
+		j = 0;
+	const res = [];
+	while (i < firstList.length && j < secondList.length) {
+		// Find the max of start and min of end in both list -> to try to see if there is an interaction
+		const start = Math.max(firstList[i][0], secondList[j][0]);
+		start;
+		const end = Math.min(firstList[i][1], secondList[j][1]);
+		end;
+		// if true, it is a valid intersection
+		if (start <= end) res.push([start, end]);
+		// If end of first list === min end of both list -> first list is now out of range, we move on to the next of firstList
+		if (firstList[i][1] == end) i++;
+		// If not true -> we are still wihtin firstList range, move on in secondList
+		else j++;
+	}
+	return res;
+}
+// const intervalIntersection = function (firstList, secondList) {
+// 	let firstCounter = 0,
+// 		secondCounter = 0;
+// 	let firstListLen = firstList.length;
+// 	let secondListLength = secondList.length;
+
+// 	let res = [];
+
+// 	while (firstCounter < firstListLen && secondCounter < secondListLength) {
+// 		let [start1, end1] = firstList[firstCounter];
+// 		let [start2, end2] = secondList[secondCounter];
+// 		// merge is only possible  by demorgan law
+// 		if (start1 <= end2 && start2 <= end1) {
+// 			res.push([Math.max(start1, start2), Math.min(end1, end2)]);
+// 		}
+
+// 		if (end1 > end2) secondCounter++;
+// 		else firstCounter++;
+// 	}
+// 	return res;
+// };
+// console.log(intervalIntersection([[1, 3], [5, 6], [7, 9]],[[2, 8]])); // [10,11]
