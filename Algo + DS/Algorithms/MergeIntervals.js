@@ -100,7 +100,7 @@ const insertInterval = function (intervals, new_interval) {
 };
 // console.log(insertInterval([[1,3], [5,7], [8,12]], [4,7]));
 
-/* ------ 2. Intervals Intersection ----- Leetcode 986
+/* ------ 3. Intervals Intersection ----- Leetcode 986
 Given two lists of intervals, find the intersection of these two lists. Each list consists of disjoint intervals sorted on their start time.
 Input: arr1=[[1, 3], [5, 6], [7, 9]], arr2=[[2, 3], [5, 7]]
 Output: [2, 3], [5, 6], [7, 7]
@@ -147,3 +147,20 @@ function intervalIntersection(firstList, secondList) {
 // 	return res;
 // };
 // console.log(intervalIntersection([[1, 3], [5, 6], [7, 9]],[[2, 8]])); // [10,11]
+
+/* ------ 4. Conflicting Appointments ----- 
+Given an array of intervals representing ‘N’ appointments, find out if a person can attend all the appointments.
+Appointments: [[1,4], [2,5], [7,9]]
+Output: false
+*/
+const can_attend_all_appointments = function (intervals) {
+	intervals.sort((a, b) => a[0] - b[0]);
+
+	for (let i = 0; i < intervals.length - 1; i++) {
+		if (intervals[i][1] > intervals[i + 1][0]) {
+			return false;
+		}
+	}
+	return true;
+};
+// console.log(can_attend_all_appointments([[4,5], [2,3], [3,6]]));
