@@ -148,7 +148,7 @@ function intervalIntersection(firstList, secondList) {
 // };
 // console.log(intervalIntersection([[1, 3], [5, 6], [7, 9]],[[2, 8]])); // [10,11]
 
-/* ------ 4. Conflicting Appointments ----- 
+/* ------ 4. Conflicting Appointments ----- LeetCode 435 (similar but more difficult)
 Given an array of intervals representing ‘N’ appointments, find out if a person can attend all the appointments.
 Appointments: [[1,4], [2,5], [7,9]]
 Output: false
@@ -164,3 +164,22 @@ const can_attend_all_appointments = function (intervals) {
 	return true;
 };
 // console.log(can_attend_all_appointments([[4,5], [2,3], [3,6]]));
+// const eraseOverlapIntervals = function(intervals) {
+//     intervals.sort((a,b) => a[1] - b[1]); // sort asc by end time
+//     console.log(intervals)
+//     let count = 0;
+//     let current = intervals[0];
+    
+//     for(let i = 1; i < intervals.length; i++) {
+//         if(intervals[i][0] < current[1]) count++; // increase count if overlapping
+//         else current = intervals[i];
+//     }
+    
+//     return count;
+// };
+
+/* ------ 5. Minimum Meeting Rooms ----- 
+Given a list of intervals representing the start and end time of ‘N’ meetings, find the minimum number of rooms required to hold all the meetings.
+Meetings: [[1,4], [2,5], [7,9]]
+Output: 2
+*/
