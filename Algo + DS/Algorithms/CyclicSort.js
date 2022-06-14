@@ -205,3 +205,33 @@ const find_first_smallest_missing_positive = function (nums) {
 	return nums.length + 1;
 };
 // console.log(find_first_smallest_missing_positive([-3, 1, 5, 4, 2]));
+
+/*------------------------ 7. Find the First K Missing Positive Numbers ------------------------
+Given an unsorted array containing numbers and a number ‘k’, find the first ‘k’ missing positive numbers in the array.
+Input: [3, -1, 4, 5, 5], k=3
+Output: [1, 2, 6]
+*/
+function find_first_k_missing_positive(nums, k) {
+	let i = 0;
+	while (i < nums.length) {
+		let index = nums[i] - 1;
+		if (nums[i] !== nums[index]) {
+			[nums[i], nums[index]] = [nums[index], nums[i]];
+		} else {
+			i++;
+		}
+	}
+
+	const missingNumbes = [];
+	let j = 0;
+	while (missingNumbes.length < k) {
+		if (nums[j] === undefined) {
+			missingNumbes.push(j + 1);
+		} else if (nums[j] !== j + 1) {
+			missingNumbes.push(j + 1);
+		}
+		j++;
+	}
+	return missingNumbes;
+}
+// console.log(find_first_k_missing_positive([-2, -3, 4], 2));
