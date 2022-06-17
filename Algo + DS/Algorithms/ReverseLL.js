@@ -66,7 +66,7 @@ function reverse_sub_list(head, p, q) {
 		current = next;
 		i += 1;
 	}
- 
+
 	// connect with the first part
 	if (last_node_of_first_part !== null) {
 		// 'previous' is now the first node of the sub-list
@@ -78,5 +78,46 @@ function reverse_sub_list(head, p, q) {
 
 	// connect with the last part
 	last_node_of_sub_list.next = current;
+	return head;
+}
+
+/* ----------- 3. Reverse every K-element Sub-list  ----------
+Given the head of a LinkedList and a number ‘k’, reverse every ‘k’ sized sub-list starting from the head.
+If, in the end, you are left with a sub-list with less than ‘k’ elements, reverse it too.
+*/
+function reverse_every_k_elements(head, k) {
+	if (k <= 1 || head === null) {
+		return head;
+	}
+	let current = head,
+		previous = null;
+	while (true) {
+		const last_node_of_previous_part = previous;
+		// after reversing the LinkedList 'current' will become the last node of the sub-list
+		const last_node_of_sub_list = current;
+		let next = null; // will be used to temporarily store the next node
+		let i = 0;
+		while (current !== null && i < k) {
+			// reverse 'k' nodes
+			next = current.next;
+			current.next = previous;
+			previous = current;
+			current = next;
+			i += 1;
+		}
+		// connect with the previous part
+		if (last_node_of_previous_part !== null) {
+			last_node_of_previous_part.next = previous;
+		} else {
+			head = previous;
+		}
+		// connect with the next part
+		last_node_of_sub_list.next = current;
+
+		if (current === null) {
+			break;
+		}
+		previous = last_node_of_sub_list;
+	}
 	return head;
 }
