@@ -65,13 +65,44 @@ const BFSreverse = function (root) {
 		}
 		result.unshift(currentLevel);
 	}
-    return result;
+	return result;
 };
 
-const root = new TreeNode(12);
-root.left = new TreeNode(7);
-root.right = new TreeNode(1);
-root.left.left = new TreeNode(9);
-root.right.left = new TreeNode(10);
-root.right.right = new TreeNode(5);
-console.log(BFSreverse(root));
+/*------------------- 3. Zigzag Traversal  ---------------------
+Given a binary tree, populate an array to represent its zigzag level order traversal. You should populate the values of all nodes of the first level from left to right, then right to left for the next level and keep alternating in the same manner for the following levels.
+*/
+const zigzag = function (root) {
+	const result = [];
+
+	if (root === null) return result;
+
+	const queue = [];
+	queue.push(root);
+	leftToRight = true;
+
+	while (queue.length > 0) {
+		const levelSize = queue.length;
+		const level = [];
+
+		for (let i = 0; i < levelSize; i++) {
+			const currentNode = queue.shift();
+			if (leftToRight) {
+				level.push(currentNode.val);
+			} else {
+				level.unshift(currentNode.val);
+			}
+
+			if (currentNode.left) {
+				queue.push(currentNode.left);
+			}
+			if (currentNode.right) {
+				queue.push(currentNode.right);
+			}
+		}
+
+		result.push(level);
+		leftToRight = !leftToRight;
+	}
+	return result;
+};
+
