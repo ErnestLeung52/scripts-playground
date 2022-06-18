@@ -173,3 +173,38 @@ function reverse_alternate_k_elements(head, k) {
 	}
 	return head;
 }
+
+/* ----------- 5. Rotate a LinkedList  ----------
+Given the head of a Singly LinkedList and a number ‘k’, rotate the LinkedList to the right by ‘k’ nodes.
+*/
+// 1 -> 2 -> 3 -> 4
+function rotate(head, rotations) {
+	if (head === null || head.next === null || rotations <= 0) {
+		return head;
+	}
+
+	// find the length and the last node of the list
+	let last_node = head;
+	let list_length = 1;
+	while (last_node.next !== null) {
+		last_node = last_node.next;
+		list_length += 1;
+	}
+	last_node.next = head; // connect the last node with the head to make it a circular list
+	rotations %= list_length; // no need to do rotations more than the length of the list
+
+	let skip_length = list_length - rotations;
+	let last_node_of_rotated_list = head;
+	for (i = 0; i < skip_length - 1; i++) {
+		last_node_of_rotated_list = last_node_of_rotated_list.next;
+	}
+
+	// Head of rotated list becomes the new head
+	// 'last_node_of_rotated_list.next' is pointing to the sub-list of 'k' ending nodes
+	head = last_node_of_rotated_list.next;
+	// Break the cycle
+	last_node_of_rotated_list.next = null;
+	return head;
+}
+
+
