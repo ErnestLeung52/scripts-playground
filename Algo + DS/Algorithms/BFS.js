@@ -120,7 +120,7 @@ const find_level_averages = function (root) {
 	queue.push(root);
 
 	while (queue.length > 0) {
-        // Need to fix levelSize because queue is constantly changing
+		// Need to fix levelSize because queue is constantly changing
 		const levelSize = queue.length;
 		let sum = 0;
 
@@ -137,5 +137,38 @@ const find_level_averages = function (root) {
 		}
 		result.push(sum / levelSize);
 	}
-    return result;
+	return result;
+};
+
+/*------------------- 5. Minimum Depth of a Binary Tree  ---------------------
+Find the minimum depth of a binary tree. The minimum depth is the number of nodes along the shortest path from the root node to the nearest leaf node.
+*/
+const find_minimum_depth = function (root) {
+	if (!root) return 0;
+
+	const queue = [];
+	queue.push(root);
+
+	let minimumDepth = 0;
+
+	while (queue.length > 0) {
+		const levelSize = queue.length;
+
+		minimumDepth += 1;
+
+		for (let i = 0; i < levelSize; i++) {
+			const currentNode = queue.shift();
+
+			if (!currentNode.left && !currentNode.right) {
+				return minimumDepth;
+			}
+
+			if (currentNode.left) {
+				queue.push(currentNode.left);
+			}
+			if (currentNode.right) {
+				queue.push(currentNode.right);
+			}
+		}
+	}
 };
