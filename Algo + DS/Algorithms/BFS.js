@@ -260,3 +260,62 @@ function connect_level_order_siblings(root) {
 		}
 	}
 }
+
+/*------------------- 8. Connect All Level Order Siblings  ---------------------
+Given a binary tree, connect each node with its level order successor. The last node of each level should point to the first node of the next level.
+*/
+const connect_all_siblings = function (root) {
+	if (!root) return null;
+
+	const queue = [];
+	queue.push(root);
+
+	let currentNode = null,
+		previousNode = null;
+
+	while (queue.length > 0) {
+		currentNode = queue.shift();
+
+		if (previousNode) {
+			previousNode.next = currentNode;
+		}
+
+		previousNode = currentNode;
+
+		if (currentNode.left) queue.push(currentNode.left);
+		if (currentNode.right) queue.push(currentNode.right);
+	}
+};
+
+/*------------------- 9. ConnectRight View of a Binary Tree  ---------------------
+Given a binary tree, return an array containing nodes in its right view. The right view of a binary tree is the set of nodes visible when the tree is seen from the right side.
+*/
+function tree_right_view(root) {
+	const result = [];
+
+	if (!root) return result;
+
+	const queue = [];
+	queue.push(root);
+
+	while (queue.length > 0) {
+		const levelSize = queue.length;
+		// const level = [];
+
+		for (let i = 0; i < levelSize; i++) {
+			const currentNode = queue.shift();
+
+			// level.push(currentNode.val);
+            if (i === levelSize - 1) {
+                result.push(currentNode.val)
+            }
+
+			if (currentNode.left) queue.push(currentNode.left);
+			if (currentNode.right) queue.push(currentNode.right);
+		}
+
+		// result.push(level[level.length - 1]);
+	}
+	return result;
+}
+
