@@ -200,3 +200,32 @@ const find_maximum_depth = function (root) {
 	return maxDepth;
 };
 
+/*------------------- 6. Level Order Successor  ---------------------
+Given a binary tree and a node, find the level order successor of the given node in the tree. The level order successor is the node that appears right after the given node in the level order traversal.
+*/
+const find_successor = function (root, key) {
+	if (!root) return null;
+
+	const queue = [];
+	queue.push(root);
+
+	while (queue.length > 0) {
+		const currentNode = queue.shift();
+
+		if (currentNode.left) {
+			queue.push(currentNode.left);
+		}
+		if (currentNode.right) {
+			queue.push(currentNode.right);
+		}
+
+		if (currentNode.val === key) {
+			break;
+		}
+	}
+
+	if (queue.length > 0) {
+		return queue.shift();
+	}
+	return null;
+};
