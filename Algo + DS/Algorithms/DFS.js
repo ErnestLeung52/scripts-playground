@@ -96,3 +96,39 @@ const find_path = function (root, sequence) {
 	return dfs(root);
 };
 
+/*------------------- 5. Count Paths for a Sum --------------------- Leetcode 437
+Given a binary tree and a number ‘S’, find all paths in the tree such that the sum of all the node values of each path equals ‘S’. Please note that the paths can start or end at any node but all paths must follow direction from parent to child (top to bottom).
+*/
+const count_paths = function (root, S) {
+	if (!root) return 0;
+	let result = 0;
+
+	const helper = (node, tempSum) => {
+		if (!node) return;
+
+		tempSum += node.value;
+		if (tempSum === S) {
+			result += 1;
+		}
+		console.log(tempSum);
+		return helper(node.left, tempSum) || helper(node.right, tempSum);
+	};
+
+	const inOrderDfs = (node) => {
+		if (!node) return;
+
+		if (node.left) inOrderDfs(node.left);
+
+		helper(node, 0);
+        console.log(node.value);
+
+		if (node.right) inOrderDfs(node.right);
+	};
+
+	inOrderDfs(root);
+	return result;
+};
+// In-order traversal. From the most left leaf node, we will add the value to tempSum then check if it has child to add it to tempSum
+// Thnk of it as two for loops, inOrderDfs to traverse all nodes, inner loop helper to find all potential sum going downward
+
+
