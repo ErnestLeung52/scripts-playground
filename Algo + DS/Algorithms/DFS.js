@@ -120,7 +120,7 @@ const count_paths = function (root, S) {
 		if (node.left) inOrderDfs(node.left);
 
 		helper(node, 0);
-        console.log(node.value);
+		console.log(node.value);
 
 		if (node.right) inOrderDfs(node.right);
 	};
@@ -131,4 +131,31 @@ const count_paths = function (root, S) {
 // In-order traversal. From the most left leaf node, we will add the value to tempSum then check if it has child to add it to tempSum
 // Thnk of it as two for loops, inOrderDfs to traverse all nodes, inner loop helper to find all potential sum going downward
 
+/*------------------- 6. Tree Diameter ---------------------
+Given a binary tree, find the length of its diameter. The diameter of a tree is the number of nodes on the longest path between any two leaf nodes. The diameter of a tree may or may not pass through the root.
 
+Note: You can always assume that there are at least two leaf nodes in the given tree.
+*/
+function find_diameter(root) {
+	let diameter = 0;
+
+	function helper(node) {
+		if (!node) return 0;
+        console.log(node.value);
+                                              // 4 2 5 6 3 1
+		const leftPath = helper(node.left);   // 0 1 0 0 1 2
+		const rightPath = helper(node.right); // 0 0 0 0 1 2
+		
+        diameter = Math.max(diameter, leftPath + rightPath);
+		return Math.max(leftPath, rightPath) + 1;
+	}
+	helper(root);
+	return diameter;
+}
+// const root = new TreeNode(1);
+// root.left = new TreeNode(2);
+// root.right = new TreeNode(3);
+// root.left.left = new TreeNode(4);
+// root.right.left = new TreeNode(5);
+// root.right.right = new TreeNode(6);
+// console.log(find_diameter(root));
