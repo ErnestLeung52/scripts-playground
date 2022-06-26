@@ -159,3 +159,6 @@ function find_diameter(root) {
 // root.right.left = new TreeNode(5);
 // root.right.right = new TreeNode(6);
 // console.log(find_diameter(root));
+
+/*------------------- 7. Path with Maximum Sum ---------------------
+*/
