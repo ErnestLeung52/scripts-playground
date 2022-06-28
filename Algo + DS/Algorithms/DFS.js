@@ -141,12 +141,12 @@ function find_diameter(root) {
 
 	function helper(node) {
 		if (!node) return 0;
-        console.log(node.value);
-                                              // 4 2 5 6 3 1
-		const leftPath = helper(node.left);   // 0 1 0 0 1 2
+		console.log(node.value);
+		// 4 2 5 6 3 1
+		const leftPath = helper(node.left); // 0 1 0 0 1 2
 		const rightPath = helper(node.right); // 0 0 0 0 1 2
-		
-        diameter = Math.max(diameter, leftPath + rightPath);
+
+		diameter = Math.max(diameter, leftPath + rightPath);
 		return Math.max(leftPath, rightPath) + 1;
 	}
 	helper(root);
@@ -160,6 +160,23 @@ function find_diameter(root) {
 // root.right.right = new TreeNode(6);
 // console.log(find_diameter(root));
 
-/*------------------- 7. Path with Maximum Sum ---------------------
-
+/*------------------- 7. Path with Maximum Sum --------------------- Leetcode 124
+Find the path with the maximum sum in a given binary tree. Write a function that returns the maximum sum.
+A path can be defined as a sequence of nodes between any two nodes and doesn’t necessarily pass through the root. The path must contain at least one node.
 */
+var maxPathSum = function (root) {
+	let largest = -Infinity;
+
+	function dfs(node) {
+		if (!node) return 0;
+
+		let leftSum = dfs(node.left);
+		let rightSum = dfs(node.right);
+
+		largest = Math.max(largest, node.value + leftSum + rightSum);
+		return Math.max(0, node.value + leftSum, node.value + rightSum);
+	}
+
+	dfs(root);
+	return largest;
+};
