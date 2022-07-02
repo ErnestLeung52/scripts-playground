@@ -101,8 +101,8 @@ const find_permutations_dfs = function (nums) {
 const find_permutations_bfs = function (nums) {
 	let numsLength = nums.length,
 		result = [],
-		permutations = [];
-	permutations.push([]);
+		permutations = [[]];
+
 	for (let i = 0; i < nums.length; i++) {
 		const currentNumber = nums[i];
 		// we will take all existing permutations and add the current number to create new permutations
