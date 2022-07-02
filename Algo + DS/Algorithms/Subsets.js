@@ -21,7 +21,7 @@ const find_subsets = function (nums) {
 };
 // console.log(find_subsets([1, 5, 3]));
 
-/*------------------- P2. Subsets With Duplicates  --------------------- 
+/*------------------- P2. Subsets With Duplicates  --------------------- Leetcode 90
 Given a set of numbers that might contain duplicates, find all of its distinct subsets.
 */
 const find_subsets_dup = function (nums) {
@@ -73,3 +73,28 @@ const find_subsets_dup_2 = function (nums) {
 	return subsets;
 };
 // console.log(find_subsets_dup_2([1, 5, 3, 3]));
+
+/*------------------- P3. Permutations  --------------------- 
+Given a set of distinct numbers, find all of its permutations.
+*/
+const find_permutations_dfs = function (nums) {
+	const result = [];
+
+	const dfs = (i, nums) => {
+		if (i === nums.length) {
+			result.push(nums.slice());
+			return;
+		}
+
+		for (let j = i; j < nums.length; j++) {
+			[nums[i], nums[j]] = [nums[j], nums[i]];
+			dfs(i + 1, nums);
+            [nums[i], nums[j]] = [nums[j], nums[i]];
+		}
+	};
+
+	dfs(0, nums);
+	return result;
+};
+// console.log(find_permutations([1,2,3]));
+
