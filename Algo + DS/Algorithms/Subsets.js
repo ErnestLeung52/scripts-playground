@@ -96,7 +96,7 @@ const find_permutations_dfs = function (nums) {
 	dfs(0, nums);
 	return result;
 };
-// console.log(find_permutations([1,2,3]));
+// console.log(find_permutations_dfs([1,2,3]));
 
 const find_permutations_bfs = function (nums) {
 	let numsLength = nums.length,
