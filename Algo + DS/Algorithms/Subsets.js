@@ -103,19 +103,24 @@ const find_permutations_bfs = function (nums) {
 		result = [],
 		permutations = [[]];
 
+	// 1st loop to iterate through nums arr
 	for (let i = 0; i < nums.length; i++) {
 		const currentNumber = nums[i];
 		// we will take all existing permutations and add the current number to create new permutations
 		const n = permutations.length;
+		// 2nd loop to construct permutation options
 		for (let p = 0; p < n; p++) {
 			const oldPermutation = permutations.shift();
+			// 3rd loop to insert element in permutation options
 			// create a new permutation by adding the current number at every position
+			// length + 1 because we are inserting new element, we can place element in an extra position
 			for (let j = 0; j < oldPermutation.length + 1; j++) {
 				const newPermutation = oldPermutation.slice(0); // clone the permutation
 				newPermutation.splice(j, 0, currentNumber); // insert currentNumber at index 'j'
 				if (newPermutation.length === numsLength) {
 					result.push(newPermutation);
 				} else {
+					// if length does not match, push to permutations to continously add numbers to it
 					permutations.push(newPermutation);
 				}
 			}
@@ -123,4 +128,4 @@ const find_permutations_bfs = function (nums) {
 	}
 	return result;
 };
-// console.log(find_permutations_bfs([1,2]));
+// console.log(find_permutations_bfs([1, 3, 5]));
