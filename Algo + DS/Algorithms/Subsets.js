@@ -118,6 +118,7 @@ const find_permutations_bfs = function (nums) {
 		const n = permutations.length;
 		// 2nd loop to construct permutation options
 		for (let p = 0; p < n; p++) {
+            // 把没有建造完成的permu 从queue 提取出来当做一个copy
 			const oldPermutation = permutations.shift();
 			// 3rd loop to insert element in permutation options
 			// create a new permutation by adding the current number at every position
