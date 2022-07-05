@@ -5,12 +5,12 @@ const find_subsets = function (nums) {
 	const subsets = [];
 	// start by adding the empty subset
 	subsets.push([]);
-    // 1st loop: iterate through nums
+	// 1st loop: iterate through nums
 	for (i = 0; i < nums.length; i++) {
 		currentNumber = nums[i];
 		// we will take all existing subsets and insert the current number in them to create new subsets
 		const n = subsets.length;
-        // 2nd loop: iterate through all the combination in subsets so we can add a new element to each of subArr
+		// 2nd loop: iterate through all the combination in subsets so we can add a new element to each of subArr
 		for (j = 0; j < n; j++) {
 			// create a new subset from the existing subset and insert the current element to it
 			const set1 = subsets[j].slice(); // clone the permutation
@@ -78,19 +78,25 @@ const find_subsets_dup_2 = function (nums) {
 
 /*------------------- P3. Permutations  --------------------- N * N!
 Given a set of distinct numbers, find all of its permutations.
+      1    2    3
+   123    213    312
+123 132 213 231 312 321
 */
 const find_permutations_dfs = function (nums) {
 	const result = [];
 
 	const dfs = (i, nums) => {
+		// Base level: reach leaf level make a copy and push
 		if (i === nums.length) {
 			result.push(nums.slice());
 			return;
 		}
-
+        // Need to increase j even after every dfs call
 		for (let j = i; j < nums.length; j++) {
-			[nums[i], nums[j]] = [nums[j], nums[i]];
-			dfs(i + 1, nums);
+			// Swapping number
+			[nums[j], nums[i]] = [nums[i], nums[j]]; // j = 1 i= 0
+			dfs(i + 1, nums); // dfs(0 + 1) j = 2 i = 1
+			// Revert back the number
 			[nums[i], nums[j]] = [nums[j], nums[i]];
 		}
 	};
@@ -98,7 +104,7 @@ const find_permutations_dfs = function (nums) {
 	dfs(0, nums);
 	return result;
 };
-// console.log(find_permutations_dfs([1,2,3]));
+// console.log(find_permutations_dfs([1, 2, 3]));
 
 const find_permutations_bfs = function (nums) {
 	let numsLength = nums.length,
@@ -291,11 +297,11 @@ class TreeNode {
 	}
 }
 function find_unique_trees(n) {
-    if (n <= 0) {
-      return [];
-    }
-    return findUnique_trees_recursive(1, n);
-  }
+	if (n <= 0) {
+		return [];
+	}
+	return findUnique_trees_recursive(1, n);
+}
 function findUnique_trees_recursive(start, end) {
 	const result = [];
 	// base condition, return 'null' for an empty sub-tree
