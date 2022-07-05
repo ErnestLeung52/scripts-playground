@@ -216,6 +216,13 @@ const generateParenthesis_bfs = function (n) {
 };
 
 // N * 2^N
+/*
+              0
+              (
+       ((            ()
+    (((,(()         ()(
+  (((),(()(,(())   ()((,()() 
+*/
 const generateParenthesis_dfs = function (n) {
 	const result = [];
 
