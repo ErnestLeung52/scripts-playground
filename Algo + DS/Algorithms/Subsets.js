@@ -91,7 +91,7 @@ const find_permutations_dfs = function (nums) {
 			result.push(nums.slice());
 			return;
 		}
-        // Need to increase j even after every dfs call
+		// Need to increase j even after every dfs call
 		for (let j = i; j < nums.length; j++) {
 			// Swapping number
 			[nums[j], nums[i]] = [nums[i], nums[j]]; // j = 1 i= 0
@@ -118,7 +118,7 @@ const find_permutations_bfs = function (nums) {
 		const n = permutations.length;
 		// 2nd loop to construct permutation options
 		for (let p = 0; p < n; p++) {
-            // 把没有建造完成的permu 从queue 提取出来当做一个copy
+			// 把没有建造完成的permu 从queue 提取出来当做一个copy
 			const oldPermutation = permutations.shift();
 			// 3rd loop to insert element in permutation options
 			// create a new permutation by adding the current number at every position
@@ -141,6 +141,7 @@ const find_permutations_bfs = function (nums) {
 
 /*------------------- P4. String Permutations by changing case  --------------------- N * 2^N
 Given a string, find all of its permutations preserving the character sequence but changing case
+Tips: tree structure, copy from first level add modified to second level + previous level
 */
 function find_letter_case_string_permutations(str) {
 	const permutations = [];
@@ -152,6 +153,7 @@ function find_letter_case_string_permutations(str) {
 		if (isNaN(parseInt(str[i], 10))) {
 			// Take all existing permutations and change the letter case appropriately
 			const n = permutations.length;
+			// Loop through all case sets from permutations, for each of them, convert to arr and check for the corresponding character from the set to see whether it is upper/lower
 			for (let j = 0; j < n; j++) {
 				const chs = permutations[j].split(''); // string to Arr
 				// if the current char is in upper case, change to lower or vice versa
