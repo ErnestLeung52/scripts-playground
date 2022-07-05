@@ -130,6 +130,9 @@ const find_permutations_bfs = function (nums) {
 };
 // console.log(find_permutations_bfs([1, 3, 5]));
 
+/*------------------- P4. String Permutations by changing case  --------------------- N * 2^N
+Given a string, find all of its permutations preserving the character sequence but changing case
+*/
 function find_letter_case_string_permutations(str) {
 	const permutations = [];
 	permutations.push(str);
