@@ -158,3 +158,52 @@ function find_letter_case_string_permutations(str) {
 	return permutations;
 }
 // console.log(find_letter_case_string_permutations('ab7c'));
+
+/*------------------- P5. Balanced Parentheses --------------------- Leetcode 22
+For a given number ‘N’, write a function to generate all combination of ‘N’ pairs of balanced parentheses.
+*/
+class ValidParenthesis {
+	constructor(string, openCounts, closeCounts) {
+		(this.string = string),
+			(this.openCounts = openCounts),
+			(this.closeCounts = closeCounts);
+	}
+}
+// As long as open count < n, we add '(';
+// As long as close count < open count, we add ')';
+const generateParenthesis_bfs = function (n) {
+	const result = [];
+	const queue = [];
+	queue.push(new ValidParenthesis('', 0, 0));
+
+	while (queue.length > 0) {
+		//console.log('queue', queue)
+		const currentSub = queue.shift();
+		if (currentSub.openCounts === n && currentSub.closeCounts === n) {
+			result.push(currentSub.string);
+		}
+		if (currentSub.openCounts < n) {
+			queue.push(
+				new ValidParenthesis(
+					`${currentSub.string}(`,
+					currentSub.openCounts + 1,
+					currentSub.closeCounts
+				)
+			);
+		}
+		if (currentSub.closeCounts < currentSub.openCounts) {
+			queue.push(
+				new ValidParenthesis(
+					`${currentSub.string})`,
+					currentSub.openCounts,
+					currentSub.closeCounts + 1
+				)
+			);
+		}
+	}
+	return result;
+};
+
+const generateParenthesis_dfs = function (n) {
+    
+}
