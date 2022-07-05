@@ -227,3 +227,49 @@ const generateParenthesis_dfs = function (n) {
 	return result;
 };
 // console.log(generateParenthesis_dfs(2));
+
+/*------------------- P6. Unique Generalized Abbreviations ---------------------
+Given a word, write a function to generate all of its unique generalized abbreviations.
+Input: "BAT"
+Output: "BAT", "BA1", "B1T", "B2", "1AT", "1A1", "2T", "3"
+*/
+class AbbreviatedWord {
+	constructor(str, start, count) {
+		this.str = str;
+		this.start = start;
+		this.count = count;
+	}
+}
+function generate_generalized_abbreviation(word) {
+	let wordLen = word.length,
+		result = [];
+	const queue = [];
+	queue.push(new AbbreviatedWord('', 0, 0));
+	while (queue.length > 0) {
+		const abWord = queue.shift();
+		if (abWord.start === wordLen) {
+			if (abWord.count !== 0) {
+				abWord.str += abWord.count;
+			}
+			result.push(abWord.str);
+		} else {
+			// continue abbreviating by incrementing the current abbreviation count
+			queue.push(
+				new AbbreviatedWord(
+					abWord.str,
+					abWord.start + 1,
+					abWord.count + 1
+				)
+			);
+
+			// restart abbreviating, append the count and the current character to the string
+			if (abWord.count !== 0) {
+				abWord.str += abWord.count;
+			}
+
+			let newWord = abWord.str + word[abWord.start];
+			queue.push(new AbbreviatedWord(newWord, abWord.start + 1, 0));
+		}
+	}
+	return result;
+}
