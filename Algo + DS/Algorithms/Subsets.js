@@ -204,6 +204,26 @@ const generateParenthesis_bfs = function (n) {
 	return result;
 };
 
+// N * 2^N
 const generateParenthesis_dfs = function (n) {
-    
-}
+	const result = [];
+
+	const dfs = (str, open, close) => {
+		// Backtracking case: number of ')' can't be more than number of '('
+		if (open < close) return;
+
+		// Base case: there are n number of open and close parenthesis
+		if (open === n && close === n) {
+			result.push(str);
+			return;
+		}
+
+		// DFS traversal
+		if (open < n) dfs(str + '(', open + 1, close);
+		if (close < n) dfs(str + ')', open, close + 1);
+	};
+
+	dfs('', 0, 0);
+	return result;
+};
+// console.log(generateParenthesis_dfs(2));
