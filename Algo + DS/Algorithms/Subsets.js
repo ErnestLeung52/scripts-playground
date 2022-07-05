@@ -74,7 +74,7 @@ const find_subsets_dup_2 = function (nums) {
 };
 // console.log(find_subsets_dup_2([1, 5, 3, 3]));
 
-/*------------------- P3. Permutations  --------------------- 
+/*------------------- P3. Permutations  --------------------- N * N!
 Given a set of distinct numbers, find all of its permutations.
 */
 const find_permutations_dfs = function (nums) {
@@ -129,3 +129,29 @@ const find_permutations_bfs = function (nums) {
 	return result;
 };
 // console.log(find_permutations_bfs([1, 3, 5]));
+
+function find_letter_case_string_permutations(str) {
+	const permutations = [];
+	permutations.push(str);
+
+	// Process every character of the string one by one
+	for (let i = 0; i < str.length; i++) {
+		// Process only characters, skip digits
+		if (isNaN(parseInt(str[i], 10))) {
+			// Take all existing permutations and change the letter case appropriately
+			const n = permutations.length;
+			for (let j = 0; j < n; j++) {
+				const chs = permutations[j].split(''); // string to Arr
+				// if the current char is in upper case, change to lower or vice versa
+				if (chs[i] === chs[i].toLowerCase()) {
+					chs[i] = chs[i].toUpperCase();
+				} else {
+					chs[i] = chs[i].toLowerCase();
+				}
+				permutations.push(chs.join(''));
+			}
+		}
+	}
+	return permutations;
+}
+// console.log(find_letter_case_string_permutations('ab7c'));
