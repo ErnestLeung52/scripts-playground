@@ -203,7 +203,7 @@ const search_min_diff_element = function (arr, key) {
 	}
 };
 
-/* -------------- 6. Bitonic Array Maximum  ------------------
+/* -------------- 7. Bitonic Array Maximum  ------------------
 Find the maximum value in a given Bitonic array. An array is considered bitonic if it is monotonically increasing and then monotonically decreasing. Monotonically increasing or decreasing means that for any index i in the array arr[i] != arr[i+1].
 Input: [1, 3, 8, 9, 10, 12, 4, 2]
 Output: 12
@@ -214,14 +214,64 @@ function find_max_in_bitonic_array(arr) {
 
 	while (start < end) {
 		mid = Math.floor(start + (end - start) / 2);
-        // 因为我们在找max, 所以, 当数字在减少时 (mid > mid+1), 当前的mid 肯定就是最大的, 所以缩小 end 的范围
-		if (arr[mid] > arr[mid] + 1) {
+		// 因为我们在找max, 所以, 当数字在减少时 (mid > mid+1), 当前的mid 肯定就是最大的, 所以缩小 end 的范围
+		if (arr[mid] > arr[mid + 1]) {
 			end = mid;
-		} else { // 相反, 数字增加时, 当前最后一个数肯定是最大的, 所以start 往右砍一刀
+		} else {
+			// 相反, 数字增加时, 当前最后一个数肯定是最大的, 所以start 往右砍一刀
 			start = mid + 1;
 		}
 	}
 	// at the end of the while loop, 'start === end'
-    // start 是最接近最大的, 因为start 在不停地递增
+	// start 是最接近最大的, 因为start 在不停地递增
 	return arr[start];
+}
+
+/* -------------- 8. Search Bitonic Array  ------------------
+Given a Bitonic array, find if a given ‘key’ is present in it.
+Write a function to return the index of the ‘key’. If the ‘key’ is not present, return -1.
+Input: [1, 3, 8, 4, 3], key=4
+Output: 3
+*/
+function search_bitonic_array(arr, key) {
+	const maxIndex = find_max(arr);
+	const keyIndex = binary_search_agnostic(arr, key, 0, maxIndex);
+	if (keyIndex !== -1) {
+		return keyIndex;
+	} else {
+		return binary_search_agnostic(arr, key, maxIndex + 1, arr.length - 1);
+	}
+}
+
+function find_max(arr) {
+	let start = 0,
+		end = arr.length - 1;
+
+	while (start < end) {
+		let mid = Math.floor(start + (end - start) / 2);
+
+		if (arr[mid] > arr[mid + 1]) {
+			end = mid;
+		} else {
+			start = mid + 1;
+		}
+	}
+	return start;
+}
+
+function binary_search_agnostic(arr, key, start, end) {
+	while (start <= end) {
+		let mid = Math.floor(start + (end - start) / 2);
+
+		if (arr[mid] === key) {
+			return mid;
+		}
+		// Check if it's in ascending order
+		if (arr[start] < arr[end]) {
+			key < arr[mid] ? (end = mid - 1) : (start = mid + 1);
+		} else {
+			key < mid[mid] ? (start = mid + 1) : (end = mid - 1);
+		}
+	}
+	return -1;
 }
