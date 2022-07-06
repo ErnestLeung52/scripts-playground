@@ -133,7 +133,7 @@ function binary_search_range(arr, key, findMaxIndex) {
 }
 // console.log(find_range([4, 6, 6, 6, 9], 6));
 
-/* -------------- 6. Search in a Sorted Infinite Array ------------------
+/* -------------- 5. Search in a Sorted Infinite Array ------------------
 Given an infinite sorted array (or an array with unknown size), find if a given number ‘key’ is present in the array. Write a function to return the index of the ‘key’ if it is present in the array, otherwise return -1.
 
 Since it is not possible to define an array with infinite (unknown) size, you will be provided with an interface ArrayReader to read elements of the array. ArrayReader.get(index) will return the number at index; if the array’s size is smaller than the index, it will return Integer.MAX_VALUE.
@@ -168,7 +168,7 @@ function binary_search_infinite(arr, key, start, end) {
 }
 // console.log(search_in_infinite_array([4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30], 10));
 
-/* -------------- 7. Minimum Difference Element  ------------------
+/* -------------- 6. Minimum Difference Element  ------------------
 Given an array of numbers sorted in ascending order, find the element in the array that has the minimum difference with the given ‘key’.
 Input: [1, 3, 8, 10, 15], key = 12
 Output: 10
