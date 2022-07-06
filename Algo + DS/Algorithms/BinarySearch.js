@@ -275,3 +275,42 @@ function binary_search_agnostic(arr, key, start, end) {
 	}
 	return -1;
 }
+
+/* -------------- 9.1 Search in Rotated Array  ------------------
+Given an array of numbers which is sorted in ascending order and also rotated by some arbitrary number, find if a given ‘key’ is present in it.
+Write a function to return the index of the ‘key’ in the rotated array. If the ‘key’ is not present, return -1. You can assume that the given array does not have any duplicates.
+Input: [4, 5, 7, 9, 10, -1, 2, 3], key = 10
+Output: 4
+*/
+function search_rotated_array(arr, key) {
+	let start = 0;
+	let end = arr.length - 1;
+	while (start <= end) {
+		mid = Math.floor(start + (end - start) / 2);
+		if (arr[mid] === key) {
+			return mid;
+		}
+
+		// start --> middle are sorted in ascending order
+		if (arr[start] <= arr[mid]) {
+			// key is within the start-mid range
+			if (key >= arr[start] && key < arr[mid]) {
+				end = mid - 1;
+			} else {
+				// key > arr[mid]
+				start = mid + 1;
+			}
+			// middle --> end are sorted in ascending order
+		} else {
+			// In the sorted part
+			if (key > arr[mid] && key <= arr[end]) {
+				start = mid + 1;
+				// Not in sorted part so we cut out the sorted part
+			} else {
+				end = mid - 1;
+			}
+		}
+	}
+	// we are not able to find the element in the given array
+	return -1;
+}
