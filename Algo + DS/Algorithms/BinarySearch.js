@@ -30,3 +30,6 @@ const binary_search = function (arr, key) {
 	}
     return - 1;
 };
+
+/* -------------- 2. Ceiling of a Number ------------------
+*/
