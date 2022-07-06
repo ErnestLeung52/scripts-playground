@@ -38,25 +38,29 @@ Input: [1, 3, 8, 10, 15, 16, 17], key = 14
 Output: 4
 */
 function search_ceiling_of_a_number(arr, key) {
-	if (key > arr[arr.length - 1]) {
+	if (key < arr[0]) {
+		// if the 'key' is smaller than the smallest element
 		return -1;
 	}
 
-	let start = 0,
-		end = arr.length - 1;
-
+	let start = 0;
+	let end = arr.length - 1;
 	while (start <= end) {
-		let mid = Math.floor((start + end) / 2);
-
-		if (arr[mid] === key) {
-			return mid;
-		}
-
+		mid = Math.floor(start + (end - start) / 2);
 		if (key < arr[mid]) {
 			end = mid - 1;
-		} else {
+		} else if (key > arr[mid]) {
 			start = mid + 1;
+		} else {
+			// found the key
+			return mid;
 		}
 	}
-	return start;
+
+	// since the loop is running until 'start <= end', so at the end of the while loop, 'start === end+1'
+	// we are not able to find the element in the given array, so the next smaller number will be arr[end]
+	return end;
 }
+
+/* -------------- 3. Ceiling of a Number ------------------
+ */
