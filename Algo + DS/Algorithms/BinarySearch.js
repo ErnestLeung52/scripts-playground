@@ -202,3 +202,26 @@ const search_min_diff_element = function (arr, key) {
 		return arr[end];
 	}
 };
+
+/* -------------- 6. Bitonic Array Maximum  ------------------
+Find the maximum value in a given Bitonic array. An array is considered bitonic if it is monotonically increasing and then monotonically decreasing. Monotonically increasing or decreasing means that for any index i in the array arr[i] != arr[i+1].
+Input: [1, 3, 8, 9, 10, 12, 4, 2]
+Output: 12
+*/
+function find_max_in_bitonic_array(arr) {
+	let start = 0,
+		end = arr.length - 1;
+
+	while (start < end) {
+		mid = Math.floor(start + (end - start) / 2);
+        // 因为我们在找max, 所以, 当数字在减少时 (mid > mid+1), 当前的mid 肯定就是最大的, 所以缩小 end 的范围
+		if (arr[mid] > arr[mid] + 1) {
+			end = mid;
+		} else { // 相反, 数字增加时, 当前最后一个数肯定是最大的, 所以start 往右砍一刀
+			start = mid + 1;
+		}
+	}
+	// at the end of the while loop, 'start === end'
+    // start 是最接近最大的, 因为start 在不停地递增
+	return arr[start];
+}
