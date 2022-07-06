@@ -324,8 +324,10 @@ function findUnique_trees_recursive(start, end) {
 	}
 
 	for (let i = start; i < end + 1; i++) {
-		// making 'i' the root of the tree
-		const leftSubtrees = findUnique_trees_recursive(start, i - 1);
+        // making 'i' the root of the tree
+        // i === start, i - 1 means these numbers will be on the left of the root/bst
+        // if root is at 5, then left is 1-4, right is 6 - n
+		const leftSubtrees = findUnique_trees_recursive(start, i - 1); 
 		const rightSubtrees = findUnique_trees_recursive(i + 1, end);
 		for (let p = 0; p < leftSubtrees.length; p++) {
 			for (let q = 0; q < rightSubtrees.length; q++) {
