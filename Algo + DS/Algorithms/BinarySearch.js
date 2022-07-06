@@ -167,3 +167,38 @@ function binary_search_infinite(arr, key, start, end) {
 	return -1;
 }
 // console.log(search_in_infinite_array([4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30], 10));
+
+/* -------------- 7. Minimum Difference Element  ------------------
+Given an array of numbers sorted in ascending order, find the element in the array that has the minimum difference with the given ‘key’.
+Input: [1, 3, 8, 10, 15], key = 12
+Output: 10
+*/
+const search_min_diff_element = function (arr, key) {
+	const n = arr.length - 1;
+	if (key < arr[0]) return arr[0];
+	if (key > arr[n]) return arr[n];
+
+	let start = 0,
+		end = n;
+
+	while (start <= end) {
+		let mid = Math.floor(start + (end - start) / 2);
+
+		if (arr[mid] === key) {
+			return arr[mid];
+		} else if (key < arr[mid]) {
+			end = mid - 1;
+		} else {
+			start = mid + 1;
+		}
+	}
+	// at the end of the while loop, 'start === end+1'
+	// we are not able to find the element in the given array
+	// return the element which is closest to the 'key'
+
+	if (arr[start] - key < key - arr[end]) {
+		return arr[start];
+	} else {
+		return arr[end];
+	}
+};
