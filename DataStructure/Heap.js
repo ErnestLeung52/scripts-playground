@@ -51,6 +51,7 @@ class maxHeap {
 	}
 
 	// restores the heap property by swapping the value at a parent node if it is less than the value at a child node. After swapping, the function is called recursively on each parent node until the root is reached.
+
 	__percolateUp(index) {
 		let parent = Math.floor((index - 1) / 2);
 		if (index <= 0) {
@@ -59,6 +60,7 @@ class maxHeap {
 			let temp = this.heap[parent];
 			this.heap[parent] = this.heap[index];
 			this.heap[index] = temp;
+			// Parent is halved
 			this.__percolateUp(parent);
 		}
 	}
@@ -69,9 +71,12 @@ class maxHeap {
 		let right = index * 2 + 2;
 		let largest = index;
 
+		// If the parent is less than its left child, largest becomes the left child node
+		// this.elemnts > left makes sure there are enough child in the heap, there could be no child for a parent
 		if (this.elements > left && this.heap[largest] < this.heap[left]) {
 			largest = left;
 		}
+		// largest could be updated to the left if left > index
 		if (this.elements > right && this.heap[largest] < this.heap[right]) {
 			largest = right;
 		}
@@ -79,6 +84,7 @@ class maxHeap {
 			var tmp = this.heap[largest];
 			this.heap[largest] = this.heap[index];
 			this.heap[index] = tmp;
+			// continue to check for the next parent
 			this.__maxHeapify(largest);
 		}
 	}
@@ -91,14 +97,15 @@ class maxHeap {
 		}
 	}
 }
-var heap = new maxHeap();
 
-var heap = new maxHeap();
-heap.insert(12);
-heap.insert(10);
-heap.insert(-10);
-heap.insert(100);
+// var heap = new maxHeap();
+// heap
+// heap.insert(30);
+// heap.insert(10);
+// heap.insert(20);
+// heap.insert(40);
+// heap.insert(50);
+// heap
+// heap.removeMax()
 
-// console.log(heap.getMax());
-// console.log(heap.removeMax());
-// console.log(heap.getMax());
+// heap
