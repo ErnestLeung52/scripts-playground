@@ -76,10 +76,29 @@ class maxHeap {
 			largest = right;
 		}
 		if (largest !== index) {
-			let temp = this.heap[largest];
+			var tmp = this.heap[largest];
 			this.heap[largest] = this.heap[index];
-			this.heap[index] = tempthis.__maxHeapify(largest);
+			this.heap[index] = tmp;
+			this.__maxHeapify(largest);
+		}
+	}
+
+	buildHeap(arr) {
+		this.heap = arr;
+		this.elements = this.heap.length;
+		for (var i = this.heap.length - 1; i >= 0; i--) {
+			this.__maxHeapify(i);
 		}
 	}
 }
-var heap = new maxHeap()
+var heap = new maxHeap();
+
+var heap = new maxHeap();
+heap.insert(12);
+heap.insert(10);
+heap.insert(-10);
+heap.insert(100);
+
+// console.log(heap.getMax());
+// console.log(heap.removeMax());
+// console.log(heap.getMax());
