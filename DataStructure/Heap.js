@@ -83,4 +83,3 @@ class maxHeap {
 	}
 }
 var heap = new maxHeap()
-heap.insert(12)
