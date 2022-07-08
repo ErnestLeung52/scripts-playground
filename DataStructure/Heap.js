@@ -148,4 +148,8 @@ class minHeap {
             this.__bubbleUp(parent)
         }
 	}
+
+    removeMin() {
+        
+    }
 }
