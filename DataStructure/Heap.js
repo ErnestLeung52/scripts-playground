@@ -136,20 +136,26 @@ class minHeap {
 	}
 
 	__bubbleUp(index) {
-        // Find the parent's index of this index
+		// Find the parent's index of this index
 		let parent = Math.floor((index - 1) / 2);
-        // Base case: we are already at the root level
-        if (index < 0) {
-            return
-            // parent can't be greater than its child, so we swap them
-        } else if (this.heap[parent] > this.heap[index]) {
-            this.__swap(this.heap[parent], this.heap[index], this.heap);
-            // after swapping, parent is now the swapped new element, we continue to look up
-            this.__bubbleUp(parent)
-        }
+		// Base case: we are already at the root level
+		if (index < 0) {
+			return;
+			// parent can't be greater than its child, so we swap them
+		} else if (this.heap[parent] > this.heap[index]) {
+			this.__swap(this.heap[parent], this.heap[index], this.heap);
+			// after swapping, parent is now the swapped new element, we continue to look up
+			this.__bubbleUp(parent);
+		}
 	}
 
-    removeMin() {
-        
-    }
+	removeMin() {
+		if (this.elements > 1) {
+			let min = this.heap[0];
+			this.heap[0] = this.heap[this.elements - 1];
+			this.elements -= 1;
+			this.__sinkDown(0);
+			return min;
+		}
+	}
 }
