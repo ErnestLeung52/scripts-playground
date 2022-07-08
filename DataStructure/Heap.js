@@ -108,4 +108,44 @@ class maxHeap {
 // heap
 // heap.removeMax()
 
-// heap
+// https://blog.bitsrc.io/implementing-heaps-in-javascript-c3fbf1cb2e65
+class minHeap {
+	constructor() {
+		this.heap = [];
+		this.elements = 0;
+	}
+
+	getMin() {
+		if (this.heap.length !== 0) {
+			return this.heap[0];
+		}
+		return null;
+	}
+
+	insert(val) {
+		if (this.elements >= this.heap.length) {
+			this.elements += 1;
+			this.heap.push(val);
+			this.__bubbleUp(this.heap.length - 1);
+		} else {
+			// when there are less elements in the heap (after removing)
+			this.heap[this.elements] = val;
+			this.elements = this.elements + 1;
+			this.__bubbleUp(this.elements - 1);
+		}
+	}
+
+	__bubbleUp(index) {
+        // Find the parent's index of this index
+		let parent = Math.floor((index - 1) / 2);
+        // Base case: we are already at the root level
+        if (index < 0) {
+            return
+            // parent can't be greater than its child, so we swap them
+        } else if (this.heap[parent] > this.heap[index]) {
+            this.__swap(this.heap[parent], this.heap[index], this.heap);
+            // after swapping, parent is now the swapped element, then we continue to find its parent see if we need to swap
+            this.__bubbleUp(parent)
+        }
+	}
+}
