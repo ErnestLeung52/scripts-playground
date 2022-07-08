@@ -156,6 +156,12 @@ class minHeap {
 			this.elements -= 1;
 			this.__sinkDown(0);
 			return min;
+		} else if (this.elements === 1) {
+			let min = this.heap[0];
+			this.elements = this.elements - 1;
+			return min;
+		} else {
+			return null;
 		}
 	}
 }
