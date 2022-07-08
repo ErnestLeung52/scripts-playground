@@ -144,7 +144,7 @@ class minHeap {
             // parent can't be greater than its child, so we swap them
         } else if (this.heap[parent] > this.heap[index]) {
             this.__swap(this.heap[parent], this.heap[index], this.heap);
-            // after swapping, parent is now the swapped element, then we continue to find its parent see if we need to swap
+            // after swapping, parent is now the swapped new element, we continue to look up
             this.__bubbleUp(parent)
         }
 	}
