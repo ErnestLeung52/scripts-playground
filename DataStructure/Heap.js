@@ -139,11 +139,11 @@ class minHeap {
 		// Find the parent's index of this index
 		let parent = Math.floor((index - 1) / 2);
 		// Base case: we are already at the root level
-		if (index < 0) {
+		if (index <= 0) {
 			return;
 			// parent can't be greater than its child, so we swap them
 		} else if (this.heap[parent] > this.heap[index]) {
-			this.__swap(this.heap[parent], this.heap[index], this.heap);
+			this.__swap(parent, index, this.heap);
 			// after swapping, parent is now the swapped new element, we continue to look up
 			this.__bubbleUp(parent);
 		}
@@ -164,4 +164,34 @@ class minHeap {
 			return null;
 		}
 	}
+
+	__sinkDown(index) {
+		const left = index * 2 + 1;
+		const right = index * 2 + 2;
+		let smallest = index;
+
+		if (this.elements > left && this.heap[smallest] > this.heap[left]) {
+			smallest = left;
+		}
+		if (this.elements > right && this.heap[smallest] > this.heap[right]) {
+			smallest = right;
+		}
+		// Found a smaller number than its parnet
+		if (smallest !== index) {
+			this.__swap(smallest, index, this.heap);
+			this.__sinkDown(smallest);
+		}
+	}
+
+	__swap(i, j, heap) {
+		[heap[i], heap[j]] = [heap[j], heap[i]];
+	}
 }
+// var heap = new minHeap()
+// heap.insert(12)
+// heap.insert(10)
+// heap.insert(-10)
+// heap.insert(100)
+// heap
+// heap.removeMin()
+// heap
