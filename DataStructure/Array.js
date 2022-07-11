@@ -3,10 +3,10 @@ class Array {
 		this.array = [];
 	}
 
-	// push(val) {
-	// 	this.array[this.array.length] = val;
-	// 	return this.array;
-	// }
+	push(val) {
+		this.array[this.array.length] = val;
+		return this.array;
+	}
 
 	// pop() {
 	// 	const removed = this.array[this.array.length - 1];
