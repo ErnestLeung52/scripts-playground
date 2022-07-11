@@ -22,12 +22,12 @@ class Array {
 		return this.array;
 	}
 
-	// shift() {
-	// 	const removed = this.array[0];
-	// 	for (let i = 0; i < this.array.length - 1; i += 1) {
-	// 		this.array[i] = this.array[i + 1];
-	// 	}
-	// 	return removed;
-	// }
+	shift() {
+		const removed = this.array[0];
+		for (let i = 0; i < this.array.length - 1; i += 1) {
+			this.array[i] = this.array[i + 1];
+		}
+		return removed;
+	}
 }
 
