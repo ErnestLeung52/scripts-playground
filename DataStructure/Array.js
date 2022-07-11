@@ -15,8 +15,10 @@ class Array {
 	}
 
 	unshift(val) {
-		for (let i = this.array.length - 1; i >= 0; i -= 1) {
-			this.array[i + 1] = this.array[i];
+		if (this.array.length !== 0) {
+			for (let i = this.array.length - 1; i >= 0; i -= 1) {
+				this.array[i + 1] = this.array[i];
+			}
 		}
 		this.array[0] = val;
 		return this.array;
@@ -31,3 +33,10 @@ class Array {
 	}
 }
 
+// const arr = new Array();
+// arr.push(1);
+// arr.push(2);
+// arr.push(3);
+// arr.pop();
+// arr.unshift(4)
+// console.log(arr);
