@@ -14,13 +14,13 @@ class Array {
 		return removed;
 	}
 
-	// unshift(val) {
-	// 	for (let i = this.array.length - 1; i >= 0; i -= 1) {
-	// 		this.array[i + 1] = this.array[i];
-	// 	}
-	// 	this.array[0] = val;
-	// 	return this.array;
-	// }
+	unshift(val) {
+		for (let i = this.array.length - 1; i >= 0; i -= 1) {
+			this.array[i + 1] = this.array[i];
+		}
+		this.array[0] = val;
+		return this.array;
+	}
 
 	// shift() {
 	// 	const removed = this.array[0];
