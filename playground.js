@@ -78,3 +78,21 @@ var isBalanced = function (root) {
 	helper(root);
 	return flag;
 };
+
+function palindrome(
+	string,
+	cleanString = string.replace(/\W/g, '').toLowerCase(),
+	leftIndex = 0,
+	rightIndex = cleanString.length - 1
+) {
+	// remove all symbols, punctuation, etc. from string
+	// convert all characters in string to lowercase
+	// declare two default variables: leftIndex, rightIndex
+	// declare a base case: when leftIndex and rightIndex come together, return true
+	if (leftIndex >= rightIndex) return true;
+	// if leftIndex and rightIndex are not equal, return false
+	if (cleanString[leftIndex] !== cleanString[rightIndex]) return false;
+	// return palindrome, increase leftIndex + 1, decrement rightIndex - 1
+	return palindrome(string, cleanString, leftIndex + 1, rightIndex - 1);
+}
+
