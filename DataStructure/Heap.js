@@ -7,7 +7,8 @@ All the parent nodes are present in the first half of the array, and the last pa
 
 */
 
-class Heapex {
+// ------------------- General Heap class implementation with comparator ------------------
+class Heap {
 	constructor(data = []) {
 		this.data = data;
 		// minHeap a-b, maxHeap b-a
@@ -15,7 +16,7 @@ class Heapex {
 		this.heapify();
 	}
 
-	// O(nlog(n))
+	// O(nlog(n)) -> get invoked when we passed in an array of numbers
 	heapify() {
 		if (this.size() < 2) return;
 		for (let i = 1; i < this.size(); i++) {
@@ -50,7 +51,10 @@ class Heapex {
 	// O(log(n))
 	bubbleUp(index) {
 		while (index > 0) {
+			// same as Math.floor((index - 1) / 2)
 			const parentIndex = (index - 1) >> 1;
+			// min: a - b < 0. then we know current num is less than its parent, hence we need to swap place
+			// max: b - a < 0. parent is less than current index, since for a maxHeap we need to find the largest, so we swap
 			if (this.comparator(this.data[index], this.data[parentIndex]) < 0) {
 				this.swap(index, parentIndex);
 				index = parentIndex;
@@ -101,7 +105,11 @@ class Heapex {
 		return this.data.length;
 	}
 }
+// let index = 10
+// console.log(Math.floor((index - 1) / 2));
+// console.log(( index - 1) >> 1);
 
+// -------------- Educative implementation --------------
 class maxHeap {
 	constructor() {
 		// initialize an array that will contain the values of the heap
