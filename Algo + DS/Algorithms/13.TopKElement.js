@@ -120,4 +120,4 @@ function find_k_largest_numbers(nums, k) {
 	// return minHeap.peek();
 	return minHeap.data;
 }
-console.log(find_k_largest_numbers([12, 11, 10, 9], 3));
+// console.log(find_k_largest_numbers([12, 11, 10, 9], 3));
