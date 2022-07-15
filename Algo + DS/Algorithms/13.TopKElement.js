@@ -121,3 +121,26 @@ function find_k_largest_numbers(nums, k) {
 	return minHeap.data;
 }
 // console.log(find_k_largest_numbers([12, 11, 10, 9], 3));
+
+/*------------------- 2. Kth Smallest Number --------------------- 
+Given an unsorted array of numbers, find Kth smallest number in it.
+Input: [1, 5, 12, 2, 11, 5], K = 4
+Output: 5
+*/
+
+const find_Kth_smallest_number = function (nums, k) {
+	const maxHeap = new Heap([], (a, b) => b - a);
+
+	// root is max, below will be the smallest. if current number is < root and that we are looking for top smallest, so we need to insert smallest
+	for (let i = 0; i < nums.length; i++) {
+		if (maxHeap.size() < k || nums[i] < maxHeap.peek()) {
+			maxHeap.insert(nums[i]);
+		}
+		if (maxHeap.size() > k) {
+			maxHeap.remove();
+		}
+	}
+
+	return maxHeap.peek();
+};
+// console.log(find_Kth_smallest_number([5, 12, 11, -1, 12], 3));
