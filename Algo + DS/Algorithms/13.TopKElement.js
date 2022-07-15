@@ -96,7 +96,7 @@ class Heap {
 	}
 }
 
-/*------------------- 1. Top 'K' Numbers --------------------- O(K*logK+(N−K)*logK)
+/*------------------- 1. Top 'K' Numbers --------------------- O(K*logK+(N−K)*logK) = N* logK
 Given an unsorted array of numbers, find the ‘K’ largest numbers in it.
 Input: [3, 1, 5, 12, 2, 11], K = 3
 Output: [5, 12, 11]
@@ -122,7 +122,7 @@ function find_k_largest_numbers(nums, k) {
 }
 // console.log(find_k_largest_numbers([12, 11, 10, 9], 3));
 
-/*------------------- 2. Kth Smallest Number --------------------- 
+/*------------------- 2. Kth Smallest Number ---------------------  N* logK
 Given an unsorted array of numbers, find Kth smallest number in it.
 Input: [1, 5, 12, 2, 11, 5], K = 4
 Output: 5
