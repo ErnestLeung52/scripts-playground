@@ -96,7 +96,7 @@ class Heap {
 	}
 }
 
-/*------------------- 1. Top 'K' Numbers ---------------------
+/*------------------- 1. Top 'K' Numbers --------------------- O(K*logK+(N−K)*logK)
 Given an unsorted array of numbers, find the ‘K’ largest numbers in it.
 Input: [3, 1, 5, 12, 2, 11], K = 3
 Output: [5, 12, 11]
@@ -106,8 +106,10 @@ function find_k_largest_numbers(nums, k) {
 	const minHeap = new Heap([], (a, b) => a - b);
 
 	for (let i = 0; i < nums.length; i++) {
+		// size < k not <=, because we are checking the length before inserting, after inserting it will +1
 		// root is min, so when current number is greater root, we need insert it into heap
 		if (minHeap.size() < k || minHeap.peek() < nums[i]) {
+			console.log(minHeap.size());
 			minHeap.insert(nums[i]);
 		}
 		if (minHeap.size() > k) {
@@ -118,4 +120,4 @@ function find_k_largest_numbers(nums, k) {
 	// return minHeap.peek();
 	return minHeap.data;
 }
-// console.log(find_k_largest_numbers([5, 12, 11, -1, 12], 3));
+console.log(find_k_largest_numbers([12, 11, 10, 9], 3));
