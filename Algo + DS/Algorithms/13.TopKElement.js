@@ -140,7 +140,6 @@ const find_Kth_smallest_number = function (nums, k) {
 			maxHeap.remove();
 		}
 	}
-
 	return maxHeap.peek();
 };
 // console.log(find_Kth_smallest_number([5, 12, 11, -1, 12], 3));
