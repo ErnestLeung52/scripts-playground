@@ -268,3 +268,37 @@ var topKFrequent = function (nums, k) {
 // set1.add(1)
 // set1.add(2)
 // set1
+
+/*------------------- 6. Frequency Sort ---------------------  O(D∗logD) ‘D’ is the number of distinct characters
+Given a string, sort it based on the decreasing frequency of its characters.
+Input: "Programming"
+Output: "rrggmmPiano"
+*/
+
+const sort_character_by_frequency = function (str) {
+	const freqMap = {};
+
+	for (let i = 0; i < str.length; i++) {
+		freqMap[str[i]] = freqMap[str[i]] ? freqMap[str[i]] + 1 : 1;
+	}
+
+	// Node in heap is stored as [freq, str]
+	const minHeap = new Heap([], (a, b) => b[0] - a[0]);
+
+	// Iterate all the keys in FreqMap, and insert them into minHeap as [freq, str]
+	Object.keys(freqMap).forEach((str) => {
+		minHeap.insert([freqMap[str], str]);
+	});
+
+	// Extract all str from minHeap
+	let result = '';
+
+	while (minHeap.size() > 0) {
+		const string = minHeap.remove()[1];
+		result += string.repeat(freqMap[string]);
+	}
+
+	return result;
+};
+// console.log(sort_character_by_frequency('Programming'));
+// console.log(sort_character_by_frequency('abcbab'));
