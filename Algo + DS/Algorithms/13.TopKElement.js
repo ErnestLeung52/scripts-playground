@@ -143,3 +143,64 @@ const find_Kth_smallest_number = function (nums, k) {
 	return maxHeap.peek();
 };
 // console.log(find_Kth_smallest_number([5, 12, 11, -1, 12], 3));
+
+/*------------------- 3. 'K' Closest Points to the Origin ---------------------  N* logK
+Given an array of points in a 2D plane, find ‘K’ closest points to the origin.
+Input: point = [[1, 3], [3, 4], [2, -1]], K = 2
+Output: [[1, 3], [2, -1]]
+*/
+class Point {
+	constructor(x, y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	compare(other) {
+		return other.distance_from_origin() - this.distance_from_origin();
+	}
+
+	distance_from_origin() {
+		// return Math.sqrt(this.x ** 2 + this.y ** 2);
+		return this.x * this.x + this.y * this.y;
+	}
+}
+const find_closest_points = function (points, k) {
+	// comparing the distance between point a and point b
+	const maxHeap = new Heap([], (a, b) => a.compare(b));
+
+	for (let i = 0; i < k; i++) {
+		const current = new Point(...points[i]);
+		maxHeap.insert(current);
+	}
+	// maxHeap
+	for (let i = k; i < points.length; i++) {
+		const current = new Point(...points[i]);
+		if (
+			current.distance_from_origin() <
+			maxHeap.peek().distance_from_origin()
+		) {
+			maxHeap.remove();
+			maxHeap.insert(current);
+		}
+	}
+	return maxHeap.data;
+};
+// console.log(find_closest_points([[1,3] , [3,4], [2,-1]], 2));
+
+/*------------------- 4. Connect Ropes ---------------------
+Given ‘N’ ropes with different lengths, we need to connect these ropes into one big rope with minimum cost. The cost of connecting two ropes is equal to the sum of their lengths.
+*/
+const minimum_cost_to_connect_ropes = function (ropeLengths) {
+	const minHeap = new Heap(ropeLengths, (a, b) => a - b);
+    let result = 0;
+
+    while (minHeap.size() > 1) {
+        const temp = minHeap.remove() + minHeap.remove();
+        result += temp;
+        minHeap.insert(temp)
+    }
+    return result;
+};
+// console.log(`Minimum cost to connect ropes: ${minimum_cost_to_connect_ropes([1, 3, 11, 5])}`)
+// console.log(`Minimum cost to connect ropes: ${minimum_cost_to_connect_ropes([3, 4, 5, 6])}`);
+// console.log(`Minimum cost to connect ropes: ${minimum_cost_to_connect_ropes([1, 3, 11, 5, 2])}`)
