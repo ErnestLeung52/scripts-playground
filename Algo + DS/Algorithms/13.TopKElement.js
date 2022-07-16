@@ -187,7 +187,7 @@ const find_closest_points = function (points, k) {
 };
 // console.log(find_closest_points([[1,3] , [3,4], [2,-1]], 2));
 
-/*------------------- 4. Connect Ropes ---------------------
+/*------------------- 4. Connect Ropes --------------------- N * logN
 Given ‘N’ ropes with different lengths, we need to connect these ropes into one big rope with minimum cost. The cost of connecting two ropes is equal to the sum of their lengths.
 */
 const minimum_cost_to_connect_ropes = function (ropeLengths) {
@@ -205,4 +205,66 @@ const minimum_cost_to_connect_ropes = function (ropeLengths) {
 // console.log(`Minimum cost to connect ropes: ${minimum_cost_to_connect_ropes([3, 4, 5, 6])}`);
 // console.log(`Minimum cost to connect ropes: ${minimum_cost_to_connect_ropes([1, 3, 11, 5, 2])}`)
 
-/* */
+/*------------------- 5. Top 'K' Frequent Numbers --------------------- O(N+N∗logK)
+Given an unsorted array of numbers, find the top ‘K’ frequently occurring numbers in it.
+Input: [1, 3, 5, 12, 11, 12, 11], K = 2
+Output: [12, 11]
+*/
+
+const find_k_frequent_numbers = function (nums, k) {
+	const numsFreq = {};
+
+	nums.forEach((num) => {
+		numsFreq[num] = numsFreq[num] ? numsFreq[num] + 1 : 1;
+	});
+
+	const minHeap = new Heap([], (a, b) => a[0] - b[0]);
+
+	Object.keys(numsFreq).forEach((num) => {
+		minHeap.insert([numsFreq[num], num]);
+		if (minHeap.size() > k) {
+			minHeap.remove();
+		}
+	});
+
+	const result = [];
+
+	while (minHeap.size() > 0) {
+		result.push(parseInt(minHeap.remove()[1]));
+	}
+
+	return result;
+};
+// console.log(find_k_frequent_numbers([5, 12, 11, 3, 11], 2));
+
+/* Only if is guaranteed that the answer is unique. ------- // 3 * N */
+var topKFrequent = function (nums, k) {
+	const freqMap = new Map();
+	const bucket = [];
+	const result = [];
+
+	for (let num of nums) {
+		freqMap.set(num, (freqMap.get(num) || 0) + 1);
+	}
+
+	// HashTable
+	for (let [num, freq] of freqMap) {
+		bucket[freq] = (bucket[freq] || new Set()).add(num);
+	}
+
+	for (let i = bucket.length - 1; i >= 0; i--) {
+		if (bucket[i]) result.push(...bucket[i]);
+		if (result.length >= k) break;
+	}
+	return result;
+};
+// console.log(topKFrequent([5, 12, 11, 3, 11], 2));
+
+// const map1 = new Map();
+// map1.set('a', 1);
+// map1.get('b');
+
+// const set1 = new Set();
+// set1.add(1)
+// set1.add(2)
+// set1
