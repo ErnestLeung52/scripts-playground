@@ -192,15 +192,17 @@ Given ‘N’ ropes with different lengths, we need to connect these ropes into 
 */
 const minimum_cost_to_connect_ropes = function (ropeLengths) {
 	const minHeap = new Heap(ropeLengths, (a, b) => a - b);
-    let result = 0;
+	let result = 0;
 
-    while (minHeap.size() > 1) {
-        const temp = minHeap.remove() + minHeap.remove();
-        result += temp;
-        minHeap.insert(temp)
-    }
-    return result;
+	while (minHeap.size() > 1) {
+		const temp = minHeap.remove() + minHeap.remove();
+		result += temp;
+		minHeap.insert(temp);
+	}
+	return result;
 };
 // console.log(`Minimum cost to connect ropes: ${minimum_cost_to_connect_ropes([1, 3, 11, 5])}`)
 // console.log(`Minimum cost to connect ropes: ${minimum_cost_to_connect_ropes([3, 4, 5, 6])}`);
 // console.log(`Minimum cost to connect ropes: ${minimum_cost_to_connect_ropes([1, 3, 11, 5, 2])}`)
+
+/* */
