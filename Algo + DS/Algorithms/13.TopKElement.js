@@ -396,7 +396,7 @@ function binary_search(arr, target) {
 // console.log(find_closest_elements([2, 4, 5, 6, 9], 3, 6));
 // console.log(find_closest_elements([2, 4, 5, 6, 9], 3, 10));
 
-/*------------------- 8. Maximum Distinct Elements ---------------------  O(N∗logN)(inserting) + KlogN (deleting) -> improve to O(N∗logK+KlogK).
+/*------------------- 8. Maximum Distinct Elements ---------------------  O(N∗logN)(inserting) + KlogN (deleting) -> improve to O(N∗logK+KlogK)
 Given an array of numbers and a number ‘K’, we need to remove ‘K’ numbers from the array such that we are left with maximum distinct numbers.
 Input: [7, 3, 5, 8, 5, 3, 3], and K=2
 Output: 3
@@ -445,3 +445,30 @@ function find_maximum_distinct_elements(nums, k) {
 // console.log(find_maximum_distinct_elements([7, 3, 5, 8, 5, 3, 3], 2));
 // console.log(find_maximum_distinct_elements([3, 5, 12, 11, 12], 3));
 // console.log(find_maximum_distinct_elements([1, 2, 3, 3, 3, 3, 4, 4, 5, 5, 5], 2));
+
+/*------------------- 9. Sum of Elements ---------------------  
+Given an array, find the sum of all numbers between the K1’th and K2’th smallest elements of that array.
+Input: [1, 3, 12, 5, 15, 11], and K1=3, K2=6
+Output: 23
+*/
+
+function find_sum_of_elements(nums, k1, k2) {
+	// Insert all numbers
+	const minHeap = new Heap(nums, (a, b) => a - b);
+
+	// nums.forEach(num => minHeap.insert(num))
+
+	for (let i = 0; i < k1; i++) {
+		minHeap.remove();
+	}
+
+	let sum = 0;
+
+	for (let j = 0; j < k2 - k1 - 1; j++) {
+		sum += minHeap.remove();
+	}
+
+	return sum;
+}
+// console.log(find_sum_of_elements([1, 3, 12, 5, 15, 11], 3, 6));
+// console.log(find_sum_of_elements([3, 5, 8, 7], 1, 4));
