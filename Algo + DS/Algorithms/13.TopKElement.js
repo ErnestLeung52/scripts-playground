@@ -303,7 +303,7 @@ const sort_character_by_frequency = function (str) {
 // console.log(sort_character_by_frequency('Programming'));
 // console.log(sort_character_by_frequency('abcbab'));
 
-/*------------------- 7. Kth Largest Number in a Stream ---------------------
+/*------------------- 7. Kth Largest Number in a Stream --------------------- O(logK)
 Design a class to efficiently find the Kth largest element in a stream of numbers.
 Input: [3, 1, 5, 12, 2, 11], K = 4
 1. Calling add(6) should return '5'.
@@ -331,3 +331,67 @@ class KthLargestNumberInStream {
 // console.log(`4th largest number is: ${kthLargestNumber.add(6)}`);
 // console.log(`4th largest number is: ${kthLargestNumber.add(13)}`);
 // console.log(`4th largest number is: ${kthLargestNumber.add(4)}`);
+
+/*------------------- 8. 'K' Closest Numbers --------------------- 
+Given a sorted number array and two integers ‘K’ and ‘X’, find ‘K’ closest numbers to ‘X’ in the array. Return the numbers in the sorted order. ‘X’ is not necessarily present in the array.
+Input: [2, 4, 5, 6, 9], K = 3, X = 10
+Output: [5, 6, 9]
+*/
+
+function find_closest_elements(arr, K, X) {
+	// Find the index of X or closest to X;
+	const index = binary_search(arr, X);
+
+    // Low - high is the range we can search, since it will be closest to X
+	let low = index - K;
+	let high = index + K;
+    // Ensure low high are within arr's bound
+	low = Math.max(low, 0); // 'low' should not be less than zero
+	high = Math.min(high, arr.length - 1); // 'high' should not be greater the size of the array
+
+    // minHeap to keep track of smallest distance
+	const minHeap = new Heap([], (a, b) => a[0] - b[0]);
+
+    // Insert all number -> minHeap do the job and keep the smallest number at top
+	for (let i = low; i < high + 1; i++) {
+		minHeap.insert([Math.abs(X - arr[i]), arr[i]]);
+	}
+
+	const result = [];
+	while (result.length < K) {
+		result.push(minHeap.remove()[1]);
+	}
+
+	result.sort((a, b) => a - b);
+
+	return result;
+}
+
+function binary_search(arr, target) {
+	let low = 0,
+		high = arr.length - 1;
+
+	while (low <= high) {
+		const mid = Math.floor(low + (high - low) / 2);
+
+		if (arr[mid] === target) {
+			return mid;
+		}
+
+		if (arr[mid] < target) {
+			low = mid + 1;
+		} else {
+			high = mid - 1;
+		}
+	}
+	// When we can't find target and low becomes out of bound, return the closest
+	if (low > 0) {
+		return low - 1;
+	}
+
+	return low;
+}
+
+// console.log(find_closest_elements([5, 6, 7, 8, 9], 3, 7));
+// console.log(find_closest_elements([2, 4, 5, 6, 9], 3, 6));
+// console.log(find_closest_elements([2, 4, 5, 6, 9], 3, 10));
