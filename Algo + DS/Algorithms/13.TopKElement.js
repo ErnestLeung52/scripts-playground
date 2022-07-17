@@ -332,7 +332,7 @@ class KthLargestNumberInStream {
 // console.log(`4th largest number is: ${kthLargestNumber.add(13)}`);
 // console.log(`4th largest number is: ${kthLargestNumber.add(4)}`);
 
-/*------------------- 8. 'K' Closest Numbers --------------------- 
+/*------------------- 8. 'K' Closest Numbers ---------------------  O(logN+K∗logK)
 Given a sorted number array and two integers ‘K’ and ‘X’, find ‘K’ closest numbers to ‘X’ in the array. Return the numbers in the sorted order. ‘X’ is not necessarily present in the array.
 Input: [2, 4, 5, 6, 9], K = 3, X = 10
 Output: [5, 6, 9]
@@ -342,17 +342,17 @@ function find_closest_elements(arr, K, X) {
 	// Find the index of X or closest to X;
 	const index = binary_search(arr, X);
 
-    // Low - high is the range we can search, since it will be closest to X
+	// Low - high is the range we can search, since it will be closest to X
 	let low = index - K;
 	let high = index + K;
-    // Ensure low high are within arr's bound
+	// Ensure low high are within arr's bound
 	low = Math.max(low, 0); // 'low' should not be less than zero
 	high = Math.min(high, arr.length - 1); // 'high' should not be greater the size of the array
 
-    // minHeap to keep track of smallest distance
+	// minHeap to keep track of smallest distance
 	const minHeap = new Heap([], (a, b) => a[0] - b[0]);
 
-    // Insert all number -> minHeap do the job and keep the smallest number at top
+	// Insert all number -> minHeap do the job and keep the smallest number at top
 	for (let i = low; i < high + 1; i++) {
 		minHeap.insert([Math.abs(X - arr[i]), arr[i]]);
 	}
@@ -395,3 +395,53 @@ function binary_search(arr, target) {
 // console.log(find_closest_elements([5, 6, 7, 8, 9], 3, 7));
 // console.log(find_closest_elements([2, 4, 5, 6, 9], 3, 6));
 // console.log(find_closest_elements([2, 4, 5, 6, 9], 3, 10));
+
+/*------------------- 8. Maximum Distinct Elements --------------------- 
+Given an array of numbers and a number ‘K’, we need to remove ‘K’ numbers from the array such that we are left with maximum distinct numbers.
+Input: [7, 3, 5, 8, 5, 3, 3], and K=2
+Output: 3
+*/
+function find_maximum_distinct_elements(nums, k) {
+	let distinctCount = 0;
+	if (nums.length < k) return distinctCount;
+
+	// Find Freq
+	const freqMap = {};
+	nums.forEach((num) => (freqMap[num] = freqMap[num] ? freqMap[num] + 1 : 1));
+
+	// we use minHeap because we want to make a number to become distinctive that has the least frequency
+	// if we start from the number with the most freq, then it will be inefficient, in that case we should exclude that number
+	const minHeap = new Heap([], (a, b) => a - b);
+
+	// insert all numbers with frequency greater than '1' into the min-heap
+	Object.keys(freqMap).forEach((num) => {
+		// Adding distinct numbers
+		if (freqMap[num] === 1) {
+			distinctCount += 1;
+		} else {
+			minHeap.insert(freqMap[num]);
+		}
+	});
+
+	// following a greedy approach, try removing the least frequent numbers first from the min-heap
+	while (k > 0 && minHeap.size() > 0) {
+		const frequency = minHeap.remove();
+
+		// to make an element distinct, we need to remove all of its occurrences except one
+		// subtracting frequency from k makes the element deleted, however we want to keep one to make it distinct, so we add back 1
+		k = k - frequency + 1;
+		// after subtracting, if k >= 0, we know we have sucessfully make an element distinctive and hence add one count
+		if (k >= 0) {
+			distinctCount += 1;
+		}
+	}
+	// if k > 0, this means we have to remove some distinct numbers, because we are not deleting enough elements based on k
+	if (k > 0) {
+		distinctCount -= k;
+	}
+
+	return distinctCount;
+}
+// console.log(find_maximum_distinct_elements([7, 3, 5, 8, 5, 3, 3], 2));
+// console.log(find_maximum_distinct_elements([3, 5, 12, 11, 12], 3));
+// console.log(find_maximum_distinct_elements([1, 2, 3, 3, 3, 3, 4, 4, 5, 5, 5], 2));
