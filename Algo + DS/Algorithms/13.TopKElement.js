@@ -303,4 +303,31 @@ const sort_character_by_frequency = function (str) {
 // console.log(sort_character_by_frequency('Programming'));
 // console.log(sort_character_by_frequency('abcbab'));
 
-/* */
+/*------------------- 7. Kth Largest Number in a Stream ---------------------
+Design a class to efficiently find the Kth largest element in a stream of numbers.
+Input: [3, 1, 5, 12, 2, 11], K = 4
+1. Calling add(6) should return '5'.
+*/
+class KthLargestNumberInStream {
+	constructor(nums, k) {
+		this.minHeap = new Heap([], (a, b) => a - b);
+		this.k = k;
+		// add the numbers in the min heap
+		nums.forEach((num) => this.add(num));
+	}
+
+	add(num) {
+		// add the new number in the min heap
+		this.minHeap.insert(num);
+		// if heap has more than 'k' numbers, remove one number
+		if (this.minHeap.size() > this.k) {
+			this.minHeap.remove();
+		}
+		// return the 'Kth largest number
+		return this.minHeap.peek();
+	}
+}
+// const kthLargestNumber = new KthLargestNumberInStream([3, 1, 5, 12, 2, 11], 4);
+// console.log(`4th largest number is: ${kthLargestNumber.add(6)}`);
+// console.log(`4th largest number is: ${kthLargestNumber.add(13)}`);
+// console.log(`4th largest number is: ${kthLargestNumber.add(4)}`);
