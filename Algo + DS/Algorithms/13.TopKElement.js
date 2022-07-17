@@ -396,7 +396,7 @@ function binary_search(arr, target) {
 // console.log(find_closest_elements([2, 4, 5, 6, 9], 3, 6));
 // console.log(find_closest_elements([2, 4, 5, 6, 9], 3, 10));
 
-/*------------------- 8. Maximum Distinct Elements --------------------- 
+/*------------------- 8. Maximum Distinct Elements ---------------------  O(N∗logN)(inserting) + KlogN (deleting) -> improve to O(N∗logK+KlogK).
 Given an array of numbers and a number ‘K’, we need to remove ‘K’ numbers from the array such that we are left with maximum distinct numbers.
 Input: [7, 3, 5, 8, 5, 3, 3], and K=2
 Output: 3
