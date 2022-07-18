@@ -550,3 +550,54 @@ function rearrange_string(str) {
 // console.log(`Rearranged string:  ${rearrange_string('aappp')}`);
 // console.log(`Rearranged string:  ${rearrange_string('Programming')}`);
 // console.log(`Rearranged string:  ${rearrange_string('abcccc')}`);
+
+/*------------------- 12. Rearrange String K Distance Apart --------------------- 
+Given a string and a number ‘K’, find if the string can be rearranged such that the same characters are at least ‘K’ distance apart from each other.
+Input: "mmpp", K=2
+Output: "mpmp" or "pmpm"
+*/
+
+function reorganize_string(str, k) {
+	if (k <= 1) {
+		return str;
+	}
+	// Find str frequency
+	const charFreq = {};
+	for (let i = 0; i < str.length; i++) {
+		const char = str[i];
+		charFreq[char] = charFreq[char] ? charFreq[char] + 1 : 1;
+	}
+	// Add to maxHeap
+	const maxHeap = new Heap([], (a, b) => b[0] - a[0]);
+	for (const char in charFreq) {
+		maxHeap.insert([charFreq[char], char]);
+	}
+
+	// We can keep track of previous characters in a queue to insert them back in the heap after ‘K’ iterations.
+	const queue = [];
+	let resultStr = '';
+	while (maxHeap.size() > 0) {
+		const [freq, char] = maxHeap.remove();
+		// Build string
+		resultStr += char;
+		// After adding to result, we store this char into a queue (First in First out)
+		queue.push([char, freq - 1]);
+		// When queue reaches k length, we know we have already processed k numbers, so in the next iteration we can reuse that number again
+		if (queue.length === k) {
+			// After k times (a cycle), we take out the first letter from queue and try to re-add it to result string again
+			const [char, freq] = queue.shift();
+			// Ensure there is frequency left
+			if (freq > 0) {
+				maxHeap.insert([freq, char]);
+			}
+		}
+	}
+
+	if (resultStr.length === str.length) {
+		return resultStr;
+	}
+
+	return '';
+}
+
+// console.log(reorganize_string('abbacca', 3));
