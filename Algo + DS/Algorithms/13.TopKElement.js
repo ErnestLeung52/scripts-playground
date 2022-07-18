@@ -489,7 +489,6 @@ function find_sum_of_elements_2(nums, k1, k2) {
 			maxHeap.insert(nums[i]);
 		}
 	}
-	console.log(maxHeap);
 	// Think of it as reverted-sorted number, if we start counting from k2 - 1 (greater numbers), we only need to sum number between k2 & k1, which is k2 - k1 - 1 numbers
 	// get the sum of numbers between k1 and k2 indices
 	// these numbers will be at the top of the max heap
