@@ -446,7 +446,7 @@ function find_maximum_distinct_elements(nums, k) {
 // console.log(find_maximum_distinct_elements([3, 5, 12, 11, 12], 3));
 // console.log(find_maximum_distinct_elements([1, 2, 3, 3, 3, 3, 4, 4, 5, 5, 5], 2));
 
-/*------------------- 9. Sum of Elements ---------------------  
+/*------------------- 9. Sum of Elements ---------------------  O(N*logN)
 Given an array, find the sum of all numbers between the K1’th and K2’th smallest elements of that array.
 Input: [1, 3, 12, 5, 15, 11], and K1=3, K2=6
 Output: 23
@@ -457,13 +457,13 @@ function find_sum_of_elements(nums, k1, k2) {
 	const minHeap = new Heap(nums, (a, b) => a - b);
 
 	// nums.forEach(num => minHeap.insert(num))
-
+	// Remove k1 numbers
 	for (let i = 0; i < k1; i++) {
 		minHeap.remove();
 	}
 
 	let sum = 0;
-
+	// Add numbers between k1 - k2
 	for (let j = 0; j < k2 - k1 - 1; j++) {
 		sum += minHeap.remove();
 	}
@@ -473,3 +473,32 @@ function find_sum_of_elements(nums, k1, k2) {
 
 // console.log(find_sum_of_elements([1, 3, 12, 5, 15, 11], 3, 6));
 // console.log(find_sum_of_elements([3, 5, 8, 7], 1, 4));
+
+// Alternate Solution --------------------> N∗logK2
+function find_sum_of_elements_2(nums, k1, k2) {
+	const maxHeap = new Heap([], (a, b) => b - a);
+	// keep smallest k2 numbers in the max heap
+	for (i = 0; i < nums.length; i++) {
+		// Nums is NOT sorted! k2-1 number is the right bound of the range we are looking for, we only need to have k2-1 numbers to keep track
+		if (i < k2 - 1) {
+			maxHeap.insert(nums[i]);
+		} else if (nums[i] < maxHeap.peek()) {
+			// Other number should be considered too, since we have can only look at k2-1 number of range, we can compare with peek and elinminate the greater numbers
+			// as we are interested only in the smallest k2 numbers
+			maxHeap.remove();
+			maxHeap.insert(nums[i]);
+		}
+	}
+	console.log(maxHeap);
+	// Think of it as reverted-sorted number, if we start counting from k2 - 1 (greater numbers), we only need to sum number between k2 & k1, which is k2 - k1 - 1 numbers
+	// get the sum of numbers between k1 and k2 indices
+	// these numbers will be at the top of the max heap
+	let elementSum = 0;
+	for (i = 0; i < k2 - k1 - 1; i++) {
+		elementSum += maxHeap.remove();
+	}
+
+	return elementSum;
+}
+// console.log(find_sum_of_elements_2([1, 3, 12, 5, 15, 11], 3, 6));
+// console.log(find_sum_of_elements_2([3, 5, 8, 7], 1, 4));
