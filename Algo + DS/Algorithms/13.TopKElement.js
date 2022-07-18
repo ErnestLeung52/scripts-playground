@@ -396,7 +396,7 @@ function binary_search(arr, target) {
 // console.log(find_closest_elements([2, 4, 5, 6, 9], 3, 6));
 // console.log(find_closest_elements([2, 4, 5, 6, 9], 3, 10));
 
-/*------------------- 8. Maximum Distinct Elements ---------------------  O(N∗logN)(inserting) + KlogN (deleting) -> improve to O(N∗logK+KlogK)
+/*------------------- 9. Maximum Distinct Elements ---------------------  O(N∗logN)(inserting) + KlogN (deleting) -> improve to O(N∗logK+KlogK)
 Given an array of numbers and a number ‘K’, we need to remove ‘K’ numbers from the array such that we are left with maximum distinct numbers.
 Input: [7, 3, 5, 8, 5, 3, 3], and K=2
 Output: 3
@@ -446,7 +446,7 @@ function find_maximum_distinct_elements(nums, k) {
 // console.log(find_maximum_distinct_elements([3, 5, 12, 11, 12], 3));
 // console.log(find_maximum_distinct_elements([1, 2, 3, 3, 3, 3, 4, 4, 5, 5, 5], 2));
 
-/*------------------- 9. Sum of Elements ---------------------  O(N*logN)
+/*------------------- 10. Sum of Elements ---------------------  O(N*logN)
 Given an array, find the sum of all numbers between the K1’th and K2’th smallest elements of that array.
 Input: [1, 3, 12, 5, 15, 11], and K1=3, K2=6
 Output: 23
@@ -501,3 +501,52 @@ function find_sum_of_elements_2(nums, k1, k2) {
 }
 // console.log(find_sum_of_elements_2([1, 3, 12, 5, 15, 11], 3, 6));
 // console.log(find_sum_of_elements_2([3, 5, 8, 7], 1, 4));
+
+/*------------------- 11. Sum of Elements ---------------------  O(N*logN)
+Given a string, find if its letters can be rearranged in such a way that no two same characters come next to each other.
+Input: "Programming"
+Output: "rgmrgmPiano" or "gmringmrPoa" or "gmrPagimnor", etc.
+*/
+
+function rearrange_string(str) {
+	// Find string frequency
+	const strFreq = {};
+	for (let i = 0; i < str.length; i++) {
+		const char = str[i];
+		strFreq[char] = strFreq[char] ? strFreq[char] + 1 : 1;
+	}
+	// Insert char | freq pair into maxHeap
+	const maxHeap = new Heap([], (a, b) => b[0] - a[0]);
+	for (const char in strFreq) {
+		maxHeap.insert([strFreq[char], char]);
+	}
+
+	let prevChar = null,
+		prevFreq = 0,
+		resultStr = '';
+
+	while (maxHeap.size() > 0) {
+		// Get the most frequent str
+		maxHeap;
+		const [freq, char] = maxHeap.remove();
+		// Before appending a string, we want to check in the last iteration, the letter we just appended, still has any frequency left, if so, we will insert back to the maxHeap
+		// **** when nothing inserts, we are done with one letter, and this might break the while loop in the next iteration
+		if (prevChar !== null && prevFreq > 0) {
+			maxHeap.insert([prevFreq, prevChar]);
+		}
+
+		resultStr += char;
+		// Helps to keep track and update maxHeap
+		prevChar = char;
+		prevFreq = freq - 1;
+	}
+
+	if (resultStr.length === str.length) {
+		return resultStr;
+	}
+
+	return '';
+}
+// console.log(`Rearranged string:  ${rearrange_string('aappp')}`);
+// console.log(`Rearranged string:  ${rearrange_string('Programming')}`);
+// console.log(`Rearranged string:  ${rearrange_string('abcccc')}`);
