@@ -470,5 +470,6 @@ function find_sum_of_elements(nums, k1, k2) {
 
 	return sum;
 }
+
 // console.log(find_sum_of_elements([1, 3, 12, 5, 15, 11], 3, 6));
 // console.log(find_sum_of_elements([3, 5, 8, 7], 1, 4));
