@@ -96,3 +96,29 @@ function palindrome(
 	return palindrome(string, cleanString, leftIndex + 1, rightIndex - 1);
 }
 
+class Node {
+	constructor(value, next = null) {
+		this.value = value;
+		this.next = next;
+	}
+}
+
+function reverse(head) {
+	let curr = head;
+	let prev = null;
+	let next;
+
+	while (curr !== null) {
+		next = curr.next;
+		curr.next = prev;
+		prev = curr;
+		curr = next;
+	}
+	return prev;
+}
+
+var head = new Node(1);
+head.next = new Node(2);
+head.next.next = new Node(3);
+
+// console.log(reverse(head));
