@@ -551,7 +551,7 @@ function rearrange_string(str) {
 // console.log(`Rearranged string:  ${rearrange_string('Programming')}`);
 // console.log(`Rearranged string:  ${rearrange_string('abcccc')}`);
 
-/*------------------- 12. Rearrange String K Distance Apart --------------------- 
+/*------------------- 12. Rearrange String K Distance Apart --------------------- O(N*logN)
 Given a string and a number ‘K’, find if the string can be rearranged such that the same characters are at least ‘K’ distance apart from each other.
 Input: "mmpp", K=2
 Output: "mpmp" or "pmpm"
@@ -601,3 +601,48 @@ function reorganize_string(str, k) {
 }
 
 // console.log(reorganize_string('abbacca', 3));
+
+/*------------------- 13. Scheduling Tasks ---------------------  O(N∗logN)
+You are given a list of tasks that need to be run, in any order, on a server. Each task will take one CPU interval to execute but once a task has finished, it has a cooling period during which it can’t be run again. If the cooling period for all tasks is ‘K’ intervals, find the minimum number of CPU intervals that the server needs to finish all tasks.
+Input: [a, a, a, b, c, c], K=2
+Output: 7
+Explanation: a -> c -> b -> a -> c -> idle -> a
+*/
+function schedule_tasks(tasks, k) {
+	let intervalCount = 0;
+	const taskFreqMap = {};
+
+	tasks.forEach(
+		(task) =>
+			(taskFreqMap[task] = taskFreqMap[task] ? taskFreqMap[task] + 1 : 1)
+	);
+
+	const maxHeap = new Heap([], (a, b) => b[0] - a[0]);
+	for (const task in taskFreqMap) {
+		maxHeap.insert([taskFreqMap[task], task]);
+	}
+
+	while (maxHeap.size() > 0) {
+		const waitList = [];
+		// k is the cooldown time, so we need to + 1 to k, since we actually need to take k + 1 steps put in all distinct task. k+1 是弥补cd相隔的时间
+		let n = k + 1;
+
+		while (n > 0 && maxHeap.size() > 0) {
+			intervalCount++;
+			const [freq, task] = maxHeap.remove();
+			// 放入waitlist里, 是之后还需要继续完成task
+			if (freq > 1) {
+				waitList.push([freq - 1, task]);
+			}
+			n -= 1;
+		}
+		waitList.forEach((task) => maxHeap.insert(task));
+
+		if (maxHeap.size() > 0) {
+			intervalCount += n;
+		}
+	}
+	return intervalCount;
+}
+console.log(schedule_tasks(['a', 'a', 'a', 'b', 'c', 'c'], 2));
+// console.log(schedule_tasks(['a', 'b', 'a'], 3));
