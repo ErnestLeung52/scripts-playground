@@ -637,12 +637,20 @@ function schedule_tasks(tasks, k) {
 			n -= 1;
 		}
 		waitList.forEach((task) => maxHeap.insert(task));
+		console.log(maxHeap.size(), n);
 
+		// N here is how many period we still need to wait in order to reach cool down, in that case, when interval += n, we are adding the idle time to interval
 		if (maxHeap.size() > 0) {
 			intervalCount += n;
 		}
 	}
 	return intervalCount;
 }
-// console.log(schedule_t asks(['a', 'a', 'a', 'b', 'c', 'c'], 2));
+// console.log(schedule_tasks(['a', 'a', 'a', 'b', 'c', 'c'], 2));
 // console.log(schedule_tasks(['a', 'b', 'a'], 3));
+
+/*------------------- 14. Scheduling Tasks ---------------------
+Design a class that simulates a Stack data structure, implementing the following two operations:
+push(int num): Pushes the number ‘num’ on the stack.
+pop(): Returns the most frequent number in the stack. If there is a tie, return the number which was pushed later.
+*/
