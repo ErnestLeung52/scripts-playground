@@ -644,5 +644,5 @@ function schedule_tasks(tasks, k) {
 	}
 	return intervalCount;
 }
-console.log(schedule_tasks(['a', 'a', 'a', 'b', 'c', 'c'], 2));
+// console.log(schedule_t asks(['a', 'a', 'a', 'b', 'c', 'c'], 2));
 // console.log(schedule_tasks(['a', 'b', 'a'], 3));
