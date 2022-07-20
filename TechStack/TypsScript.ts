@@ -1,4 +1,4 @@
-/*
+/* ----------------------------------------------------
 TypeScript
 1. Help us catch errors during development
 2. Use 'type annotations' to analyze our code
@@ -17,6 +17,7 @@ ts-node index.js
 */
 
 import axios from 'axios';
+import { type } from 'os';
 
 const url = 'https://jsonplaceholder.typicode.com/todos/1';
 
@@ -50,7 +51,7 @@ Type Inference: TS tries to figure out what type of value a variable refers to (
 - Used Always
 */
 
-// Type Annotations
+// Type Annotations ----------------------------------------------------
 let apples = 5;
 // apples = '';
 let speed: string = 'fast';
@@ -96,7 +97,7 @@ numbers.forEach((num) => {
 	if (num > 0) numberAboveZero = num;
 });
 
-/* Function
+/* Function ----------------------------------------------------
 - Annotations for function: code we add to tell TS what type of arguments a function will receive and what type of values it will return
 - Inference for function: TS tries to figure out what type of value a function will return
 */
@@ -144,7 +145,7 @@ const logWeather = ({
 	console.log(weather);
 };
 
-// Object
+// Object ----------------------------------------------------
 const profile = {
 	name: 'alex',
 	age: 20,
@@ -184,3 +185,59 @@ carMakers.map((car: string): string => {
 const importantDates: (Date | string)[] = [new Date(), '2030-10-10'];
 importantDates.push('2030-10-10');
 // importantDates.push(10);
+
+/*----------------------------------------------------
+Tuple: 
+*/
+
+const drink = {
+	color: 'brown',
+	carbonated: true,
+	sugar: 40,
+};
+
+// const pepsi: [string, boolean, number] = ['brown', true, 40];
+// Type alias
+type Drink = [string, boolean, number];
+const pepsi: Drink = ['brown', true, 40];
+const sprite: Drink = ['clear', true, 45];
+
+const carSpecs: [number, number] = [400, 3354];
+
+const carStats = {
+	horsepower: 400,
+	weight: 3354,
+};
+
+/* ----------------------------------------------------
+Interfaces: creates a new type, describing the property names and value types of an object
+*/
+
+interface Reportable {
+	summary(): string;
+}
+
+const oldCivic = {
+	name: 'civic',
+	year: new Date(),
+	broken: true,
+	summary(): string {
+		return '${I want a gts}';
+	},
+};
+
+const drink1 = {
+	color: 'brown',
+	carbonated: true,
+	sugar: 40,
+    summary(): string {
+        return `My drink has ${this.sugar}g of sugar`
+    }
+};
+
+const printSummary = (item: Reportable): void => {
+	console.log(item.summary());
+};
+
+printSummary(oldCivic);
+printSummary(drink1);
