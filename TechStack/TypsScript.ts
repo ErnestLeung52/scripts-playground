@@ -89,4 +89,98 @@ words.forEach((word) => {
 	if (word === 'green') foundWord = true;
 });
 
-// - When we want a variable to have a type that can't be inferred
+// 3. When we want a variable to have a type that can't be inferred correctly
+let numbers = [-10, -1, 12];
+let numberAboveZero: boolean | number = false;
+numbers.forEach((num) => {
+	if (num > 0) numberAboveZero = num;
+});
+
+/* Function
+- Annotations for function: code we add to tell TS what type of arguments a function will receive and what type of values it will return
+- Inference for function: TS tries to figure out what type of value a function will return
+*/
+
+const add_annotation = (a: number, b: number): number => {
+	return a + b;
+};
+
+const add_inference = (a: number, b: number) => {
+	a + b;
+};
+
+function divide(a: number, b: number): number {
+	return a / b;
+}
+
+const multiply = function (a: number, b: number): number {
+	return a * b;
+};
+
+const logger = (message: string): void => {
+	console.log(message);
+	// return '';
+};
+
+const throwError = (message: string): never => {
+	// Edge case
+	throw new Error(message);
+};
+
+const todaysWeather = {
+	date: new Date(),
+	weather: 'sunny',
+};
+
+// Desctructure
+const logWeather = ({
+	date,
+	weather,
+}: {
+	date: Date;
+	weather: string;
+}): void => {
+	console.log(date);
+	console.log(weather);
+};
+
+// Object
+const profile = {
+	name: 'alex',
+	age: 20,
+	coords: {
+		lat: 0,
+		lng: 15,
+	},
+
+	setAge(age: number): void {
+		this.age = age;
+	},
+};
+
+const { age, name }: { age: number; name: string } = profile;
+const {
+	coords: { lat, lng },
+}: { coords: { lat: number; lng: number } } = profile;
+
+// Array
+const carMakers = ['ford', 'toyota', 'chevy'];
+const dates = [new Date(), new Date()];
+const carsByMake: string[][] = [['f150'], ['corolla'], ['camaro']];
+
+// 1) Help with inference when extracting values
+const car1 = carMakers[0];
+const myCar = carMakers.pop();
+
+// 2) Prevent incompatible values
+// carMakers.push(100);
+
+// 3) Help with Map
+carMakers.map((car: string): string => {
+	return car.toUpperCase();
+});
+
+// 4) Flexible types
+const importantDates: (Date | string)[] = [new Date(), '2030-10-10'];
+importantDates.push('2030-10-10');
+// importantDates.push(10);
