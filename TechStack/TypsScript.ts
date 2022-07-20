@@ -230,14 +230,66 @@ const drink1 = {
 	color: 'brown',
 	carbonated: true,
 	sugar: 40,
-    summary(): string {
-        return `My drink has ${this.sugar}g of sugar`
-    }
+	summary(): string {
+		return `My drink has ${this.sugar}g of sugar`;
+	},
 };
 
 const printSummary = (item: Reportable): void => {
 	console.log(item.summary());
 };
 
-printSummary(oldCivic);
-printSummary(drink1);
+// printSummary(oldCivic);
+// printSummary(drink1);
+
+/* ------------------------- 359
+General Strategy for Reusable Code in TS
+- Create functions that accept args that are typed with interfaces
+- Objects/ classes can decide to 'implement' a given interface to work with a function
+*/
+
+/* ----------------------- 360
+Classes: Blueprint to create an object with some fields (values) and methods to represent to a thing
+*/
+class Vehicle {
+	// public drive(): void {
+	// 	console.log('chugga chugga');
+	// }
+
+	// public honk(): void {
+	// 	console.log('biu biu');
+	// }
+
+	// color: string ;
+
+	constructor(public color: string) {
+		this.color = color;
+	}
+
+	protected honk(): void {
+		console.log('biu biu');
+	}
+}
+
+class Car1 extends Vehicle {
+	// color does not have public because it belongs to vehicle class
+	constructor(public wheels: number, color: string) {
+		super(color);
+	}
+
+	private drive(): void {
+		console.log('vrooom');
+	}
+
+	startDriving(): void {
+		this.drive();
+		this.honk();
+	}
+}
+
+const car2 = new Car1(4, 'red');
+car2.startDriving();
+
+// Public -> method can be called any where, any time
+// Private -> method can only be called by other methods in this class
+// Protected -> method can be called by other methods in this class or by other methods in child classes
