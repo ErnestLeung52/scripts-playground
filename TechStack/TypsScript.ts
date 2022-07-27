@@ -293,3 +293,10 @@ car2.startDriving();
 // Public -> method can be called any where, any time
 // Private -> method can only be called by other methods in this class
 // Protected -> method can be called by other methods in this class or by other methods in child classes
+
+
+
+
+// Typical TypeScript file
+// Top: Interface definitions for working with this class
+// Class definition
