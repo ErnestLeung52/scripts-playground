@@ -122,3 +122,33 @@ head.next = new Node(2);
 head.next.next = new Node(3);
 
 // console.log(reverse(head));
+
+var isValid = function (s) {
+	// when we see a leftP, we will push the rightP into a stack
+	// when we see a rightP, we will check if rightP is equal to the top of stack
+	if (s.length === 0) return true;
+	if (s.length === 1) return false;
+	if (s.length % 2 !== 0) return false;
+
+	const map = new Map();
+	map.set('(', ')');
+	map.set('[', ']');
+	map.set('{', '}');
+
+	const stack = [];
+	// const rightParen = Array.from(map.values())
+
+	for (let i = 0; i < s.length; i++) {
+		const paren = s[i];
+		stack;
+		if (map.has(paren)) {
+			stack.push(map.get(paren));
+		} else if (paren !== stack.pop()) {
+			return false;
+		}
+	}
+
+	return stack.length === 0;
+};
+
+// console.log(isValid('({[]})'));
