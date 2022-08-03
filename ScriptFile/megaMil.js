@@ -4,7 +4,7 @@ const axios = require('axios');
 const startDate = '2017-10-28';
 // const today = new Date().toISOString().split('T')[0];
 const endDate = '2022-07-29';
-console.log(`Mega Millions Number Frequency from ${startDate} to ${endDate}`);
+// console.log(`Mega Millions Number Frequency from ${startDate} to ${endDate}`);
 
 // const options = {
 // 	method: 'GET',
