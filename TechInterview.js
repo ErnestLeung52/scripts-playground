@@ -121,23 +121,27 @@ const movieList = [];
 
 const searchMovie = async () => {
 	try {
-		axios
-			.get(`${API_URL}/?apikey=${API_KEY}`, {
-				params: { s: movieType, y: '1975' },
-			})
-			.then((response) => {
-				response.data.Search.forEach((movie) => {
-					movieList.push(movie.Title);
-				});
+		// axios
+		// 	.get(`${API_URL}/?apikey=${API_KEY}`, {
+		// 		params: { s: movieType, y: '1975' },
+		// 	})
+		// 	.then((response) => {
+		// 		response.data.Search.forEach((movie) => {
+		// 			movieList.push(movie.Title);
+		// 		});
+		// 		console.log(movieList);
+		// 	});
+		const dogMovieList = await axios.get(`${API_URL}/?apikey=${API_KEY}`, {
+			params: { s: movieType, y: '2021' },
+		});
 
-				console.log(movieList);
-			});
+		console.log(dogMovieList.data);
 	} catch (error) {
 		console.log(error);
 	}
 };
 
-searchMovie();
+// searchMovie();
 
 class Movie {
 	constructor(id, title, director, writer, grossEarnings) {
@@ -178,4 +182,4 @@ function run() {
 	return Spiderman;
 }
 
-console.log(run());
+// console.log(run());
