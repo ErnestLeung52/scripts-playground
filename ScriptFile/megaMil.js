@@ -105,7 +105,6 @@ const parseMega = (arr) => {
 };
 
 // parseMega(megaData.data);
-
 const fiveBalls = {
 	1: 34,
 	2: 31,
