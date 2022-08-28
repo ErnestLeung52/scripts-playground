@@ -15,7 +15,6 @@ const endDate = '2022-08-19';
 // 		'X-RapidAPI-Host': 'mega-millions.p.rapidapi.com',
 // 	},
 // };
-
 const fiveNumsFreq = {};
 const megaballFreq = {};
 
