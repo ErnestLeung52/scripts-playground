@@ -1,6 +1,5 @@
 const axios = require('axios');
 // import axios from 'axios';
-
 const startDate = '2017-10-28';
 // const today = new Date().toISOString().split('T')[0];
 const endDate = '2022-08-19';
