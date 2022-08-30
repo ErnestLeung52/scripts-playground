@@ -151,3 +151,20 @@ var isValid = function (s) {
 	return stack.length === 0;
 };
 // console.log(isValid('({[]})'));
+
+/*
+ * accepts an object and returns an object with key and values switched
+ * ex: reverseObject({a:1,b:"c","d":4}); -> {1:a,c:"b",4:"d"}
+ */
+
+const reverseObj = (obj) => {
+	const output = {};
+
+	for (let key in obj) {
+		output[obj[key]] = key;
+	}
+
+	return output;
+};
+
+console.log(reverseObj({ a: 1, b: 'c', d: 4 }));
