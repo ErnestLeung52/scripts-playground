@@ -167,4 +167,59 @@ const reverseObj = (obj) => {
 	return output;
 };
 
-console.log(reverseObj({ a: 1, b: 'c', d: 4 }));
+// console.log(reverseObj({ a: 1, b: 'c', d: 4 }));
+
+/////////////////
+
+function BinarySearchTree(value) {
+	this.value = value; // 8
+	this.right = null;
+	this.left = null;
+	// console.log(value);
+}
+
+BinarySearchTree.prototype.add = function (value) {
+	// console.log(value);
+	const leaf = new BinarySearchTree(value);
+	if (value > this.value) {
+		if (this.right === null) {
+			this.right = leaf;
+		} else {
+			this.right.add(value);
+		}
+	} else if (value < this.value) {
+		if (this.left === null) {
+			this.left = leaf;
+		} else {
+			this.left.add(value);
+		}
+	}
+};
+
+// BinarySearchTree(8);
+
+BinarySearchTree.prototype.contains = function (value) {
+	// When node is equal to value
+	// if (this.left === undefined || this.right === undefined) return false;
+
+	if (this.value === value) {
+		return true;
+	}
+
+	// When node is less than value
+	if (value < this.value && this.left) {
+		return this.left.contains(value);
+
+		// When node is greater than value
+	} else if (value > this.value && this.right) {
+		return this.right.contains(value);
+	}
+
+	return false;
+};
+
+const tree = new BinarySearchTree(8);
+tree.add(5);
+tree.add(10);
+tree.add(20);
+// console.log(tree.contains(10));
