@@ -222,4 +222,5 @@ const tree = new BinarySearchTree(8);
 tree.add(5);
 tree.add(10);
 tree.add(20);
+
 // console.log(tree.contains(10));
