@@ -224,3 +224,52 @@ tree.add(10);
 tree.add(20);
 
 // console.log(tree.contains(10));
+
+/*
+Extension:
+
+Given an arbitrarily nested array of numbers (integers), return the mode, that
+is, the number that appears most often. If there are multiple modes, use the max
+of the modes.
+
+Assume that at least one number is present in the nested array structure,
+although some of the nested arrays may be empty.
+
+e.g.
+mode([[3], [2, [4]], 3]) -> 3
+mode([7, [[5, [8], 8], 2, 5]]) -> 8
+mode([4, []]) -> 4
+*/
+
+const nestedMode = (input) => {
+	const freq = {};
+
+	const compare = (arr) => {
+		for (let i = 0; i < arr.length; i++) {
+			const el = arr[i];
+			if (Array.isArray(el)) {
+				compare(el);
+			} else {
+				// flatten.push(el);
+				freq[el] = freq[el] ? freq[el] + 1 : 1;
+			}
+		}
+	};
+	compare(input);
+
+	let maxKey = -Infinity;
+	let maxVal = -Infinity;
+
+	for (const key in freq) {
+		const val = freq[key];
+
+		if (val >= maxVal && Number(key) >= maxKey) {
+			maxKey = Number(key);
+			maxVal = val;
+		}
+	}
+
+	return maxKey;
+};
+
+console.log(nestedMode([7, [[5, [8], 8], 2, 5]]));
