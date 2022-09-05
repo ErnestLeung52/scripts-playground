@@ -272,4 +272,4 @@ const nestedMode = (input) => {
 	return maxKey;
 };
 
-console.log(nestedMode([7, [[5, [8], 8], 2, 5]]));
+// console.log(nestedMode([7, [[5, [8], 8], 2, 5]]));
