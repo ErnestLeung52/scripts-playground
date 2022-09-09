@@ -43,6 +43,6 @@ const validParen = (s) => {
 	map.set('[', ']');
 	map.set('{', '}');
 
-  for (let i = 0;)
+  // for (let i = 0;)
 
 };
