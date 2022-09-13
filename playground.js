@@ -273,3 +273,13 @@ const nestedMode = (input) => {
 };
 
 // console.log(nestedMode([7, [[5, [8], 8], 2, 5]]));
+
+//**
+// const array = [{id: 'a', data: '1'}, {id: 'b', data: '2'}]
+// const arrayMap = new Map();
+
+// array.forEach((item) => {
+// 	if (!arrayMap.get(item.id)) {
+// 		arrayMap.set(item.id, item.data)
+// 	}
+// })
