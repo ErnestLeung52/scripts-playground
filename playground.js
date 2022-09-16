@@ -283,3 +283,42 @@ const nestedMode = (input) => {
 // 		arrayMap.set(item.id, item.data)
 // 	}
 // })
+
+// const renameOutputFile = (fileName, i = 1) => {
+// 	if (i === 20) return;
+
+// 	const fileNameWithoutExt = fileName.replace(/.json/g, '');
+// 	const fileNameLetters = fileNameWithoutExt.replace(/[^a-z]/gi, '');
+// 	const newDigits = Number(fileNameWithoutExt.replace(/\D/g, '')) + 1;
+// 	const newFileName = fileNameLetters + newDigits + '.json';
+
+// 	console.log(newFileName);
+
+// 	return renameOutputFile(newFileName, (i += 1));
+// };
+
+// renameOutputFile('output.json');
+
+const str = '><<><';
+const buildPair = (str = '') => {
+	let needLeft = 0;
+	let needRight = 0;
+
+	for (const angle of str) {
+		if (angle === '>') {
+			if (needRight === 0) {
+				needLeft++;
+			}
+			// else {
+			// 	needRight--;
+			// }
+		} else {
+			needRight++;
+		}
+	}
+	const left = '<'.repeat(needLeft);
+	const right = '>'.repeat(needRight);
+
+	return left + str + right;
+};
+// console.log(buildPair(str));
