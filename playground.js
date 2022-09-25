@@ -321,5 +321,4 @@ const buildPair = (str = '') => {
 
 	return left + str + right;
 };
-
 // console.log(buildPair(str));
