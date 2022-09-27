@@ -1,5 +1,3 @@
-console.log('hello world');
-
 // {()} acceptable
 // {(})} not acceptable
 
@@ -77,9 +75,9 @@ const addSecondPara = (opening, closing) => {
 };
 
 addSecondPara('a', 'b');
-console.log(checkParen("{[(`a')]}"));
-console.log(checkParen('[{(ab)}]'));
-console.log(checkParen("{ 'faobo' }"));
+// console.log(checkParen("{[(`a')]}"));
+// console.log(checkParen('[{(ab)}]'));
+// console.log(checkParen("{ 'faobo' }"));
 
 // '{(abc'
 
@@ -183,3 +181,46 @@ function run() {
 }
 
 // console.log(run());
+
+// Imagine many years ago, you traveled to multiple cities, you kept in brief case for all your travel tickets. Today, you opened the brief case and don't remember about any these trips that you took, and you want to retrace your journey. Can you write a method that takes a list of these tickets and output your journey from start to end
+
+const tickets = [
+	['LA', 'NY'],
+	['SEA', 'SF'],
+	['NY', 'SEA'],
+	['SF', 'HK'],
+];
+
+const printJourney = (dataSet) => {
+	let reversemap = new Map();
+
+	// To fill reverse map, iterate through the given map
+	for (const [key, value] of dataSet) reversemap.set(value, key);
+
+	// Find the starting point of itinerary
+	let start = '';
+
+	for (const key of dataSet.keys()) {
+		if (!reversemap.has(key)) {
+			start = key;
+			break;
+		}
+	}
+
+	// If we could not find a starting point, then something wrong with input
+	if (start.length == 0) {
+		console.log('Invalid Input');
+		return;
+	}
+
+	// Once we have starting point, we simple need to go next,
+	//next of next using given hash map
+	let it = start;
+	while (dataSet.has(it)) {
+		console.log(it + '->' + dataSet.get(it));
+		it = dataSet.get(it);
+	}
+};
+// console.log(printJourney(tickets));
+// output
+// LA , NY, SEA, SF, HK
