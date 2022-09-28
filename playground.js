@@ -298,27 +298,3 @@ const nestedMode = (input) => {
 // };
 
 // renameOutputFile('output.json');
-
-const str = '><<><';
-const buildPair = (str = '') => {
-	let needLeft = 0;
-	let needRight = 0;
-
-	for (const angle of str) {
-		if (angle === '>') {
-			if (needRight === 0) {
-				needLeft++;
-			}
-			// else {
-			// 	needRight--;
-			// }
-		} else {
-			needRight++;
-		}
-	}
-	const left = '<'.repeat(needLeft);
-	const right = '>'.repeat(needRight);
-
-	return left + str + right;
-};
-// console.log(buildPair(str));
