@@ -211,6 +211,8 @@ const buildPair = (str = '') => {
 const tickets = [
 	['LA', 'NY'],
 	['SEA', 'SF'],
+	['HK', 'OR'],
+	['MI', 'LA'],
 	['NY', 'SEA'],
 	['SF', 'HK'],
 ];
@@ -218,8 +220,45 @@ const tickets = [
 const printJourney = (dataSet) => {
 	// Reverse from-to -> to-from
 	// Iterate through dataset and if a key is not presented then we have a starting point
-	// This is because
+	// This is because we cannot find a connected flight
+
+	const reverseMap = new Map();
+
+	for (const [from, to] of dataSet) {
+		reverseMap.set(to, from);
+	}
+
+	let start = '';
+	// find starting point
+	for (const [from, to] of dataSet) {
+		if (!reverseMap.has(from)) {
+			start = from;
+		}
+	}
+
+	const output = [start];
+
+	let i = 0;
+
+	while (output.length <= dataSet.length) {
+		if (i >= dataSet.length - 1) {
+			i = 0;
+		} else {
+			i++;
+		}
+
+		// console.log(dataSet[i][0]);
+		if (start === dataSet[i][0]) {
+			start = dataSet[i][1];
+			output.push(start);
+			i = 0;
+			continue;
+		}
+	}
+
+	return output;
 };
+
 // console.log(printJourney(tickets));
 // output
 // LA , NY, SEA, SF, HK
