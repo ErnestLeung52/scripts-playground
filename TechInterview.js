@@ -182,6 +182,30 @@ function run() {
 
 // console.log(run());
 
+const str = '><<><';
+const buildPair = (str = '') => {
+	let needLeft = 0;
+	let needRight = 0;
+
+	for (const angle of str) {
+		if (angle === '>') {
+			if (needRight === 0) {
+				needLeft++;
+			}
+			// else {
+			// 	needRight--;
+			// }
+		} else {
+			needRight++;
+		}
+	}
+	const left = '<'.repeat(needLeft);
+	const right = '>'.repeat(needRight);
+
+	return left + str + right;
+};
+// console.log(buildPair(str));
+
 // Imagine many years ago, you traveled to multiple cities, you kept in brief case for all your travel tickets. Today, you opened the brief case and don't remember about any these trips that you took, and you want to retrace your journey. Can you write a method that takes a list of these tickets and output your journey from start to end
 
 const tickets = [
@@ -192,34 +216,9 @@ const tickets = [
 ];
 
 const printJourney = (dataSet) => {
-	let reversemap = new Map();
-
-	// To fill reverse map, iterate through the given map
-	for (const [key, value] of dataSet) reversemap.set(value, key);
-
-	// Find the starting point of itinerary
-	let start = '';
-
-	for (const key of dataSet.keys()) {
-		if (!reversemap.has(key)) {
-			start = key;
-			break;
-		}
-	}
-
-	// If we could not find a starting point, then something wrong with input
-	if (start.length == 0) {
-		console.log('Invalid Input');
-		return;
-	}
-
-	// Once we have starting point, we simple need to go next,
-	//next of next using given hash map
-	let it = start;
-	while (dataSet.has(it)) {
-		console.log(it + '->' + dataSet.get(it));
-		it = dataSet.get(it);
-	}
+	// Reverse from-to -> to-from
+	// Iterate through dataset and if a key is not presented then we have a starting point
+	// This is because
 };
 // console.log(printJourney(tickets));
 // output
