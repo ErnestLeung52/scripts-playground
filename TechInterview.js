@@ -218,42 +218,36 @@ const tickets = [
 ];
 
 const printJourney = (dataSet) => {
+	// Idea 1:
 	// Reverse from-to -> to-from
 	// Iterate through dataset and if a key is not presented then we have a starting point
 	// This is because we cannot find a connected flight
 
-	const reverseMap = new Map();
+	// Idea 2:
+	const ticketMap = new Map();
+	const ticketFreq = {};
 
 	for (const [from, to] of dataSet) {
-		reverseMap.set(to, from);
+		ticketMap.set(from, to);
+		ticketFreq[from] = ticketFreq[from] ? ticketFreq[from] + 1 : 1;
+		ticketFreq[to] = ticketFreq[to] ? ticketFreq[to] + 1 : 1;
 	}
 
 	let start = '';
-	// find starting point
-	for (const [from, to] of dataSet) {
-		if (!reverseMap.has(from)) {
-			start = from;
+
+	for (const from in ticketFreq) {
+		if (ticketFreq[from] === 1) {
+			if (ticketMap.has(from)) {
+				start = from;
+			}
 		}
 	}
 
-	const output = [start];
+	let output = start;
 
-	let i = 0;
-
-	while (output.length <= dataSet.length) {
-		if (i >= dataSet.length - 1) {
-			i = 0;
-		} else {
-			i++;
-		}
-
-		// console.log(dataSet[i][0]);
-		if (start === dataSet[i][0]) {
-			start = dataSet[i][1];
-			output.push(start);
-			i = 0;
-			continue;
-		}
+	while (ticketMap.has(start)) {
+		start = ticketMap.get(start);
+		output += ' - ' + start;
 	}
 
 	return output;
@@ -262,3 +256,48 @@ const printJourney = (dataSet) => {
 // console.log(printJourney(tickets));
 // output
 // LA , NY, SEA, SF, HK
+
+// Given an amount, return minimum change in a currency bills/coins
+
+const _ = require('lodash');
+
+function sayHello() {
+	console.log('Hello, World');
+}
+
+_.times(5, sayHello);
+
+// $24.56 - $20 $1 * 4
+// $20
+
+// Input: number
+// output: {20: 1, 1: 4}
+
+const minimumChange = (inputBill) => {
+	// obj to store output
+	// if (bill / 100 ) is less than 0
+	// if (bill / 50)
+	// ...
+	// if (bill / 20) is greater than 0
+	// we will store 20 as key in output, value will be the remainder
+	// modified the bill
+
+	const change = [100, 50, 20, 10, 5, 1, 0.25, 0.1, 0.05, 0.01];
+	const output = {};
+
+	let bill = inputBill;
+
+	for (const dollar of change) {
+		if (bill / dollar >= 0) {
+			const quantity = Math.floor(bill / dollar);
+			output[dollar] = quantity;
+
+			bill = bill - dollar * quantity;
+			console.log(bill);
+		}
+	}
+
+	return output;
+};
+
+// console.log(minimumChange(24.56));
