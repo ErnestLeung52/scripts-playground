@@ -1,0 +1,125 @@
+// Target the wrapper parent class
+const list = document.querySelectorAll(
+	'.store-directory__state-wrapper--1d5kf'
+)[0];
+
+// Get its children: a list of div
+const listChildren = list.children;
+
+const output = [];
+
+for (let i = 0; i < listChildren.length; i++) {
+	const store = listChildren[i];
+
+	const cityStateZipLi = store.querySelector('ul li:nth-child(2)');
+	const cityStateZipText = cityStateZipLi.innerText;
+
+	const city = cityStateZipText.split(' ')[0];
+
+	output.push(city);
+}
+/*
+[
+	'Commack',
+	'Freeport',
+	'Wappingers',
+	'Elmont',
+	'Selden',
+	'Bay',
+	'Port',
+	'Jericho',
+	'Flushing',
+	'South',
+	'Valley',
+	'West',
+	'Copiague',
+	'Glendale',
+	'Bronx',
+	'Riverhead',
+	'Saratoga',
+	'Brooklyn',
+	'Kingston',
+	'Cheektowaga',
+	'Coram',
+	'Williamsville',
+	'West',
+	'Amherst',
+	'Buffalo',
+	'Cicero',
+	'East',
+	'Jamaica',
+	'Schenectady',
+	'Albany',
+	'Middletown',
+	'Greece',
+	'New',
+	'Rochester',
+	'Rochester',
+	'Yonkers',
+	'Staten',
+	'Newburgh',
+	'Mohegan',
+	'Johnson',
+	'New',
+	'Long',
+	'Brooklyn',
+	'Camillus',
+	'Patchogue',
+	'Latham',
+	'Nanuet',
+	'Albany',
+	'Rensselaer',
+	'Victor',
+	'South',
+	'Poughkeepsie',
+	'Farmingdale',
+	'Lockport',
+	'Halfmoon',
+	'Brewster',
+	'Huntington',
+	'Rochester',
+	'Hempstead',
+	'Flushing',
+	'Rochester',
+	'Staten',
+	'Shirley',
+	'Monroe',
+	'Deer',
+	'Buffalo',
+	'Niagara',
+	'Amsterdam',
+	'Levittown',
+	'Maspeth',
+	'Staten',
+	'Brooklyn',
+	'Liverpool',
+	'Jamestown',
+	'Ithaca',
+	'Brooklyn',
+	'Painted',
+	'Queensbury',
+	'Olean',
+	'Commack',
+	'Batavia',
+	'Dunkirk',
+	'Monticello',
+	'Oneonta',
+	'Watertown',
+	'New',
+	'Leeds',
+	'New',
+	'Fishkill',
+	'East',
+	'Auburn',
+	'Bronx',
+	'Bronx',
+	'Jamaica',
+	'Central',
+	'Brooklyn',
+	'Hawthorne',
+	'Westbury',
+	'Syosset',
+	'Bellport',
+	'Massena',
+];
+*/
