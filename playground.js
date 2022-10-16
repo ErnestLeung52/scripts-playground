@@ -117,9 +117,9 @@ function reverse(head) {
 	return prev;
 }
 
-var head = new Node(1);
-head.next = new Node(2);
-head.next.next = new Node(3);
+// var head = new Node(1);
+// head.next = new Node(2);
+// head.next.next = new Node(3);
 
 // console.log(reverse(head));
 
@@ -218,10 +218,10 @@ BinarySearchTree.prototype.contains = function (value) {
 	return false;
 };
 
-const tree = new BinarySearchTree(8);
-tree.add(5);
-tree.add(10);
-tree.add(20);
+// const tree = new BinarySearchTree(8);
+// tree.add(5);
+// tree.add(10);
+// tree.add(20);
 
 // console.log(tree.contains(10));
 
