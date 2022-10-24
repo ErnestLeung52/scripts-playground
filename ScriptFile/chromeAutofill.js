@@ -8,15 +8,18 @@ Object.assign(document.body.appendChild(document.createElement('input')), {
 		fr.readAsText(this.files[0], 'UTF-8');
 		fr.onload = () => {
 			for (const line of fr.result.split(/\r?\n/)) {
-				const [name, email, num, add, ad1, ad2, postal, country] =
+				const [email, fName, fN, lN, add, city, postal, state, phone, country] =
 					line.split(',');
 				chrome.autofillPrivate.saveAddress({
 					emailAddresses: [email],
-					fullNames: [name],
-					phoneNumbers: [num],
+					fullNames: [fName],
+					phoneNumbers: [phone],
+					// Address
 					addressLines: add,
-					addressLevel1: ad1,
-					addressLevel2: ad2,
+					// State
+					addressLevel1: state,
+					// City
+					addressLevel2: city,
 					postalCode: postal,
 					countryCode: country,
 				});
