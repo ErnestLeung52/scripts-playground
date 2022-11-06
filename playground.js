@@ -298,3 +298,26 @@ const nestedMode = (input) => {
 // };
 
 // renameOutputFile('output.json');
+
+const string = `{
+	hello  1
+	user {  
+		username  1.5
+		firstLetterOfUsername {
+			firstLetterOfUsername   1.5*2
+		}
+		dsairstLetterOfUsername {
+			firstLetterOfUsername {   
+			 second                  1.5*2*2
+			}
+			firstLetterOfUsername { 
+					name                 1.5*2*2 
+					second {
+							dsadas {
+									dsadsa       1.5*2*2*2*2
+							}
+					}
+				 }
+		}
+	}
+}`;
