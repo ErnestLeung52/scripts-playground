@@ -321,3 +321,14 @@ const string = `{
 		}
 	}
 }`;
+
+const timestamp = new Date().getTime();
+console.log(timestamp);
+// 1668682959
+const jwt = 1668683784 * 1000;
+
+const diff = jwt - timestamp;
+
+let minute = Math.floor(diff / 1000 / 60);
+
+console.log(minute);
