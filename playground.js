@@ -323,7 +323,7 @@ const string = `{
 }`;
 
 const timestamp = new Date().getTime();
-console.log(timestamp);
+// console.log(timestamp);
 // 1668682959
 const jwt = 1668683784 * 1000;
 
