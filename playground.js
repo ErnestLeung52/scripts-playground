@@ -331,4 +331,4 @@ const diff = jwt - timestamp;
 
 let minute = Math.floor(diff / 1000 / 60);
 
-console.log(minute);
+// console.log(minute);
