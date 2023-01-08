@@ -332,3 +332,36 @@ const diff = jwt - timestamp;
 let minute = Math.floor(diff / 1000 / 60);
 
 // console.log(minute);
+
+const randomOrderNumber = () => {
+	const oneDigit = Math.floor(Math.random() * 4);
+	const sevenDigits = Math.floor(Math.random() * 10000000);
+	const sixDigits = Math.floor(Math.random() * 10000000);
+
+	return `11${oneDigit}-${sevenDigits}-${sixDigits}`;
+};
+// console.log(randomOrderNumber());
+
+const randomDate = (from, to) => {
+	function randomValueBetween(min, max) {
+		return Math.random() * (max - min) + min;
+	}
+	let date1 = from || '01-01-1970';
+	let date2 = to || new Date().toLocaleDateString();
+	date1 = new Date(date1).getTime();
+	date2 = new Date(date2).getTime();
+	if (date1 > date2) {
+		return new Date(randomValueBetween(date2, date1)).toLocaleDateString(
+			'default',
+			{ year: 'numeric', month: 'long', day: 'numeric' }
+		);
+	} else {
+		return new Date(randomValueBetween(date1, date2)).toLocaleDateString(
+			'en-us',
+			{ year: 'numeric', month: 'long', day: 'numeric' }
+		);
+	}
+};
+// console.log(randomDate('01/01/2022', '01/04/2022'));
+
+// console.log(Math.floor(Math.random() * 4));
