@@ -365,3 +365,44 @@ const randomDate = (from, to) => {
 // console.log(randomDate('01/01/2022', '01/04/2022'));
 
 // console.log(Math.floor(Math.random() * 4));
+
+const date = new Date('January 1, 2023');
+
+const day = 60 * 60 * 24 * 1000;
+
+const endDate = new Date(date.getTime() + day).toLocaleDateString('en-us', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+});
+
+const randomIntBetween = (x, y) => {
+	return Math.floor(x + (y - x) * Math.random());
+};
+
+export const randomShipDate = (date, delay) => {
+	const orderDate = new Date(date);
+
+	const day = 60 * 60 * 24 * 1000;
+
+	const delayDay = randomIntBetween(0, delay + 1);
+
+	const shippedDate = new Date(
+		orderDate.getTime() + day * delayDay
+	).toLocaleDateString('en-us', {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+	});
+
+	return shippedDate;
+};
+console.log(randomShipDate('January 1, 2023', 3));
+
+if (
+	s.length % 2 !== 0 ||
+	!bracketPairs.has(s[0]) ||
+	bracketPairs.has(s[s.length - 1])
+) {
+	return false;
+}
