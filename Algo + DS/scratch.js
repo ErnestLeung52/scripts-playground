@@ -98,3 +98,7 @@ function isPalindrome(s) {
 	return true;
 }
 // console.log(isPalindrome('A man, a plan, a canal: Panama'));
+
+/* 226. Invert Binary Tree
+Given the root of a binary tree, invert the tree, and return its root.
+*/
