@@ -5,6 +5,14 @@ class ListNode {
 	}
 }
 
+class TreeNode {
+	constructor(val, left, right) {
+		this.val = val === undefined ? 0 : val;
+		this.left = left === undefined ? null : left;
+		this.right = right === undefined ? null : right;
+	}
+}
+
 /* 21. Merge Two Sorted Lists
 You are given the heads of two sorted linked lists list1 and list2.
 Merge the two lists in a one sorted list. The list should be made by splicing together the nodes of the first two lists.
@@ -41,11 +49,11 @@ var mergeTwoLists = function (list1, list2) {
 
 const l1 = new ListNode(0);
 l1.next = new ListNode(2);
-l1.next.next = new ListNode(4);
+// l1.next.next = new ListNode(4);
 
 const l2 = new ListNode(1);
-l2.next = new ListNode(3);
-l2.next.next = new ListNode(5);
+// l2.next = new ListNode(3);
+// l2.next.next = new ListNode(5);
 
 // console.log(mergeTwoLists(l1, l2));
 
@@ -101,4 +109,89 @@ function isPalindrome(s) {
 
 /* 226. Invert Binary Tree
 Given the root of a binary tree, invert the tree, and return its root.
+*/
+
+function invertTree(root) {
+	if (root === null) return null;
+	// DFS
+
+	// [root.left, root.right] = [root.right, root.left];
+
+	// invertTree(root.left);
+	// invertTree(root.right);
+
+	// return root;
+
+	// BFS
+	const queue = [root];
+
+	while (queue.length !== 0) {
+		// console.log(queue);
+		// remove the first node
+		const node = queue.shift();
+
+		[node.left, node.right] = [node.right, node.left];
+
+		if (node.left) queue.push(node.left);
+		if (node.right) queue.push(node.right);
+	}
+
+	return root;
+}
+
+const tree = new TreeNode(4);
+tree.left = new TreeNode(2);
+tree.left.left = new TreeNode(1);
+tree.left.right = new TreeNode(3);
+tree.right = new TreeNode(7);
+tree.right.left = new TreeNode(6);
+tree.right.right = new TreeNode(9);
+
+// invertTree(tree);
+// console.log();
+
+/* 242. Valid Anagram
+Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+Input: s = "anagram", t = "nagaram"
+Output: true
+*/
+
+// Create a map to store the letter as key, and frequency as value
+const isAnagram = (s, t) => {
+	if (!s || !t) return false;
+	if (s.length !== t.length) return false;
+
+	const cache = {};
+
+	for (let i = 0; i < s.length; i++) {
+		cache[s[i]] = cache[s[i]] ? cache[s[i]] + 1 : 1;
+	}
+
+	for (let j = 0; j < t.length; j++) {
+		if (cache[t[j]]) {
+			cache[t[j]]--;
+		} else {
+			return false;
+		}
+	}
+
+	for (let letter in cache) {
+		if (cache[letter] !== 0) {
+			return false;
+		}
+	}
+
+	return true;
+};
+
+// console.log(isAnagram('anagram', 'nagaram'));
+
+
+/* 704. Binary Search
+Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.
+
+You must write an algorithm with O(log n) runtime complexity.
 */
