@@ -100,26 +100,29 @@ const randomDelayDate = (dateFormat, from, to) => {
 };
 
 // DOB
-// for (let i = 0; i < 100; i++) {
-// 	const date = randomDateGen('01/01/1985', '12/30/1995');
+// for (let i = 0; i < 1; i++) {
+// 	const date = randomDateGen('01/01/1990', '12/30/1998');
 
 // 	const { day2, month2, year } = date;
 
-// 	// console.log(`${day2}/${month2}/${year}`);
+// 	console.log(`${month2}/${day2}/${year}`);
 // }
 
+// Purchase Date
 for (let i = 0; i < 1; i++) {
-	const startDate = randomDateGen('01/01/2015', '10/30/2017');
+	// const startDate = randomDateGen('01/01/2015', '10/30/2017');
+	const startDate = randomDateGen('06/01/2015', '11/30/2018');
 
-	// const twoYearEndDate = randomDelayDate(startDate, 730, 1090);
-	const threeYearEndDate = randomDelayDate(startDate, 1096, 1455);
+	const twoYearEndDate = randomDelayDate(startDate, 735, 1080);
+	// const threeYearEndDate = randomDelayDate(startDate, 1096, 1450);
 
 	console.log(
-		`${startDate.month2}/${startDate.day2}/${startDate.yearLong},${threeYearEndDate.month2}/${threeYearEndDate.day2}/${threeYearEndDate.yearLong}`
+		`${startDate.month2}/${startDate.day2}/${startDate.yearLong},${twoYearEndDate.month2}/${twoYearEndDate.day2}/${twoYearEndDate.yearLong}`
 	);
 }
 
 /* 
+first purchase date after Jan 1,2015
 last purchase date prior to December 7, 2022.
 Total report of $300
 2 years: $150 per year
@@ -127,7 +130,7 @@ Total report of $300
 */
 
 // Product allocation
-const yearlyClaim = 150;
+const yearlyClaim = 100;
 const maxPack4 = Math.floor(yearlyClaim / 15.99);
 const maxPack2 = Math.floor(yearlyClaim / 9.99);
 
@@ -135,7 +138,7 @@ for (let x = 0; x <= maxPack4; x++) {
 	for (let y = 0; y <= maxPack2; y++) {
 		if (
 			15.99 * x + 9.99 * y <= yearlyClaim &&
-			15.99 * x + 9.99 * y >= yearlyClaim - 1
+			15.99 * x + 9.99 * y >= yearlyClaim - 5
 		) {
 			console.log('pack4:', x, ', pack2:', y);
 		}
