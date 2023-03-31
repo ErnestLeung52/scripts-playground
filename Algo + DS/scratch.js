@@ -189,9 +189,99 @@ const isAnagram = (s, t) => {
 
 // console.log(isAnagram('anagram', 'nagaram'));
 
-
 /* 704. Binary Search
 Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.
 
 You must write an algorithm with O(log n) runtime complexity.
+Input: nums = [-1,0,3,5,9,12], target = 9
+Output: 4
+Explanation: 9 exists in nums and its index is 4
 */
+
+const search = (nums, target) => {
+	let start = 0;
+	let end = nums.length - 1;
+
+	while (start < end) {
+		const mid = Math.floor(start + (end - start) / 2);
+
+		if (nums[mid] === target) {
+			return mid;
+		} else if (nums[mid] < target) {
+			start = mid + 1;
+		} else {
+			end = mid - 1;
+		}
+	}
+	return -1;
+};
+
+/* 733. Flood Fill
+An image is represented by an m x n integer grid image where image[i][j] represents the pixel value of the image.
+
+You are also given three integers sr, sc, and color. You should perform a flood fill on the image starting from the pixel image[sr][sc].
+
+To perform a flood fill, consider the starting pixel, plus any pixels connected 4-directionally to the starting pixel of the same color as the starting pixel, plus any pixels connected 4-directionally to those pixels (also with the same color), and so on. Replace the color of all of the aforementioned pixels with color.
+*/
+
+const floodFill = (image, sr, sc, color) => {
+	const startColor = image[sr][sc];
+
+	// when curColor already becomes the new color
+	if (startColor === color) return image;
+
+	const dfs = (image, row, col) => {
+		// when the current color is out of bound of the image
+		if (row >= image.length || row < 0 || col >= image[0].length || col < 0) {
+			return;
+		}
+
+		// Since we are only affecting pixel with the same color
+		// if the near by color does not match the starting color, then we do nothing
+		if (image[row][col] !== startColor) {
+			return;
+		}
+
+		// change the curr Color to the new color
+		image[row][col] = color;
+
+		dfs(image, row + 1, col); // up
+		dfs(image, row - 1, col); // down
+		dfs(image, row, col + 1); // right
+		dfs(image, row, col - 1); // left
+	};
+
+	dfs(image, sr, sc);
+
+	return image;
+};
+
+/* 235. Lowest Common Ancestor of a Binary Search Tree
+Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.
+
+According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
+*/
+// O(logN )
+function lowestCommonAncestor(root, p, q) {
+	// top root is always the common ancestor but not the lowest
+	// p is less than curNode then it will be in the left subtree
+	// q is less than curNode then it will be in the right subtree
+	// this means we are going to different sub-tree -> current root is the LCA
+
+	// if both p & q is > root, then we go to the right subtree
+
+	//
+	if (!root || root === p || root === q) {
+		return root;
+	}
+
+	if (p.val < root.val && q.val < root.val) {
+		return lowestCommonAncestor(root.left, p, q);
+	}
+
+	if (p.val > root.val && q.val > root.val) {
+		return lowestCommonAncestor(root.right, p, q);
+	}
+
+	return root;
+}
