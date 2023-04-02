@@ -269,7 +269,6 @@ function lowestCommonAncestor(root, p, q) {
 	// this means we are going to different sub-tree -> current root is the LCA
 
 	// if both p & q is > root, then we go to the right subtree
-
 	//
 	if (!root || root === p || root === q) {
 		return root;
