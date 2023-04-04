@@ -284,3 +284,62 @@ function lowestCommonAncestor(root, p, q) {
 
 	return root;
 }
+
+/* 110. Balanced Binary Tree
+Given a binary tree, determine if it is 
+height-balanced
+*/
+const isBalanced = (root) => {
+	// A flag to check if the tree is balanced or not
+	let flag = true;
+
+	// Helper function to check if the tree is balanced or not
+	const get_heights = (node, height) => {
+		// Empty tree? It's 0 in height
+		if (!node) {
+			return 0;
+		}
+
+		// Get my left and right heights
+		// by adding 1 to the height of the left and right subtrees.
+		// each time we move down them
+		const left_height = get_heights(node.left, height + 1);
+		const right_height = get_heights(node.right, height + 1);
+
+		// Let's use some math.
+		// Technically, if we have a balanced tree, the difference
+		// should always be 0. But because, this question is awkward, we need to check if
+		// if its diff is greater than 1. So we minus the two by using absolutes values and asking
+		// if the diff in this sub tree was greater than 1. If so bad un balanced.
+		if (Math.abs(right_height - left_height) > 1) {
+			flag = false;
+		}
+
+		// Return the height of the tree
+		// By returning whoever had the bigger height and adding 1 (Our current node)
+		return Math.max(left_height, right_height) + 1;
+	};
+
+	// Call the helper function
+	get_heights(root, 0);
+
+	// Get the flag back to base. :D
+	return flag;
+
+	// let isBalanced = true;
+	// function dfs(t) {
+	// 	if (!t) return 0;
+
+	// 	const left = dfs(t.left);
+	// 	const right = dfs(t.right);
+
+	// 	if (Math.abs(left - right) > 1) {
+	// 		isBalanced = false;
+	// 	}
+
+	// 	return 1 + Math.max(left, right);
+	// }
+
+	// dfs(tree);
+	// return isBalanced;
+};
