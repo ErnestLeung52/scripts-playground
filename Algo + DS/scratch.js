@@ -388,4 +388,27 @@ var solution = function (isBadVersion) {
 	};
 };
 
+/* 383. Ransom Note
+Given two strings ransomNote and magazine, return true if ransomNote can be constructed by using the letters from magazine and false otherwise.
 
+Each letter in magazine can only be used once in ransomNote.
+*/
+
+function canConstruct(ransomNote, magazine) {
+	const cache = {};
+
+	for (let i = 0; i < magazine.length; i++) {
+		cache[magazine[i]] = cache[magazine[i]] ? cache[magazine[i]] + 1 : 1;
+	}
+
+	for (let j = 0; j < ransomNote.length; j++) {
+		if (!(ransomNote[j] in cache) || cache[ransomNote[j]] <= 0) {
+			return false;
+		}
+
+		cache[ransomNote[j]]--;
+	}
+
+	return true;
+}
+// console.log(canConstruct('aa', 'aab'));
