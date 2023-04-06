@@ -474,5 +474,14 @@ const reverseList = (head) => {
 		curr = next;
 	}
 
-  return prev;
+	return prev;
 };
+
+/* 67. Add Binary
+Given two binary strings a and b, return their sum as a binary string.
+*/
+const addBinary = (a, b) => {
+
+};
+
+// console.log(addBinary('1010', '1011'));
