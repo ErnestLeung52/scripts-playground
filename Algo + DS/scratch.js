@@ -412,3 +412,27 @@ function canConstruct(ransomNote, magazine) {
 	return true;
 }
 // console.log(canConstruct('aa', 'aab'));
+
+/* 70. Climbing Stairs
+You are climbing a staircase. It takes n steps to reach the top.
+
+Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+Input: n = 2
+Output: 2
+*/
+// O(N)
+const climbStairs = (n, memo = {}) => {
+	// base cases: there is only one way to climb 0 or 1 stairs
+	if (n === 0 || n === 1) return 1;
+
+	// check if we've already computed the result for n
+	if (n in memo) {
+		return memo[n];
+	}
+
+	memo[n] = climbStairs(n - 1, memo) + climbStairs(n - 2, memo);
+
+	return memo[n];
+};
+
+// climbStairs(5);
