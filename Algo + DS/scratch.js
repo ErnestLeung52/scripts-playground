@@ -436,3 +436,43 @@ const climbStairs = (n, memo = {}) => {
 };
 
 // climbStairs(5);
+
+/* 409. Longest Palindrome
+Given a string s which consists of lowercase or uppercase letters, return the length of the longest palindrome that can be built with those letters.
+
+Letters are case sensitive, for example, "Aa" is not considered a palindrome here.
+Input: s = "abccccdd"
+Output: 7
+*/
+const longestPalindrome = (s) => {
+	let count = 0;
+	const cache = {};
+
+	for (const char in s) {
+		cache[char] = cache[char] ? cache[char] + 1 : 1;
+
+		if (cache[char] % 2 === 0) {
+			count += 2;
+		}
+	}
+
+	return s.length > count ? count + 1 : count;
+};
+
+/* 206. Reverse Linked List
+Given the head of a singly linked list, reverse the list, and return the reversed list.
+*/
+
+const reverseList = (head) => {
+	let prev = null;
+	let curr = head;
+
+	while (curr) {
+		let next = curr.next;
+		curr.next = prev;
+		prev = curr;
+		curr = next;
+	}
+
+  return prev;
+};
