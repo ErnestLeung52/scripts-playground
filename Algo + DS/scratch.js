@@ -481,7 +481,55 @@ const reverseList = (head) => {
 Given two binary strings a and b, return their sum as a binary string.
 */
 const addBinary = (a, b) => {
-
+	// const aBin = `0b${a}`;
+	// const bBin = `0b${b}`;
+	// const sum = BigInt(aBin) + BigInt(bBin);
+	// return sum.toString(2);
 };
 
 // console.log(addBinary('1010', '1011'));
+
+/* 169. Majority Element
+Given an array nums of size n, return the majority element.
+
+The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
+Input: nums = [3,2,3]
+Output: 3
+*/
+
+const majorityElement = (nums) => {
+	const cache = {};
+
+	let maxNum = 0;
+	let maxFreq = 0;
+
+	for (let i = 0; i < nums.length; i++) {
+		cache[nums[i]] = cache[nums[i]] ? cache[nums[i]] + 1 : 1;
+
+		if (cache[nums[i]] > maxFreq) {
+			maxFreq = cache[nums[i]];
+			maxNum = nums[i];
+		}
+
+		// because majority element appears more than [n/2]
+		// if (cache[nums[i]] > nums.length / 2) {
+		//   return nums[i]
+		// }
+	}
+
+	return maxNum;
+};
+
+// console.log(majorityElement([3,2,3]));
+
+/* 543. Diameter of Binary Tree
+Given the root of a binary tree, return the length of the diameter of the tree.
+
+The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.
+
+The length of a path between two nodes is represented by the number of edges between them.
+*/
+
+const  diameterOfBinaryTree = (root) => {
+  
+}
