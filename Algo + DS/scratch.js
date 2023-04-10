@@ -139,14 +139,6 @@ function invertTree(root) {
 	return root;
 }
 
-const tree = new TreeNode(4);
-tree.left = new TreeNode(2);
-tree.left.left = new TreeNode(1);
-tree.left.right = new TreeNode(3);
-tree.right = new TreeNode(7);
-tree.right.left = new TreeNode(6);
-tree.right.right = new TreeNode(9);
-
 // invertTree(tree);
 // console.log();
 
@@ -530,5 +522,82 @@ The diameter of a binary tree is the length of the longest path between any two 
 The length of a path between two nodes is represented by the number of edges between them.
 */
 
-const  diameterOfBinaryTree = (root) => {
-}
+const diameterOfBinaryTree = (root) => {
+	let max = 0;
+
+	function maxDepth(root) {
+		// if our root(num) is null then there is no path. return 0/ull
+		if (root === null) return 0;
+
+		// Assign the left  of tree to LEFT; this will be easier to call it instead of writing "maxDepth(root.left)" each time
+		let left = maxDepth(root.left);
+		let right = maxDepth(root.right); //Same above
+		// console.log('left', left, '   right', right);
+
+		//if the path doesn't go through the root we just get the max of them
+		max = Math.max(max, left + right);
+
+		// the path goes through the root so we add 1(for the root)
+		return Math.max(left, right) + 1;
+	}
+
+	//since we don't know if the path will go through the root or not we will have to get the max between(path that visits the root, or the path that doesn't go through the root.)
+	maxDepth(root);
+	return max;
+};
+
+// console.log(diameterOfBinaryTree(tree));
+
+/* 876. Middle of the Linked List 
+Given the head of a singly linked list, return the middle node of the linked list.
+If there are two middle nodes, return the second middle node.
+*/
+const middleNode = (head) => {
+	// let slow = head;
+	// let fast = head.next;
+
+	// while (fast) {
+	// 	slow = slow.next;
+	// 	fast = fast.next.next;
+	// }
+
+	// return slow;
+
+	let slow = head;
+	let fast = head;
+
+	// works for odd/even number of nodes
+	while (fast && fast.next) {
+		slow = slow.next;
+		fast = fast.next.next;
+	}
+
+	return slow;
+};
+
+/* 104. Maximum Depth of Binary Tree
+Given the root of a binary tree, return its maximum depth.
+
+A binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+*/
+
+const maxDepth = (root) => {
+	// base case: if root is null, return 0
+	if (!root) {
+		return 0;
+	}
+
+	// recursively find the maximum depth of the left and right subtrees
+	const leftDepth = maxDepth(root.left);
+	const rightDepth = maxDepth(root.right);
+
+	// return the maximum depth of the tree
+	return Math.max(leftDepth, rightDepth) + 1;
+};
+
+const tree = new TreeNode(1);
+tree.left = new TreeNode(2);
+tree.right = new TreeNode(3);
+tree.right.left = new TreeNode(4);
+tree.right.right = new TreeNode(5);
+// console.log(maxDepth(tree));
