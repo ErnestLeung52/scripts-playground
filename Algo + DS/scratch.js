@@ -601,3 +601,43 @@ tree.right = new TreeNode(3);
 tree.right.left = new TreeNode(4);
 tree.right.right = new TreeNode(5);
 // console.log(maxDepth(tree));
+
+/* 217. Contains Duplicate
+Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+*/
+const containsDuplicate = (nums) => {
+	if (nums.length <= 1) return false;
+
+	const set = new Set();
+
+	for (let i = 0; i < nums.length; i++) {
+		if (set.has(nums[i])) {
+			return true;
+		}
+
+		set.add(nums[i]);
+	}
+
+	return false;
+	// let testSet = new Set(nums);
+	// return testSet.size !== nums.length;
+};
+// console.log(containsDuplicate([1, 2, 3, 1]));
+
+/* 53. Maximum Subarray
+Given an integer array nums, find the 
+subarray
+ with the largest sum, and return its sum.
+ */
+const maxSubArray = (nums) => {
+	// Sliding windows
+	let maxSum = nums[0];
+	let currSum = nums[0];
+
+	for (let i = 1; i < nums.length; i++) {
+		currSum = Math.max(nums[i], nums[i] + currSum);
+		maxSum = Math.max(maxSum, currSum);
+	}
+
+	return maxSum;
+};
