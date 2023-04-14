@@ -809,7 +809,7 @@ substring without repeating characters.
 Input: s = "abcabcbb"
 Output: 3
 */
-// Most optimal
+//Sliding Windows with Set - Most optimal
 const lengthOfLongestSubstring = (s) => {
 	// keeps track of the most recent index of each letter.
 	const seen = {};
@@ -819,6 +819,8 @@ const lengthOfLongestSubstring = (s) => {
 
 	for (let right = 0; right < s.length; right++) {
 		if (s[right] in seen) {
+			// if the current char was seen, move the start to (1 + the last index of this char)
+			// max prevents moving backward, 'start' can only move forward
 			left = Math.max(left, seen[s[right]] + 1);
 			// left = seen[s[right]] + 1;
 		}
@@ -831,7 +833,7 @@ const lengthOfLongestSubstring = (s) => {
 };
 // console.log(lengthOfLongestSubstring('pwwkew'));
 
-// Sliding Windows with Set
+// Worst case: O(N^2)
 const lengthOfLongestSubstring_2 = (s) => {
 	const set = new Set();
 
