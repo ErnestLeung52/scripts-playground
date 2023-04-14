@@ -145,7 +145,7 @@ const threeSum = function (nums) {
 	}
 	return result;
 };
-// console.log(threeSum([-3, 0, 1, 0, 2, 1, -1, 1, 1, 2, -2]));
+// console.log(threeSum([-1,0,1,2,-1,-4]));
 // [ -3, -2, -1, 0, 0, 1, 1, 1, 1, 2, 2 ]
 
 /* -------------- 5. Triplet Sum Close to Target  ------------------ 
