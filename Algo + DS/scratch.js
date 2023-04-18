@@ -888,3 +888,44 @@ class LRUCache {
 		this.map.set(key, value);
 	}
 }
+
+/* 102. Binary Tree Level Order Traversal
+Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
+*/
+// Time: O(N), where N is the number of nodes in the binary tree. This is because each node is visited only once in the worst case scenario.
+// Space: The space complexity of the levelOrder function is O(N) as well. This is because at most N nodes can be added to the queue at any given time, which requires O(N) space complexity.
+const levelOrder = (root) => {
+	if (!root) return [];
+
+	const queue = [root];
+	const levels = [];
+
+	while (queue.length) {
+		// Get the length prior to dequeueing
+
+		const queueLength = queue.length;
+		const currLevel = [];
+		// loop through to exhaust all options and only to include nodes at currLevel
+
+		for (let i = 0; i < queueLength; i++) {
+			// Get next node
+			const currNode = queue.shift();
+
+			if (currNode.left) {
+				queue.push(currNode.left);
+			}
+
+			if (currNode.right) {
+				queue.push(currNode.right);
+			}
+
+			// After we add left and right for current, we add to currLevel
+			currLevel.push(currNode.val);
+		}
+
+		// Level has been finished. Push into output array
+		levels.push(currLevel);
+	}
+
+	return result;
+};
