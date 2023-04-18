@@ -854,3 +854,37 @@ const lengthOfLongestSubstring_2 = (s) => {
 	return maxLen;
 };
 // console.log(lengthOfLongestSubstring_2('pwwkew'));
+
+/* 146. LRU Cache
+ */
+class LRUCache {
+	constructor(capacity) {
+		this.map = new Map();
+		this.capacity = capacity;
+	}
+
+	//GET: When we read a value, we have to move it from wherever it was an put it to the end.
+	get(key) {
+		if (!this.map.has(key)) return -1;
+
+		const val = this.map.get(key);
+		// Small hack to re-order keys: we remove the requested key and place it at the end
+		this.map.delete(key);
+		this.map.set(key, val);
+
+		return val;
+	}
+
+	// PUT: Every time we put a value, it will naturally go to the end of the list.
+	//If the value already exits we need to delete it from wherever it was and put it to the end.
+	// When doing a put, we check the capacity. If are over the limit, we delete the first element.
+	put(key, value) {
+		if (!this.map.has(key) && this.map.size >= this.capacity) {
+			const firstKey = this.map.keys().next().value;
+			this.map.delete(firstKey);
+		}
+
+		this.map.delete(key);
+		this.map.set(key, value);
+	}
+}
