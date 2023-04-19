@@ -894,6 +894,8 @@ Given the root of a binary tree, return the level order traversal of its nodes' 
 */
 // Time: O(N), where N is the number of nodes in the binary tree. This is because each node is visited only once in the worst case scenario.
 // Space: The space complexity of the levelOrder function is O(N) as well. This is because at most N nodes can be added to the queue at any given time, which requires O(N) space complexity.
+
+//We can use an inner for loop at each iteration of the while loop. When the loop begins, the length of the queue represents the # of nodes at the level. So by exhausting this length, we will only push the nodes into the queue that are all at the same level. The table below helped me understand a bit better whats going on.
 const levelOrder = (root) => {
 	if (!root) return [];
 
