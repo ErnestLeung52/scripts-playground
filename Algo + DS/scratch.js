@@ -931,3 +931,35 @@ const levelOrder = (root) => {
 
 	return result;
 };
+
+/* 150. Evaluate Reverse Polish Notation
+You are given an array of strings tokens that represents an arithmetic expression in a Reverse Polish Notation.
+Evaluate the expression. Return an integer that represents the value of the expression.
+Input: tokens = ["2","1","+","3","*"]
+Output: 9
+Explanation: ((2 + 1) * 3) = 9
+*/
+const evalRPN = (tokens) => {
+	// Stack
+	if (tokens.length % 2 !== 0) return null;
+	const stack = [];
+	const operations = {
+		'+': (a, b) => a + b,
+		'-': (a, b) => a - b,
+		'*': (a, b) => a * b,
+		'/': (a, b) => Math.trunc(a / b),
+	};
+
+	for (const t of tokens) {
+		if (operations[t]) {
+			// End of array it the top
+			const top = stack.pop();
+			const second = stack.pop();
+			stack.push(operations[t](second, top));
+		} else {
+			stack.push(Number(t));
+		}
+	}
+
+	return stack.pop();
+};
