@@ -963,3 +963,82 @@ const evalRPN = (tokens) => {
 
 	return stack.pop();
 };
+
+/* 207. Course Schedule
+There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
+
+For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
+Return true if you can finish all courses. Otherwise, return false.
+Input: numCourses = 2, prerequisites = [[1,0]]
+Output: true
+Explanation: There are a total of 2 courses to take. 
+To take course 1 you should have finished course 0. So it is possible.
+*/
+
+const canFinish = (numCourses, prerequisites) => {
+	// adjacency list + set
+	const adjList = {};
+	const visited = {};
+
+	// build the adacency list
+	for (let i = 0; i < prerequisites.length; i++) {
+		if (adjList[prerequisites[i][0]] === undefined) {
+			adjList[prerequisites[i][0]] = [prerequisites[i][1]];
+		} else {
+			adjList[prerequisites[i][0]].push(prerequisites[i][1]);
+		}
+	}
+	// console.log(adjList); // { 0: [ 1, 2 ], 1: [ 3 ], 3: [ 4 ] }
+
+	const dfs = (node) => {
+		// Found a loop
+		if (visited[node]) {
+			return false;
+		}
+
+		// check for prereq courses
+		if (adjList[node] !== undefined) {
+			// if prereq courses is empty
+			if (adjList[node].length === 0) {
+				return true;
+			}
+
+			// set true to check for finding a loop
+			visited[node] = true;
+			// console.log(visited);
+
+			// check for other prereq for the current prereq
+			for (const prereq of adjList[node]) {
+				// if result return to false (meaning visited[node] === false)
+				//
+				if (!dfs(prereq)) {
+					return false;
+				}
+			}
+
+			// passed all the checks
+			// if we can't get to the step of flagging to false, that means during dfs,
+			// we are encountering the same node in the dfs
+			visited[node] = false;
+			adjList[node] = [];
+		}
+
+		return true;
+	};
+
+	for (let key in adjList) {
+		if (!dfs(key)) {
+			return false;
+		}
+	}
+	return true;
+};
+
+// console.log(
+// 	canFinish(2, [
+// 		[0, 1],
+// 		[0, 2],
+// 		[1, 3],
+// 		[3, 4],
+// 	])
+// );
