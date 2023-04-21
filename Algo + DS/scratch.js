@@ -1034,11 +1034,118 @@ const canFinish = (numCourses, prerequisites) => {
 	return true;
 };
 
-// console.log(
-// 	canFinish(2, [
-// 		[0, 1],
-// 		[0, 2],
-// 		[1, 3],
-// 		[3, 4],
-// 	])
-// );
+const canFinish_2 = (numCourses, prerequisites) => {
+	// adjacency list + set
+	// In this implementation, we use a depth-first search (DFS) approach to traverse the graph represented by the course prerequisites. We first build an adjacency list to represent the graph. Then, we use a set to keep track of visited nodes during the DFS traversal.
+
+	// For each node in the graph, we perform a DFS traversal starting from that node. If we encounter a node that has already been visited during the current traversal, we know that there is a cycle in the graph, and we return false. Otherwise, we mark the current node as visited, and recursively traverse all its neighbors (i.e., prerequisite courses). If we encounter a node that returns false during the recursive traversal, we return false as well. Finally, we remove the current node from the visited set before returning true.
+
+	// We perform the DFS traversal for all nodes in the graph (i.e., all courses), and if all traversals return true, we know that there are no cycles in the graph and we can finish all courses. Otherwise, we return false.
+	const adjList = {};
+	const visited = new Set();
+
+	// build the adacency list
+	for (let i = 0; i < prerequisites.length; i++) {
+		if (adjList[prerequisites[i][0]] === undefined) {
+			adjList[prerequisites[i][0]] = [prerequisites[i][1]];
+		} else {
+			adjList[prerequisites[i][0]].push(prerequisites[i][1]);
+		}
+	}
+
+	const dfs = (node) => {
+		if (visited.has(node)) {
+			return false;
+		}
+
+		visited.add(node);
+		if (adjList[node] !== undefined) {
+			for (const prereq of adjList[node]) {
+				if (!dfs(prereq)) {
+					return false;
+				}
+			}
+		}
+		visited.delete(node);
+
+		return true;
+	};
+
+	for (let i = 0; i < numCourses; i++) {
+		if (!dfs(i)) {
+			return false;
+		}
+	}
+
+	return true;
+};
+
+/* 208. Implement Trie (Prefix Tree)
+A trie (pronounced as "try") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker.
+*/
+
+class TrieNode {
+	constructor(child = {}, end = false) {
+		this.child = child;
+		this.end = end;
+	}
+}
+
+class Trie {
+	// insert 'aa' & 'ab'
+	// root { a: {	a: {},
+	//          		b: {},
+	// 	}, };
+	constructor() {
+		this.root = new TrieNode();
+	}
+
+	// Inserts the string word into the trie.
+	insert(word) {
+		let current = this.root;
+
+		for (const char of word) {
+			if (!current.child[char]) {
+				current.child[char] = new TrieNode();
+			}
+			// continously traversing inside of the object
+			current = current.child[char];
+		}
+
+		current.end = true;
+	}
+
+	// Returns true if the string word is in the trie (i.e., was inserted before), and false otherwise.
+	search(word) {
+		let current = this.root;
+
+		for (const char of word) {
+			if (current.child[char]) {
+				current = current.child[char];
+			} else {
+				return false;
+			}
+		}
+
+		return current.end;
+	}
+
+	// Returns true if there is a previously inserted string word that has the prefix prefix, and false otherwise.
+	startsWith(prefix) {
+		let current = this.root;
+
+		for (const char of prefix) {
+			if (current.child[char]) {
+				current = current.child[char];
+			} else {
+				return false;
+			}
+		}
+		return true;
+	}
+}
+
+const trie = new Trie();
+// trie.insert('aa');
+// trie.insert('ab');
+// console.log(trie);
