@@ -1144,3 +1144,41 @@ trie.insert('aa');
 trie.insert('ab');
 // console.log(trie);
 // console.log(trie.search('aa'));
+
+/* 322. Coin Change
+You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.
+
+Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
+
+You may assume that you have an infinite number of each kind of coin.
+*/
+const coinChange = (coins, amount) => {
+	// [1,2,5], 11
+	// [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ,11]
+	// @3: 1-> dp[3] = min(dp[3], 1 + dp[3-1])	 2-> dp[3] = min(dp[3], 1 + dp[3-2])
+	// @4: 1-> dp[4] = min(dp[4], 1 + dp[4-1])...
+	// DP arr: store all the solutions between 0 to amount, filled with invalid value, so that if we can later check if there exists possible solutions
+	// loop through amount to fille up the dp arr
+	// loop through the amount of coins
+	// if the current amount - coin is greater than 0, which means there is a potential solution
+	// then we find the min between curAmount, and the remaining amount of cur - coin + 1
+	// + 1 is to include  the current we have taken
+
+	// amount + 1: includes 0
+	const dp = Array(amount + 1).fill(Infinity);
+
+	// base case, takes 0 coin to make 0
+	dp[0] = 0;
+
+	for (let curAmount = 1; curAmount <= amount; curAmount++) {
+		for (const coin of coins) {
+			// have a potential value
+			if (curAmount - coin >= 0) {
+				// 1 + is the current we have taken
+				dp[curAmount] = Math.min(dp[curAmount], 1 + dp[curAmount - coin]);
+			}
+		}
+	}
+
+	return dp[amount] === Infinity ? -1 : dp[amount];
+};
