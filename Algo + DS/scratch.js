@@ -1085,9 +1085,9 @@ A trie (pronounced as "try") or prefix tree is a tree data structure used to eff
 */
 
 class TrieNode {
-	constructor(child = {}, end = false) {
-		this.child = child;
-		this.end = end;
+	constructor() {
+		this.children = {};
+		this.end = false;
 	}
 }
 
@@ -1105,47 +1105,42 @@ class Trie {
 		let current = this.root;
 
 		for (const char of word) {
-			if (!current.child[char]) {
-				current.child[char] = new TrieNode();
+			if (!current.children[char]) {
+				current.children[char] = new TrieNode();
 			}
 			// continously traversing inside of the object
-			current = current.child[char];
+			current = current.children[char];
 		}
 
 		current.end = true;
 	}
 
-	// Returns true if the string word is in the trie (i.e., was inserted before), and false otherwise.
-	search(word) {
-		let current = this.root;
+	traverse(word) {
+		let currNode = this.root;
 
 		for (const char of word) {
-			if (current.child[char]) {
-				current = current.child[char];
-			} else {
-				return false;
-			}
+			if (!(char in currNode.children)) return null;
+			currNode = currNode.children[char];
 		}
 
-		return current.end;
+		return currNode;
+	}
+
+	// Returns true if the string word is in the trie (i.e., was inserted before), and false otherwise.
+	search(word) {
+		const lastNode = this.traverse(word);
+		return !!lastNode && lastNode.end;
 	}
 
 	// Returns true if there is a previously inserted string word that has the prefix prefix, and false otherwise.
 	startsWith(prefix) {
-		let current = this.root;
-
-		for (const char of prefix) {
-			if (current.child[char]) {
-				current = current.child[char];
-			} else {
-				return false;
-			}
-		}
-		return true;
+		const lastNode = this.traverse(prefix);
+		return !!lastNode;
 	}
 }
 
 const trie = new Trie();
-// trie.insert('aa');
-// trie.insert('ab');
+trie.insert('aa');
+trie.insert('ab');
 // console.log(trie);
+// console.log(trie.search('aa'));
