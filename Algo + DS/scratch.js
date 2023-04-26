@@ -1301,3 +1301,76 @@ class MinStack {
 		return this.min;
 	}
 }
+
+/* 98. Validate Binary Search Tree
+Given the root of a binary tree, determine if it is a valid binary search tree (BST).
+
+A valid BST is defined as follows:
+
+The left subtreeof a node contains only nodes with keys less than the node's key.
+The right subtree of a node contains only nodes with keys greater than the node's key.
+Both the left and right subtrees must also be binary search trees.
+*/
+const isValidBST = (root) => {
+	const dfs = (node, min, max) => {
+		if (!node) return true;
+
+		if (node.val >= max || node.val <= min) {
+			return false;
+		}
+
+		const validLeft = dfs(node.left, min, node.val);
+		const validRight = dfs(node.right, node.val, max);
+
+		return validLeft && validRight;
+	};
+
+	return dfs(root, -Infinity, Infinity);
+};
+
+/* 200. Number of Islands
+Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.
+
+An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
+*/
+const numIslands = (grid) => {
+	// Set up a count to keep track of the number of islands found
+	let count = 0;
+
+	// Helper function to explore the island from a given cell
+	const exploreIsland = function (row, col) {
+		// If the current cell is out of bounds or not part of an island, return
+		if (
+			row < 0 ||
+			row >= grid.length ||
+			col < 0 ||
+			col >= grid[0].length ||
+			grid[row][col] === '0'
+		) {
+			return;
+		}
+
+		// Mark the current cell as visited by changing its value to '0'
+		grid[row][col] = '0';
+
+		// Recursively explore the neighboring cells
+		exploreIsland(row + 1, col);
+		exploreIsland(row - 1, col);
+		exploreIsland(row, col + 1);
+		exploreIsland(row, col - 1);
+	};
+
+	// Loop through the grid to find the islands
+	for (let row = 0; row < grid.length; row++) {
+		for (let col = 0; col < grid[0].length; col++) {
+			// If a cell is part of an island, increment the count and explore the island
+			if (grid[row][col] === '1') {
+				count++;
+				exploreIsland(row, col);
+			}
+		}
+	}
+
+	// Return the total count of islands found
+	return count;
+};
