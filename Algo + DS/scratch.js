@@ -1377,3 +1377,93 @@ const numIslands = (grid) => {
 	// Return the total count of islands found
 	return count;
 };
+
+/* 994. Rotting Oranges
+You are given an m x n grid where each cell can have one of three values:
+
+0 representing an empty cell,
+1 representing a fresh orange, or
+2 representing a rotten orange.
+Every minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten.
+
+Return the minimum number of minutes that must elapse until no cell has a fresh orange. If this is impossible, return -1.
+
+2, 1, 1
+1, 1, 0
+0, 1, 1
+*/
+
+const orangesRotting = (grid) => {
+	/*The strategy to solve the problem is to use BFS to simulate the rotting process of oranges in the grid. We will start by adding all the rotten oranges to the queue, and then we will do the following steps:
+
+	1. Pop an orange from the queue.
+	2. Check if the adjacent oranges (up, down, left, right) are fresh.
+	3. If an adjacent orange is fresh, mark it as rotten and add it to the queue.
+	4. Continue the process until the queue is empty.
+	While performing the above steps, we will also keep track of the time it takes to rot all the fresh oranges. We will do this by using a variable called time. The time will be equal to the number of iterations we do on the queue, which is equal to the number of levels in the BFS tree.
+
+	At the end of the process, we will check if there are any fresh oranges left in the grid. If there are, it means that not all the oranges could be rotted, and we will return -1. Otherwise, we will return the time.
+
+	The time complexity of this solution is O(m * n), where m is the number of rows and n is the number of columns in the grid. This is because we traverse the grid once to initialize the queue, and then repeatedly explore neighbors of oranges that we mark as rotten in the queue until all fresh oranges are rotten or there are no more rotten oranges to explore.
+
+	The space complexity of this solution is O(m * n), because in the worst case we can add all the oranges to the queue before starting the BFS loop. However, we can optimize the space usage by marking rotten oranges as -1 instead of using a queue of coordinates, since we only care about the number of minutes elapsed and not about the path of the BFS.
+	*/
+	// Set up directions array
+	const dirs = [
+		[0, 1],
+		[0, -1],
+		[1, 0],
+		[-1, 0],
+	];
+
+	// Set up queue and fresh count
+	let queue = [];
+	let fresh = 0;
+
+	// Iterate through grid and add rotten oranges to queue and count fresh oranges
+	for (let i = 0; i < grid.length; i++) {
+		for (let j = 0; j < grid[0].length; j++) {
+			if (grid[i][j] === 2) {
+				queue.push([i, j]);
+			} else if (grid[i][j] === 1) {
+				fresh++;
+			}
+		}
+	}
+
+	let minutes = 0;
+
+	while (queue.length > 0 && fresh > 0) {
+		let size = queue.length;
+
+		// Iterate through current level of rotten oranges in queue
+		for (let i = 0; i < size; i++) {
+			let [x, y] = queue.shift();
+
+			// Iterate through each direction
+			for (let [dx, dy] of dirs) {
+				let nx = x + dx;
+				let ny = y + dy;
+
+				// Check if new coordinates are valid and if there is a fresh orange there
+				if (
+					nx >= 0 &&
+					nx < grid.length &&
+					ny >= 0 &&
+					ny < grid[0].length &&
+					grid[nx][ny] === 1
+				) {
+					// Change fresh orange to rotten orange and add it to queue
+					grid[nx][ny] = 2;
+					queue.push([nx, ny]);
+					fresh--;
+				}
+			}
+		}
+		// Increment minutes for each level of rotten oranges
+		minutes++;
+	}
+
+	// If there are no fresh oranges left, return the number of minutes, otherwise return -1
+	return fresh === 0 ? minutes : -1;
+};
