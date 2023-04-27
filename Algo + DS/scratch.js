@@ -1139,9 +1139,9 @@ class Trie {
 	}
 }
 
-const trie = new Trie();
-trie.insert('aa');
-trie.insert('ab');
+// const trie = new Trie();
+// trie.insert('aa');
+// trie.insert('ab');
 // console.log(trie);
 // console.log(trie.search('aa'));
 
@@ -1311,6 +1311,8 @@ The left subtreeof a node contains only nodes with keys less than the node's key
 The right subtree of a node contains only nodes with keys greater than the node's key.
 Both the left and right subtrees must also be binary search trees.
 */
+// Time- O(N), n nodes in BST
+// Space- worst O(N) for skewed tree, O(logN) balanced BST
 const isValidBST = (root) => {
 	const dfs = (node, min, max) => {
 		if (!node) return true;
@@ -1334,6 +1336,7 @@ Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0'
 An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
 */
 const numIslands = (grid) => {
+	// Time & Space O(m x n)
 	// Set up a count to keep track of the number of islands found
 	let count = 0;
 
