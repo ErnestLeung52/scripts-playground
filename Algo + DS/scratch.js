@@ -1511,6 +1511,5 @@ var searchSortedArray = function (nums, target) {
 			}
 		}
 	}
-
 	return -1;
 };
