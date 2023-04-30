@@ -1557,3 +1557,36 @@ function combinationSum(candidates, target) {
 }
 
 // console.log(combinationSum([2, 3, 6, 7], 7));
+
+/*46. Permutations
+Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.
+*/
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var permute = function (nums) {
+	const result = [];
+
+	// Recursive helper function to generate permutations
+	function generatePermutations(nums, currentPermutation) {
+		// Base case: if current permutation has the same length as nums array
+		if (currentPermutation.length === nums.length) {
+			result.push(currentPermutation.slice()); // Add a copy of current permutation to the result
+			return;
+		}
+
+		for (let i = 0; i < nums.length; i++) {
+			if (currentPermutation.includes(nums[i])) continue; // Skip if current number is already in the current permutation
+			currentPermutation.push(nums[i]); // Add current number to the current permutation
+			console.log(i, currentPermutation);
+			generatePermutations(nums, currentPermutation); // Recursively generate permutations using the updated current permutation
+			currentPermutation.pop(); // Backtrack by removing the last added number from the current permutation
+		}
+	}
+
+	generatePermutations(nums, []);
+	return result;
+};
+
+// console.log(permute([1, 2, 3]));
