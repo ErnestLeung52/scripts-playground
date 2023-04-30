@@ -1513,3 +1513,47 @@ var searchSortedArray = function (nums, target) {
 	}
 	return -1;
 };
+
+/* 39. Combination Sum
+Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target. You may return the combinations in any order.
+
+The same number may be chosen from candidates an unlimited number of times. Two combinations are unique if the 
+frequency
+ of at least one of the chosen numbers is different.
+
+The test cases are generated such that the number of unique combinations that sum up to target is less than 150 combinations for the given input.
+*/
+
+function combinationSum(candidates, target) {
+	const results = [];
+
+	// This function recursively finds all combinations that sum up to the target.
+	function backtrack(combination, remaining, start) {
+		// Base case: if the remaining value is 0, the combination sums up to the target.
+		if (remaining === 0) {
+			results.push([...combination]); // Add the combination to the results array.
+			console.log('result: ', results);
+			return;
+		}
+
+		// If the remaining value is negative, or there are no candidates left to add, backtrack.
+		if (remaining < 0 || start === candidates.length) {
+			return;
+		}
+
+		// Try adding each candidate to the combination and recursively backtrack.
+		for (let i = start; i < candidates.length; i++) {
+			combination.push(candidates[i]); // Add the candidate to the combination.
+			console.log(i, combination, '-', remaining);
+
+			backtrack(combination, remaining - candidates[i], i); // Recursively backtrack with the new remaining value and starting index.
+
+			combination.pop(); // Remove the candidate from the combination to try the next one.
+		}
+	}
+
+	backtrack([], target, 0); // Start the recursive backtracking with an empty combination, target value, and starting index of 0.
+	return results;
+}
+
+// console.log(combinationSum([2, 3, 6, 7], 7));
