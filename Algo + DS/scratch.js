@@ -1590,3 +1590,32 @@ var permute = function (nums) {
 };
 
 // console.log(permute([1, 2, 3]));
+
+function permuteTemplate(nums) {
+	const results = [];
+
+	function backtrack(currentPerm) {
+		// base case
+		if (currentPerm.length === nums.length) {
+			// console.log('✅');
+			results.push([...currentPerm]);
+			return;
+		}
+
+		for (let i = 0; i < nums.length; i++) {
+			// if this number is already in the current permutation, skip it
+			// if (currentPerm.includes(nums[i])) {
+			// 	continue;
+			// }
+
+			currentPerm.push(nums[i]);
+			// console.log(nums[i], currentPerm);
+			backtrack(currentPerm);
+			currentPerm.pop();
+		}
+	}
+
+	backtrack([]);
+	return results;
+}
+// console.log(permuteTemplate([1, 2, 3]));
