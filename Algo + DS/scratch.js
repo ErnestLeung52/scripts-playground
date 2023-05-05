@@ -1709,3 +1709,40 @@ class TimeMap {
 		return result === null ? '' : result;
 	}
 }
+
+/* 75. Sort Colors
+Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue.
+We will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.
+You must solve this problem without using the library's sort function.
+nums = [2,0,2,1,1,0]
+// [0,1,2,1,0,2]
+			L i   R
+// Swap
+// [0,1,0,1,2,2]
+			L  iR
+// If we take a value and swap with a right pointer, it may potentially introduce a 0 in the middle of the array if we increment i
+*/
+
+const sortColors = (arr) => {
+	// bucket sort + partition / 2-pointers
+	let low = 0, // partition for 0
+		i = 0, // iterate through arr
+		high = arr.length - 1; // partition for 2
+
+	while (i <= high) {
+		if (arr[i] == 0) {
+			swap(low, i);
+			i++;
+			low++;
+		} else if (arr[i] == 1) {
+			i++;
+		} else if (arr[i] == 2) {
+			swap(i, high);
+			high--;
+		}
+	}
+
+	function swap(a, b) {
+		[arr[b], arr[a]] = [arr[a], arr[b]];
+	}
+};
