@@ -8,6 +8,7 @@ emailNodeList.forEach((msg, index) => {
 	const recipientPattern = /^To: (.*)/;
 	const recipientEmail = recipientText.replace(recipientPattern, '$1');
 
+	// 3 parts body
 	const emailSections = msg.querySelector('tbody tr:nth-child(3) td table tbody tr td div font div div');
 
 	// Extract Amount
