@@ -11,31 +11,21 @@ for (let i = 5; i < emailNodeList.length; i++) {
 	const recipientEmail = recipientText.replace(recipientPattern, '$1');
 
 	// 3 parts body
-	const emailSections = msg.querySelector(
-		'tbody tr:nth-child(3) td table tbody tr td div font div table tbody tr td'
-	);
+	const emailSections = msg.querySelector('tbody tr:nth-child(3) td table tbody tr td div font div div');
 
 	// Extract Amount
-	const emailTitleSection = emailSections.querySelector('table:nth-child(2)');
+	const emailTitleSection = emailSections.querySelector('div');
 	const rawCardAmount = emailTitleSection.querySelector(
-		'table tbody tr td table tbody tr td table:nth-child(1) tbody tr td h1 span'
+		'table tbody tr td table tbody tr:nth-child(1) td p span span'
 	).textContent;
 	const amountRegex = /\$([\d.]+)/;
 	const cardAmountText = extractCode(rawCardAmount, amountRegex);
 
 	// Extract Code
 	// Steps by steps to travser down the html tree; '>' is strictly used to target a child
-	const emailCodeSection = emailSections.querySelector('table:nth-child(3)');
+	const emailCodeSection = emailSections.children[1];
 
-	const rawCodeText1 = emailCodeSection.querySelector(
-		'table tbody tr td table tbody tr td table:nth-child(8) tbody tr td h1'
-	);
-	const rawCodeText2 = emailCodeSection.querySelector('table tbody tr td table tbody tr td table:nth-child(3) h1');
-
-	const rawCodeText = rawCodeText1?.textContent || rawCodeText2?.textContent;
-
-	const codeRegex = /\n(.*)/;
-	const codeText = extractCode(rawCodeText, codeRegex);
+	const codeText = emailCodeSection.querySelector('tbody tr:nth-child(2) td div:nth-child(2) span span');
 
 	const validCode = codeText.length === 12;
 
