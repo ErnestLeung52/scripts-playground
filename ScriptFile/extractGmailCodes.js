@@ -2,7 +2,7 @@
 const emailNodeList = document.querySelectorAll('.message');
 console.log(`✅ Found ${emailNodeList.length} messages`);
 
-for (let i = 5; i < emailNodeList.length; i++) {
+for (let i = 0; i < emailNodeList.length; i++) {
 	const msg = emailNodeList[i];
 
 	const recipientBody = msg.querySelector('tr:nth-child(2)');
@@ -25,7 +25,7 @@ for (let i = 5; i < emailNodeList.length; i++) {
 	// Steps by steps to travser down the html tree; '>' is strictly used to target a child
 	const emailCodeSection = emailSections.children[1];
 
-	const codeText = emailCodeSection.querySelector('tbody tr:nth-child(2) td div:nth-child(2) span span');
+	const codeText = emailCodeSection.querySelector('tbody tr:nth-child(2) td div:nth-child(2) span span').textContent;
 
 	const validCode = codeText.length === 12;
 
