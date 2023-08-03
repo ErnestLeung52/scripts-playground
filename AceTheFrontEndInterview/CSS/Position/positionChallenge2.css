@@ -1,0 +1,32 @@
+* {
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.container,
+.inner {
+	border: 3px solid gray;
+	margin: 10px 10px;
+	padding: 10px;
+	position: relative;
+}
+
+#first,
+#second {
+	background: lightblue;
+	text-align: center;
+	width: 100px;
+	height: 100px;
+}
+
+#first {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+#second {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
