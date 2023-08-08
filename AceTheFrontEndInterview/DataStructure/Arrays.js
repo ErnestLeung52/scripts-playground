@@ -143,4 +143,5 @@ const productExceptSelf_optimized = (arr) => {
 
 	return result;
 };
+
 // console.log(productExceptSelf_optimized([1, 2, 3, 4]));
