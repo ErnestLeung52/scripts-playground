@@ -145,3 +145,29 @@ const productExceptSelf_optimized = (arr) => {
 };
 
 // console.log(productExceptSelf_optimized([1, 2, 3, 4]));
+
+/* 4. Find First Unique Integer in an Array
+ */
+const findFirstUniqueInt = (arr) => {
+	const cache = {};
+
+	for (let i = 0; i < arr.length; i++) {
+		if (arr[i] in cache) {
+			cache[arr[i]] = false;
+		} else {
+			cache[arr[i]] = i;
+		}
+	}
+
+	let minIndex = +Infinity;
+
+	for (const num in cache) {
+		if (cache[num] && cache[num] < minIndex) {
+			minIndex = cache[num];
+		}
+	}
+
+	return arr[minIndex];
+};
+
+// console.log(findFirstUniqueInt([9, 2, 3, 6, 2, 6, 9, 0, 3]));
