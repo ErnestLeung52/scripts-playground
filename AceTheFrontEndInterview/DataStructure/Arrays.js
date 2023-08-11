@@ -175,7 +175,7 @@ const findFirstUniqueInt = (arr) => {
 };
 // console.log(findFirstUniqueInt([9, 2, 3, 6, 2, 6, 9, 0, 3]));
 
-/* Right Rotate an Array by n
+/* 5. Right Rotate an Array by n
 arr = [1,2,3,4,5], n = 3
 arr = [3,4,5,1,2]
 */
@@ -192,5 +192,24 @@ const rightRotate = (arr, n) => {
 	}
 
 	return rotatedArr;
+	// return (arr.splice(arr.length - n)).concat(arr.splice(0, arr.length))
 };
 // console.log(rightRotate([1, 2, 3, 4, 5, 6, 7], 3));
+
+/* 6. Rearrange Positive & Negative Values
+[10,-1,20,4,5,-9,-6] -> [-1,-9,-6,10,20,4,5]
+*/
+
+const reArrange = (arr) => {
+	let mostLeftIndex = 0;
+
+	for (let i = 0; i < arr.length; i++) {
+		if (arr[i] < 0) {
+			[arr[i], arr[mostLeftIndex]] = [arr[mostLeftIndex], arr[i]];
+			mostLeftIndex++;
+		}
+	}
+
+	return arr;
+};
+// console.log(reArrange([10, -1, 20, 4, -22, 5, -9, -6]));
