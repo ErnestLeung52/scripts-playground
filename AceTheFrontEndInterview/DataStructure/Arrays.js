@@ -167,7 +167,30 @@ const findFirstUniqueInt = (arr) => {
 		}
 	}
 
+	if (minIndex === +Infinity) {
+		return null;
+	}
+
 	return arr[minIndex];
 };
-
 // console.log(findFirstUniqueInt([9, 2, 3, 6, 2, 6, 9, 0, 3]));
+
+/* Right Rotate an Array by n
+arr = [1,2,3,4,5], n = 3
+arr = [3,4,5,1,2]
+*/
+const rightRotate = (arr, n) => {
+	const rotatedArr = [];
+
+	for (let i = 0; i < arr.length; i++) {
+		if (i + n > arr.length - 1) {
+			let newPosition = i + n - arr.length;
+			rotatedArr[newPosition] = arr[i];
+		} else {
+			rotatedArr[i + n] = arr[i];
+		}
+	}
+
+	return rotatedArr;
+};
+// console.log(rightRotate([1, 2, 3, 4, 5, 6, 7], 3));
