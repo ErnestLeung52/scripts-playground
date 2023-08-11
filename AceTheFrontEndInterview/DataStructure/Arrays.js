@@ -213,3 +213,36 @@ const reArrange = (arr) => {
 	return arr;
 };
 // console.log(reArrange([10, -1, 20, 4, -22, 5, -9, -6]));
+
+/* Rearrange Sorted Array in Max/Min Form,  rearrange the elements of a sorted array so that the first position will have the largest number, the second will have the smallest and so on.
+arr = [1,2,3,4,5] -> arr = [5,1,4,2,3]
+*/
+
+const maxMin = (arr) => {
+	const output = [];
+
+	let leftPointer = 0;
+	let rightPointer = arr.length - 1;
+
+	let maxIndex = 0;
+	let minIndex = 1;
+
+	while (leftPointer <= rightPointer) {
+		if (leftPointer === rightPointer) {
+			output[maxIndex] = arr[rightPointer];
+			break;
+		}
+
+		output[maxIndex] = arr[rightPointer];
+		rightPointer--;
+
+		output[minIndex] = arr[leftPointer];
+		leftPointer++;
+
+		maxIndex += 2;
+		minIndex += 2;
+	}
+
+	return output;
+};
+// console.log(maxMin([1, 2, 3, 4, 5, 6, 7]));
