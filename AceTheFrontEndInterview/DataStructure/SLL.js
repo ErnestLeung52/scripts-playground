@@ -18,4 +18,10 @@ class SinglyLinkedList {
 	isEmpty() {
 		return this.head === null;
 	}
+
+	insertAtHead = (newData) => {};
+
+	insertAtTail = (newData) => {};
+
+	insertAtN = (newData) => {};
 }
