@@ -54,4 +54,41 @@ const findBin = (n) => {
 /* 2. You have to implement the minStack class, which will have a min() function. Whenever min() is called, the minimum value of the stack is returned in O(1) time. The element is not popped from the stack; its value is simply returned.
  */
 
-const findMin = () => {};
+class MinStack {
+	constructor() {
+		this.mainStack = [];
+		this.minStack = [];
+	}
+
+	push(el) {
+		this.mainStack.push(el);
+
+		// If minStack is empty OR element is less than or equal to the top of minStack
+		if (this.minStack.length === 0 || el <= this.minStack[this.minStack.length - 1]) {
+			this.minStack.push(el);
+		}
+	}
+
+	pop() {
+		const removedEl = this.mainStack.pop();
+
+		if (removedEl === this.minStack[this.minStack.length - 1]) {
+			this.minStack.pop();
+		}
+
+		return removedEl;
+	}
+
+	min() {
+		return this.minStack[this.minStack.length - 1];
+	}
+}
+// const stack = new MinStack();
+// stack.push(3);
+// stack.push(5);
+// console.log(stack.min()); // 3
+// stack.push(2);
+// stack.push(1);
+// console.log(stack.min()); // 1
+// stack.pop();
+// console.log(stack.min()); // 2
