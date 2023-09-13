@@ -59,9 +59,8 @@ SinglyLinkedList.prototype.insertAtTail = (newData) => {};
 
 SinglyLinkedList.prototype.insertAtN = (newData) => {};
 
-const list = new SinglyLinkedList();
-for (let i = 0; i < 10; i++) {
-	// list = list.insertAtHead(i);
-	list.insertAtHead(i);
-}
+// const list = new SinglyLinkedList();
+// for (let i = 0; i < 10; i++) {
+// 	list.insertAtHead(i);
+// }
 // list.printList();
