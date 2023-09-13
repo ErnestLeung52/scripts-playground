@@ -15,13 +15,53 @@ class SinglyLinkedList {
 		this.head = null;
 	}
 
+	getHead() {
+		return this.head;
+	}
+
 	isEmpty() {
 		return this.head === null;
 	}
 
-	insertAtHead = (newData) => {};
+	printList() {
+		if (this.isEmpty()) {
+			console.log('Empty Linked List');
+			return;
+		} else {
+			let result = '';
+			let temp = this.head;
 
-	insertAtTail = (newData) => {};
+			while (temp !== null) {
+				result += `${temp.data} -> `;
+				temp = temp.next;
+			}
 
-	insertAtN = (newData) => {};
+			result += 'null';
+			console.log(result);
+
+			return;
+		}
+	}
 }
+
+SinglyLinkedList.prototype.insertAtHead = function (newData) {
+	const newNode = new Node(newData);
+
+	// Point the next of new node to the old head;
+	newNode.next = this.head;
+	// new head is the new node
+	this.head = newNode;
+
+	return this;
+};
+
+SinglyLinkedList.prototype.insertAtTail = (newData) => {};
+
+SinglyLinkedList.prototype.insertAtN = (newData) => {};
+
+const list = new SinglyLinkedList();
+for (let i = 0; i < 10; i++) {
+	// list = list.insertAtHead(i);
+	list.insertAtHead(i);
+}
+// list.printList();
