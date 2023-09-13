@@ -55,12 +55,27 @@ SinglyLinkedList.prototype.insertAtHead = function (newData) {
 	return this;
 };
 
-SinglyLinkedList.prototype.insertAtTail = (newData) => {};
+SinglyLinkedList.prototype.insertAtTail = function (newData) {
+	const newNode = new Node(newData);
 
-SinglyLinkedList.prototype.insertAtN = (newData) => {};
+	if (this.isEmpty()) {
+		this.head = newNode;
+		return this;
+	}
+
+	let temp = this.head;
+	while (temp.next !== null) {
+		temp = temp.next;
+	}
+
+	temp.next = newNode;
+	return this;
+};
+
+SinglyLinkedList.prototype.insertAtN = function (newData) {};
 
 // const list = new SinglyLinkedList();
 // for (let i = 0; i < 10; i++) {
-// 	list.insertAtHead(i);
+// 	list.insertAtTail(i);
 // }
 // list.printList();
