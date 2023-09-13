@@ -19,6 +19,21 @@ class SinglyLinkedList {
 		return this.head;
 	}
 
+	getLength() {
+		if (this.isEmpty()) {
+			return 0;
+		}
+
+		let length = 0;
+		let temp = this.head;
+		while (temp.next !== null) {
+			length++;
+			temp = temp.next;
+		}
+
+		return length;
+	}
+
 	isEmpty() {
 		return this.head === null;
 	}
@@ -72,7 +87,38 @@ SinglyLinkedList.prototype.insertAtTail = function (newData) {
 	return this;
 };
 
-SinglyLinkedList.prototype.insertAtN = function (newData) {};
+SinglyLinkedList.prototype.insertAtN = function (newData, n) {
+	const newNode = new Node(newData);
+
+	// Case: If the position is less than or equal to 0, insert at head
+	if (n <= 0) {
+		this.insertAtHead(newData);
+		return this;
+	}
+
+	let prev = null;
+	let curr = this.head;
+	let position = 0;
+
+	// Traverse the list to find the n-1 position or until the end of the list
+	while (position < n && curr !== null) {
+		prev = curr;
+		curr = curr.next;
+		position++;
+	}
+
+	// Case: If the position is greater than the length of the list, insert at the tail
+	if (curr === null || position < n) {
+		prev.next = newNode;
+		return this;
+	}
+
+	// Normal case: insert our new node after the previous node
+	prev.next = newNode;
+	newNode.next = curr;
+
+	return this;
+};
 
 // const list = new SinglyLinkedList();
 // for (let i = 0; i < 10; i++) {
