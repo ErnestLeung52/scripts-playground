@@ -7,6 +7,7 @@ class Node {
 	constructor(data) {
 		this.data = data;
 		this.next = null;
+		this.prev = null;
 	}
 }
 
@@ -173,3 +174,67 @@ SinglyLinkedList.prototype.findMid = function () {
 // 	list.insertAtTail(i);
 // }
 // list.printList();
+
+class DoublyLinkedList {
+	constructor() {
+		this.head = null;
+		this.tail = null;
+	}
+
+	insertAtHead(newData) {
+		const newNode = new Node(newData);
+		newNode.next = this.head;
+
+		if (this.isEmpty()) {
+			this.head = newNode;
+			this.tail = newNode;
+			return this;
+		}
+
+		// Curr head is the 2nd node, need to link its prev and curr
+		this.head.prev = newNode;
+		this.head = newNode;
+		return this;
+	}
+
+	isEmpty() {
+		return this.head === null;
+	}
+
+	printList() {
+		if (this.isEmpty()) {
+			console.log('Empty List');
+			return;
+		}
+
+		let curr = this.head;
+		let result = '';
+
+		while (curr !== null) {
+			result += `${curr.data} <-> `;
+			curr = curr.next;
+		}
+
+		result += 'null';
+		console.log(result);
+		return;
+	}
+
+	insertAtTail(newData) {
+		const newNode = new Node(newData);
+		newNode.prev = this.tail;
+
+		if (this.isEmpty()) {
+			this.insertAtHead(newData);
+			return this;
+		}
+
+		this.tail.next = newNode;
+		this.tail = newNode;
+		return this;
+	}
+
+	search(value) {}
+
+	deleteAtHead() {}
+}
