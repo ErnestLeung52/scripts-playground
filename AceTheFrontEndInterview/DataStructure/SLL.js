@@ -120,8 +120,34 @@ SinglyLinkedList.prototype.insertAtN = function (newData, n) {
 	return this;
 };
 
+SinglyLinkedList.prototype.deleteVal = function (value) {
+	if (this.isEmpty()) {
+		return null;
+	}
+
+	let curr = this.head;
+
+	if (curr.data === value) {
+		this.head = curr.next;
+		return true;
+	}
+
+	while (curr.next !== null) {
+		if (curr.next.data === value) {
+			curr.next = curr.next.next;
+			return true;
+		}
+
+		curr = curr.next;
+	}
+
+	return false;
+};
+
 // const list = new SinglyLinkedList();
 // for (let i = 0; i < 10; i++) {
 // 	list.insertAtTail(i);
 // }
+// list.printList();
+// list.deleteVal(2);
 // list.printList();
