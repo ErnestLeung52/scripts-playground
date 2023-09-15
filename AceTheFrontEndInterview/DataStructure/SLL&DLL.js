@@ -252,3 +252,32 @@ class DoublyLinkedList {
 		return this;
 	}
 }
+
+DoublyLinkedList.prototype.deleteAtTail = function () {
+	if (this.isEmpty()) {
+		return this;
+	}
+
+	const removedTail = this.tail;
+
+	this.tail = removedTail.prev;
+	if (this.tail === null) {
+		this.head = null;
+		return this;
+	}
+
+	this.tail.next = null;
+
+	return this;
+};
+
+// let list = new DoublyLinkedList();
+// list.insertAtHead(2);
+// list.insertAtHead(4);
+// list.insertAtHead(5);
+// list.insertAtHead(7);
+// list.printList();
+// list.insertAtTail(1);
+// list.printList();
+// list.deleteAtTail();
+// list.printList();
