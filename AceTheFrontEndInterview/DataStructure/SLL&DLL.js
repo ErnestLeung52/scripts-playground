@@ -234,7 +234,21 @@ class DoublyLinkedList {
 		return this;
 	}
 
-	search(value) {}
+	deleteAtHead() {
+		if (this.isEmpty()) {
+			return this;
+		}
 
-	deleteAtHead() {}
+		let removedHead = this.head;
+
+		this.head = removedHead.next;
+		// Edge: when there is only one node
+		if (this.head === null) {
+			this.tail = null;
+			return this;
+		}
+
+		this.head.prev = null;
+		return this;
+	}
 }
