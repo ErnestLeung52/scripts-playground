@@ -144,10 +144,23 @@ SinglyLinkedList.prototype.deleteVal = function (value) {
 	return false;
 };
 
+SinglyLinkedList.prototype.findMid = function () {
+	if (this.isEmpty()) {
+		return null;
+	}
+
+	let midNode = this.getHead();
+	let midNodePosition = Math.ceil(this.getLength() / 2);
+	midNodePosition;
+	for (let i = 1; i < midNodePosition; i++) {
+		midNode = midNode.next;
+	}
+
+	return midNode.data;
+};
+
 // const list = new SinglyLinkedList();
 // for (let i = 0; i < 10; i++) {
 // 	list.insertAtTail(i);
 // }
-// list.printList();
-// list.deleteVal(2);
 // list.printList();
