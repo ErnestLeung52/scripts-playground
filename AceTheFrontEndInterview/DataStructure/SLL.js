@@ -149,14 +149,23 @@ SinglyLinkedList.prototype.findMid = function () {
 		return null;
 	}
 
-	let midNode = this.getHead();
-	let midNodePosition = Math.ceil(this.getLength() / 2);
-	midNodePosition;
-	for (let i = 1; i < midNodePosition; i++) {
-		midNode = midNode.next;
+	// let midNode = this.getHead();
+	// let midNodePosition = Math.ceil(this.getLength() / 2);
+	// midNodePosition;
+	// for (let i = 1; i < midNodePosition; i++) {
+	// 	midNode = midNode.next;
+	// }
+
+	// return midNode.data;
+	let slowNode = this.getHead();
+	let fastNode = this.getHead();
+
+	while (fastNode.next !== null && fastNode.next.next !== null) {
+		slowNode = slowNode.next;
+		fastNode = fastNode.next.next;
 	}
 
-	return midNode.data;
+	return slowNode;
 };
 
 // const list = new SinglyLinkedList();
