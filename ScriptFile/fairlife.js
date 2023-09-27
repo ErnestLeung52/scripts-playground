@@ -24,6 +24,7 @@ for (let i = 0; i < emailNodeList.length; i++) {
 	// Claim Button
 	const claimButtonLink = emailSections.querySelector('tr:nth-child(3) > td > table > tbody > tr > td > a').href;
 
+	// Log that
 	console.log(`${i + 1},${recipientEmail},${cardAmountText},${claimButtonLink}`);
 }
 
