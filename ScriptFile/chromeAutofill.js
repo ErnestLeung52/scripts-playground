@@ -9,6 +9,8 @@ Object.assign(document.body.appendChild(document.createElement('input')), {
 		fr.onload = () => {
 			for (const line of fr.result.split(/\r?\n/)) {
 				const [email, fName, fN, lN, add, city, postal, state, phone, country] = line.split(',');
+
+				// Cannot find this internal API in doc
 				chrome.autofillPrivate.saveAddress({
 					emailAddress: email,
 					fullName: fName,
