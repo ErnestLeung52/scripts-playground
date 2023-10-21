@@ -17,6 +17,7 @@ Object.assign(document.body.appendChild(document.createElement('input')), {
 				chrome.autofillPrivate.saveAddress({
 					emailAddress: email,
 					fullName: fName,
+					// Updated internal name
 					phoneNumber: phone,
 					// Address
 					addressLines: add,
