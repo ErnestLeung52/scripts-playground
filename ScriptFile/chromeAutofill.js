@@ -13,20 +13,25 @@ Object.assign(document.body.appendChild(document.createElement('input')), {
 			for (const line of fr.result.split(/\r?\n/)) {
 				const [email, fName, fN, lN, add, city, postal, state, phone, country] = line.split(',');
 
-				// Cannot find this internal API in doc
+				// https://chromium.googlesource.com/chromium/src/+/master/chrome/common/extensions/api/autofill_private.idl
 				chrome.autofillPrivate.saveAddress({
-					emailAddress: email,
-					fullName: fName,
-					// Updated internal name
-					phoneNumber: phone,
-					// Address
-					addressLines: add,
-					// State
-					addressLevel1: state,
-					// City
-					addressLevel2: city,
-					postalCode: postal,
-					countryCode: country,
+					guid: '',
+					fields: [
+						{ type: 'EMAIL_ADDRESS', value: email },
+						{ type: 'NAME_FULL', value: fName },
+						{ type: 'NAME_FIRST', value: fN },
+						{ type: 'NAME_LAST', value: lN },
+						{ type: 'PHONE_HOME_WHOLE_NUMBER', value: phone },
+						// Address
+						{ type: 'ADDRESS_HOME_STREET_ADDRESS', value: add },
+						// State
+						{ type: 'ADDRESS_HOME_STATE', value: state },
+						// City
+						{ type: 'ADDRESS_HOME_CITY', value: city },
+						{ type: 'ADDRESS_HOME_ZIP', value: postal },
+						{ type: 'ADDRESS_HOME_COUNTRY', value: country },
+					],
+					languageCode: 'en',
 				});
 			}
 		};
