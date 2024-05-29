@@ -1,10 +1,15 @@
-const emailNodeList = document.querySelectorAll('.message');
+const allEmailSection = document.querySelector('.aHU.hx');
+const emailNodeList = allEmailSection.querySelector('div:nth-child(3)').children;
+
 console.log(`✅ Found ${emailNodeList.length} messages`);
 
 for (let i = 0; i < emailNodeList.length; i++) {
-	const msg = emailNodeList[i];
+	const msg = emailNodeList[0];
 
 	// Recipient Email
+	// const emailSpan = msg.querySelectorAll('span[email]')[2];
+	// const recipientEmail = emailSpan.textContent;
+
 	const recipientBody = msg.querySelector('tr:nth-child(2)');
 	const recipientText = recipientBody.querySelector('.recipient div').textContent;
 	const recipientPattern = /^To: (.*)/;
