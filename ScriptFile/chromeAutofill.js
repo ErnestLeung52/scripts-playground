@@ -11,16 +11,17 @@ Object.assign(document.body.appendChild(document.createElement('input')), {
 
 		fr.onload = () => {
 			for (const line of fr.result.split(/\r?\n/)) {
-				const [email, fName, fN, lN, add, city, postal, state, phone, country] = line.split(',');
+				const [email, fullName, firstName, lastName, add, city, postal, state, phone, country] =
+					line.split(',');
 
 				// https://chromium.googlesource.com/chromium/src/+/master/chrome/common/extensions/api/autofill_private.idl
 				chrome.autofillPrivate.saveAddress({
 					guid: '',
 					fields: [
 						{ type: 'EMAIL_ADDRESS', value: email },
-						{ type: 'NAME_FULL', value: fName },
-						{ type: 'NAME_FIRST', value: fN },
-						{ type: 'NAME_LAST', value: lN },
+						{ type: 'NAME_FULL', value: fullName },
+						{ type: 'NAME_FIRST', value: firstName },
+						{ type: 'NAME_LAST', value: lastName },
 						{ type: 'PHONE_HOME_WHOLE_NUMBER', value: phone },
 						// Address
 						{ type: 'ADDRESS_HOME_STREET_ADDRESS', value: add },
