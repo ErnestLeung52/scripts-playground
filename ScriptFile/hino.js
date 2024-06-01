@@ -6,4 +6,4 @@ const breadcrumbLinks = document.querySelectorAll('.breadcrumb-link');
 const stateLinkIndex = breadcrumbLinks.length - 2;
 const stateName = breadcrumbLinks[stateLinkIndex].textContent.trim();
 
-console.log(`${vinNum},${sellerName},${sellerLink},${stateName}`);
+console.log(`${vinNum}*${sellerName}*${sellerLink}*${stateName}`);
