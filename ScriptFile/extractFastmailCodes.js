@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const util = require('util');
 
-const folderPath = path.resolve(__dirname, '../resources/ernestleung52-fastmail-testone');
+const folderPath = path.resolve(__dirname, '../resources/hennest14-fastmail-instagram');
 
 const readdir = util.promisify(fs.readdir);
 
