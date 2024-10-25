@@ -22,13 +22,25 @@ for (let i = 0; i < emailNodeList.length; i++) {
 	let redemptionCode;
 
 	for (let i = 0; i < textArr.length; i++) {
-		if (textArr[i] === 'Reward Code') {
-			redemptionCode = textArr[i - 1];
+		if (textArr[i] === 'Redemption Code') {
+			redemptionCode = textArr[i + 1];
 			break;
+		} else {
+			redemptionCode = '❌';
 		}
 	}
 
-	console.log(`${i + 1},${recipientEmail},${redemptionCode}`);
+	let paymentAmount;
+	for (let i = 0; i < textArr.length; i++) {
+		if (textArr[i] === "You've Received a Virtual Prepaid Card!") {
+			paymentAmount = textArr[i + 1];
+			break;
+		} else {
+			paymentAmount = '❌';
+		}
+	}
+
+	console.log(`${i + 1},${recipientEmail},${redemptionCode},${paymentAmount}`);
 }
 
 function extractCode(input, regex) {
