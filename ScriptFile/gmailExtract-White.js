@@ -19,14 +19,18 @@ for (let i = 0; i < emailNodeList.length; i++) {
 	}
 
 	const textArr = getAllTextNodes(msg);
-	let redemptionCode;
+	let redemptionCode = '❌';
+	const fullText = textArr.join(' ');
 
-	for (let i = 0; i < textArr.length; i++) {
-		if (textArr[i] === 'Redemption Code') {
-			redemptionCode = textArr[i + 1];
-			break;
-		} else {
-			redemptionCode = '❌';
+	// Look for pattern: Enter the redemption code: XXXXXXXXXXXX
+	let match = fullText.match(/Enter the redemption code[:\s]+([A-Z0-9]{12})/i);
+	if (match && match[1]) {
+		redemptionCode = match[1];
+	} else {
+		// Fallback: grab first standalone 12-char alphanumeric string
+		match = fullText.match(/\b[A-Z0-9]{12}\b/);
+		if (match) {
+			redemptionCode = match[0];
 		}
 	}
 
