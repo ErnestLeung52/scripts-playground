@@ -1,9 +1,12 @@
+// To Run the code:
+// node ScriptFile/extractFastmailCodes.js
+
 const EmlParser = require('eml-parser');
 const fs = require('fs');
 const path = require('path');
 const util = require('util');
 
-const folderPath = path.resolve(__dirname, '../resources/hennest14-fastmail-instagram');
+const folderPath = path.resolve(__dirname, '../resources/ernestleung52-fastmail-FB22InternetTracking');
 
 const readdir = util.promisify(fs.readdir);
 
