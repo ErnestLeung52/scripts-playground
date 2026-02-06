@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const util = require('util');
 
-const folderPath = path.resolve(__dirname, '../resources/ernestleung52-fastmail-FB22InternetTracking');
+const folderPath = path.resolve(__dirname, '../resources/ernestleung52_fastmail_com_2026-Jan-06_FB22_Internet_GC');
 
 const readdir = util.promisify(fs.readdir);
 
